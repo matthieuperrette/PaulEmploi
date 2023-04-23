@@ -1,7 +1,10 @@
+-> installer git sur son pc
+
 Ajouter le compte gitlab :
 
 installer gitlab workflow dans vscode faire ctr + shif + p rechercher gitlab add account entrer l'URL hhtps://gitlab.utc.fr
 rentrer un access token préalablement fait depuis le site gitlab (setings -> access token)
+
 
 Cloner :
 
@@ -40,4 +43,9 @@ Pour lancer le serveur :
 Nodemon est installé pour relancer le serveur automatiquement en cas de modification de ficher
 SET PaulEmploi=* & nodemon npm start
 
+
+utiliser le vpn de l'école
+-> bdd http://tuxa.sme.utc/pma/
+Login : sr10p028
+Password : j136vcydSRLj
 
