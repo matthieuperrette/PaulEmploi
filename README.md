@@ -26,7 +26,7 @@ Commande git utile :
 git checkout -> permet de voir sur quel branche tu es
 git checkout nomDeLaBranche -> se déplace dans la branche nomDeLaBranche
 git add . -> ajoute tous les fichiers modifiés
-git commit -m 'Le message' -> commit avec le message entre ''
+git commit -m "Le message" -> commit avec le message entre ""
 git push -> push la branche local actuel sur le repertoire en ligne
 git rebase dev -> permet de mettre la derniere version de dev sur la branche actuel
 Il fa falloir cependant gérer les conflits ce que je ne sais pas encore faire sur vscode
