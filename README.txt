@@ -18,7 +18,6 @@ main -> contien nos fichiers de TD pour l'instant et est destiné a avoir la ver
 dev -> contient la version la plus actuel stable
 persoNom -> contient la dernière version de Nom
 -> persoNom et dev son merge lorsque persoNom a terminer de travailler sur une feature importante et qu'elle est stable
--> En commencant a travailler rebase dev sur sa branche persoNom quand il y a eu un changement
 
 
 Commande git utile :
@@ -28,9 +27,13 @@ git checkout nomDeLaBranche -> se déplace dans la branche nomDeLaBranche
 git add . -> ajoute tous les fichiers modifiés
 git commit -m "Le message" -> commit avec le message entre ""
 git push -> push la branche local actuel sur le repertoire en ligne
+git pull -> met la branche en ligne sur la branche locale
 git rebase dev -> permet de mettre la derniere version de dev sur la branche actuel
 Il fa falloir cependant gérer les conflits ce que je ne sais pas encore faire sur vscode
 
+-> En commencant a travailler toujours pull dev en locale puis rebase dev sur sa branche persoNom quand il y a eu un changement
+-> pendant le travail faire des commits régulier est utile
+-> En faisant une merge request ne pas oublié de ne pas merge sur main mais sur dev et décocher la case supprimer la branche source
 
 Pour lancer le serveur :
 
