@@ -28,17 +28,28 @@ module.exports = {
     },
     create: function (email, nom, prenom, motdepasse, numtel, callback) {
         var date = new Date().toISOString().slice(0, 10);
+        var regex = /^0\d{1}([\s ]|[\. ]?\d{2}){4}/ //commence par 0 et un chiffre puis suivi de 4 fois 2 chiffres separe par un espace un point ou rien
+        if (!regex.test(numtel))
+            throw new Error('Format téléphone non respecté');
+        numtel=numtel.replace(/\s/g,'');
+        console.log(numtel);
+        numtel=numtel.replace(/\./g,'');
         var data = [email, nom, prenom, motdepasse, numtel, date, 1, 'candidat'];
-        db.query("INSERT INTO utilisateurs (id_utilisateur, email, nom, prenom, mot_de_passe, numtel, date_creation, compte_actif, type_compte, siren) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, NULL)", data, function (err, results) {
+        db.query("INSERT INTO utilisateurs (id_utilisateur, email, nom, prenom, mot_de_passe, numtel, date_creation, compte_actif, type_compte, organisation) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, NULL)", data, function (err, results) {
+        if (err) throw err;
+        callback(results);
+        });
+        return true;
+    },
+    delete: function (email, callback) {
+        db.query("DELETE FROM utilisateurs WHERE email=?", email, function (err, results) {
             if (err) throw err;
             callback(results);
         });
         return true;
     }
+    
 }
-
-
-
 
 
 
