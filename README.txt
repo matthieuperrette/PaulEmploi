@@ -41,6 +41,7 @@ Il fa falloir cependant gérer les conflits ce que je ne sais pas encore faire s
 Pour lancer le serveur :
 
 Nodemon est installé pour relancer le serveur automatiquement en cas de modification de ficher
+cd PaulEmploi
 SET PaulEmploi=* & nodemon npm start
 
 
@@ -48,4 +49,16 @@ utiliser le vpn de l'école
 -> bdd http://tuxa.sme.utc/pma/
 Login : sr10p028
 Password : j136vcydSRLj
+
+Avancement :
+recap de ce qui a été fait pour se mettre à jour facilement
+
+23/04/2023 -> refonte pour gitlab
+24/04/2023 -> petits changements sur les tables et mise en place du fichier sql avec des données
+test de quelque model
+
+
+/!\ pas assez de droit pour utiliser TO_DATE() sur la bdd :
+execute command denied to user 'sr10p028'@'localhost' for routine 'sr10p028.TO_DATE'
+
 
