@@ -11,8 +11,8 @@ read y
 readall y
 is_valid y
 create y
-delete
-update
+delete y (etant donnée les clefs etrangeres on ne peut supprimer certains utilisateurs)
+update y 
 
 fiche postes
 read
@@ -59,9 +59,9 @@ update
 */
 
 router.get('/', function(req, res, next) {
-    result=userModel.delete('matthieu.perrett@gmail.com',function(result){
-        console.log(result)
-        //res.render('test', { title: 'test', resultat: result });
+    var nb = false;
+    result=userModel.readallOrderBy('nom',function(result){
+        console.log(result);
         res.render('test');
     });
 });
