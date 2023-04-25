@@ -56,6 +56,7 @@ recap de ce qui a été fait pour se mettre à jour facilement
 23/04/2023 -> refonte pour gitlab
 24/04/2023 -> petits changements sur les tables et mise en place du fichier sql avec des données
 test de quelque model
+25/04/2023 -> finition des models
 
 
 /!\ pas assez de droit pour utiliser TO_DATE() sur la bdd :
