@@ -25,6 +25,7 @@ persoNom -> contient la dernière version de Nom
 
 Commande git utile :
 
+/!\ pour les commandes git il faut etre dans le dossier sr10_p2023_bridoux_perrette
 git checkout -> permet de voir sur quel branche tu es
 git checkout nomDeLaBranche -> se déplace dans la branche nomDeLaBranche
 git add . -> ajoute tous les fichiers modifiés
@@ -32,7 +33,6 @@ git commit -m "Le message" -> commit avec le message entre ""
 git push -> push la branche local actuel sur le repertoire en ligne
 git pull -> met la branche en ligne sur la branche locale
 git rebase dev -> permet de mettre la derniere version de dev sur la branche actuel
-Il fa falloir cependant gérer les conflits ce que je ne sais pas encore faire sur vscode
 
 -> En commencant a travailler toujours pull dev en locale puis rebase dev sur sa branche persoNom quand il y a eu un changement
 -> pendant le travail faire des commits régulier est utile
@@ -58,6 +58,7 @@ recap de ce qui a été fait pour se mettre à jour facilement
 test de quelque model
 25/04/2023 -> finition des models
 
+Question prof :
 
 /!\ pas assez de droit pour utiliser TO_DATE() sur la bdd :
 execute command denied to user 'sr10p028'@'localhost' for routine 'sr10p028.TO_DATE'
