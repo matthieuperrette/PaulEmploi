@@ -13,10 +13,16 @@ module.exports = {
         callback(results);
         });
     },
-    update : function (nom,value,id_candidature,callback){
+    readallOrderBy: function ( colonne_ordre, callback) {
+        db.query("select * from candidatures ORDER BY " + colonne_ordre, function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+    update : function (nom, value, id_candidature,callback){
         if(nom.length!==value.length)   throw("Erreur les deux tableaux en parametre doivent etre de meme taille") 
         for (var i = 0; i < nom.length; i++){
-            db.query("UPDATE candidatures SET ?=?", [nom[i], value[i], id_candidature],function (err, results) {
+            db.query("UPDATE candidatures SET " + nom[i] + "=? WHERE id_candidature=?", [value[i], id_candidature],function (err, results) {
                 if (err) throw err;
                 callback(results);
                 });
@@ -29,10 +35,9 @@ module.exports = {
         });
     },
     create: function (pieces, id_utilisateur, id_offre, callback) {
-        var now = Date.now();
-
-        var data = [now.toISoString(), pieces, id_utilisateur, id_offre]
-        var sql = "INSERT INTO candidatures VALUES(NULL,?,'?',?,?)";
+        var date = new Date().toISOString().slice(0, 10);
+        var data = [date, pieces, id_utilisateur, id_offre]
+        var sql = "INSERT INTO candidatures VALUES(NULL,?,?,?,?)";
         db.query(sql,data, function (err, results) {
             if (err) throw err;
             callback(results);
