@@ -2,8 +2,10 @@
 
 Ajouter le compte gitlab :
 
-installer gitlab workflow dans vscode faire ctr + shif + p rechercher gitlab add account entrer l'URL hhtps://gitlab.utc.fr
-rentrer un access token préalablement fait depuis le site gitlab (setings -> access token)
+faire un access token depuis le site gitlab (setings -> access token)
+installer Gitlab Workflow dans vscode avec le menu extensions 
+faire ctr + shif + p rechercher gitlab add account entrer l'URL https://gitlab.utc.fr
+rentrer l'access token préalablement fait
 
 
 Cloner :
@@ -34,8 +36,8 @@ git push -> push la branche local actuel sur le repertoire en ligne
 git pull -> met la branche en ligne sur la branche locale
 git rebase dev -> permet de mettre la derniere version de dev sur la branche actuel
 
--> En commencant a travailler toujours pull dev en locale puis rebase dev sur sa branche persoNom quand il y a eu un changement
--> pendant le travail faire des commits régulier est utile
+-> En commencant a travailler toujours pull dev en locale puis rebase dev sur sa branche persoNom
+-> pendant le travail faire des commits réguliers est utile
 -> En faisant une merge request ne pas oublié de ne pas merge sur main mais sur dev et décocher la case supprimer la branche source
 
 Pour lancer le serveur :
@@ -58,7 +60,8 @@ recap de ce qui a été fait pour se mettre à jour facilement
 test de quelque model
 25/04/2023 -> finition des models
 
-Question prof :
+
+Questions prof :
 
 /!\ pas assez de droit pour utiliser TO_DATE() sur la bdd :
 execute command denied to user 'sr10p028'@'localhost' for routine 'sr10p028.TO_DATE'
