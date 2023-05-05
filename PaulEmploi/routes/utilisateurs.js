@@ -17,8 +17,12 @@ router.post('/nouvelUtilisateur', function(req, res, next) {
   const prenom = req.body.utilisateur_prenom;
   const motdepasse = req.body.utilisateur_motdepasse;
   const tel = req.body.utilisateur_tel;
-  if(utilisateurs.create(email, nom, prenom, motdepasse, tel, function(){}))
-    res.redirect('/utilisateurs')
+  if(utilisateurs.create(email, nom, prenom, motdepasse, tel, function(){})){
+    req.session.nom = nom;
+    req.session.type_compte = 'candidat';
+    req.session.save();
+    res.redirect('/candidat')
+  }
   else throw err;
 });
 
@@ -28,10 +32,12 @@ router.post('/connexionUtilisateur', function(req, res, next) {
   utilisateurs.isValid(email, motdepasse,function(result){
     if(result){
       result=utilisateurs.read(email, function(result){
+        console.log();
         req.session.nom = result[0].nom;
-        req.session.save();
+        req.session.type_compte = result[0].type_compte;
+        req.session.save()
+        res.redirect('/candidat');
       });
-      res.redirect('/candidat');
     }
     else{
       res.redirect('/');

@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   result=utilisateurs.readall(function(result){
     console.log(req.session.nom);
-    res.render('candidatOffres', { nom:  req.session.nom});
+    res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte});
   });
 });
 
