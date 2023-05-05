@@ -35,12 +35,8 @@ router.post('/connexionUtilisateur', function(req, res, next) {
         console.log();
         req.session.nom = result[0].nom;
         req.session.type_compte = result[0].type_compte;
-        req.session.save();
-
-        if(result[0].type_compte == 'administrateur')
-          res.redirect('/utilisateurs');
-        else
-          res.redirect('/candidat');
+        req.session.save()
+        res.redirect('/candidat');
       });
     }
     else{
