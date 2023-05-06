@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : lun. 24 avr. 2023 à 12:49
+-- Genere le : lun. 24 avr. 2023 a 12:49
 -- Version du serveur :  10.3.38-MariaDB-0+deb10u1
 -- Version de PHP : 7.3.31-1~deb10u3
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : sr10p028
+-- Base de donnees : sr10p028
 --
 
 DROP TABLE IF EXISTS candidatures;
@@ -40,14 +40,14 @@ CREATE TABLE organisations (
   nom varchar(255) NOT NULL,
   statut_juridique varchar(255) NOT NULL,
   localisation_siege varchar(255) NOT NULL,
-  statut_demande enum('en_attente','validée','refusée') NOT NULL,
+  statut_demande enum('en_attente','validee','refusee') NOT NULL,
   PRIMARY KEY(siren)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO organisations (siren, nom, statut_juridique, localisation_siege, statut_demande) VALUES
 (127456789, 'oronge', 'pme', '12 rue invisible Paris', 'en_attente'),
-(127456790, 'srf', 'entreprise liberale', '13 rue inventee Paris', 'refusée'),
-(127456791, 'payant', 'entreprise gigantesque', '14 rue inexistante Paris', 'validée');
+(127456790, 'srf', 'entreprise liberale', '13 rue inventee Paris', 'refusee'),
+(127456791, 'payant', 'entreprise gigantesque', '14 rue inexistante Paris', 'validee');
 
 
 -- --------------------------------------------------------
@@ -107,7 +107,7 @@ CREATE TABLE type_metiers (
 
 INSERT INTO type_metiers (nom_metier) VALUES
 ('informatique'),
-('cybersécurité'),
+('cybersecurite'),
 ('commercial');
 
 -- --------------------------------------------------------
@@ -134,7 +134,7 @@ CREATE TABLE fiche_postes (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO fiche_postes (id_fiche, intitule, lieu, description, rythme, recruteur, nom_metier, nom_statut, min_salaire, max_salaire) VALUES
-(NULL, 'Dev OPS', '13 rue blabla', 'developeur', '35heure/semaine, sans télétravail', 3, 'informatique', 'chef de projet', 1200, 1800);
+(NULL, 'Dev OPS', '13 rue blabla', 'developeur', '35heure/semaine, sans teletravail', 3, 'informatique', 'chef de projet', 1200, 1800);
 
 
 -- --------------------------------------------------------
@@ -145,7 +145,7 @@ INSERT INTO fiche_postes (id_fiche, intitule, lieu, description, rythme, recrute
 
 CREATE TABLE offre_emplois (
   id_offre int(11) NOT NULL AUTO_INCREMENT,
-  etat enum('Non Publiée','Publiée','Expirée') NOT NULL,
+  etat enum('Non Publiee','Publiee','Expiree') NOT NULL,
   date_validite date NOT NULL,
   indication text NOT NULL,
   nombre_pieces int(11) NOT NULL,
@@ -157,7 +157,8 @@ CREATE TABLE offre_emplois (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO offre_emplois (id_offre, etat, date_validite, indication, nombre_pieces, organisation, fiche) VALUES
-(NULL, 'Non Publiée', '2023-06-25', 'Chef de projet chez payant', 2, 127456791, 1);
+(NULL, 'Publiee', '2023-06-25', 'Chef de projet chez payant', 2, 127456791, 1),
+(NULL, 'Expiree', '2023-06-25', 'Chef de projet chez payant', 2, 127456791, 1);
 
 -- --------------------------------------------------------
 
