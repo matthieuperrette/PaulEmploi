@@ -1,3 +1,12 @@
+fonctionement des branches que j'ai créé :
+
+main -> contien nos fichiers de TD pour l'instant et est destiné a avoir la version finale de notre site
+dev -> contient la version la plus actuel stable
+persoNom -> contient la dernière version de Nom
+-> persoNom et dev son merge lorsque persoNom a terminer de travailler sur une feature importante et qu'elle est stable
+
+Démarage :
+
 -> installer git sur son pc
 
 Ajouter le compte gitlab :
@@ -17,13 +26,6 @@ Selectionner l'url https://gitlab.utc.fr/...
 Selectionner le dossier dans lequel cloner
 Se connecter à gitlab
 
-fonctionement des branches que j'ai créé :
-
-main -> contien nos fichiers de TD pour l'instant et est destiné a avoir la version finale de notre site
-dev -> contient la version la plus actuel stable
-persoNom -> contient la dernière version de Nom
--> persoNom et dev son merge lorsque persoNom a terminer de travailler sur une feature importante et qu'elle est stable
-
 
 Commande git utile :
 
@@ -40,9 +42,10 @@ git rebase dev -> permet de mettre la derniere version de dev sur la branche act
 -> pendant le travail faire des commits réguliers est utile
 -> En faisant une merge request ne pas oublié de ne pas merge sur main mais sur dev et décocher la case supprimer la branche source
 
+
 Pour lancer le serveur :
 
-Nodemon est installé pour relancer le serveur automatiquement en cas de modification de ficher
+Nodemon est installé pour relancer le serveur automatiquement en cas de modification de ficher (npm install Nodemon)
 cd PaulEmploi
 SET PaulEmploi=* & nodemon npm start
 
@@ -52,6 +55,7 @@ utiliser le vpn de l'école
 Login : sr10p028
 Password : j136vcydSRLj
 
+
 Avancement :
 recap de ce qui a été fait pour se mettre à jour facilement
 
@@ -59,6 +63,13 @@ recap de ce qui a été fait pour se mettre à jour facilement
 24/04/2023 -> petits changements sur les tables et mise en place du fichier sql avec des données
 test de quelque model
 25/04/2023 -> finition des models
+06/05/2023 -> debut d'adaptation des vues candidatOffre et candidatPageOffre 
+fait et adaptation des boutons selon la session
+
+
+chose a changer :
+
+- dans l'index faire en sorte qu'on puisse appuyer que sur un seul des boutons
 
 
 Questions prof :
