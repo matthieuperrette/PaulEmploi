@@ -31,7 +31,7 @@ module.exports = {
         var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
-        "WHERE oe.id_offre=" + id_offre +"fp.id_fiche=oe.fiche AND oe.organisation=o.siren AND oe.etat='Publiee'";
+        "WHERE oe.id_offre=" + id_offre + " fp.id_fiche=oe.fiche AND oe.organisation=o.siren AND oe.etat='Publiee'";
         db.query(sql, function(err, results) {
             if (err) throw err;
             callback(results);

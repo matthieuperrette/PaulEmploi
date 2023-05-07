@@ -2,7 +2,15 @@ var db = require('./pool.js');
 
 module.exports = {
     read: function (id_candidature, callback) {
-        db.query("select * from candidatures where id_candidature= ?",id_candidature, function(err, results) {
+        //console.log(id_candidature)
+        db.query("select * from candidatures where id_candidature=?",id_candidature, function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+    readCandidatOffre: function (candidat, callback) {
+        console.log(candidat)
+        db.query("select * from candidatures c, offre_emplois oe, fiche_postes fp, organisations o where candidat=? AND oe.id_offre=c.offre AND oe.fiche=fp.id_fiche AND oe.organisation=o.siren",candidat, function(err, results) {
             if (err) throw err;
             callback(results);
         });
@@ -28,8 +36,9 @@ module.exports = {
                 });
         };
     },
-    delete: function (id_candidature,callback) {
-        db.query("DELETE from candidatures WHERE id_candidature=?",id_candidature, function (err, results) {
+    delete: function (candidat, offre, callback) {
+        var data = [candidat, offre];
+        db.query("DELETE from candidatures WHERE candidat=? AND offre=?",data, function (err, results) {
         if (err) throw err;
         callback(results);
         });
@@ -41,8 +50,7 @@ module.exports = {
         db.query(sql,data, function (err, results) {
             if (err) throw err;
             callback(results);
-            });
-    return false;
-}
+        });
+    }
 }
 

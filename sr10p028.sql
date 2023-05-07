@@ -57,8 +57,7 @@ INSERT INTO organisations (siren, nom, statut_juridique, localisation_siege, sta
 --
 
 CREATE TABLE utilisateurs (
-  id_utilisateur int(11) NOT NULL AUTO_INCREMENT,
-  email varchar(255) NOT NULL UNIQUE,
+  email varchar(255),
   nom varchar(255) NOT NULL,
   prenom varchar(255) NOT NULL,
   mot_de_passe varchar(255) NOT NULL,
@@ -67,15 +66,15 @@ CREATE TABLE utilisateurs (
   compte_actif tinyint(1) NOT NULL,
   type_compte enum('candidat','recruteur','administrateur') NOT NULL,
   organisation int(11) DEFAULT NULL,
-  PRIMARY KEY(id_utilisateur),
+  PRIMARY KEY(email),
   FOREIGN KEY(organisation) REFERENCES organisations(siren)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO utilisateurs (id_utilisateur, email, nom, prenom, mot_de_passe, numtel, date_creation, compte_actif, type_compte, organisation) VALUES
-(NULL, 'thomas.bridoux@orange.fr', 'Bridoux', 'Thomas', 'admin', '0672013966', '2023-03-31', 1, 'administrateur', NULL),
-(NULL, 'mathildesoleil@caramail.fr', 'Bullot', 'Mathilde', 'mot_de_passe', '0655236958', '2013-03-01', 1, 'candidat', NULL),
-(NULL, 'matthieu.perrette@payant.fr', 'Perrette', 'Matthieu', 'mdp', '0776692044', '2023-03-07', 1, 'recruteur', 127456791),
-(NULL, 'htreht@frezfrz.fr', 'clem', 'toto', 'Compte2000', '062548552', '2023-04-14', 1, 'candidat', NULL);
+INSERT INTO utilisateurs (email, nom, prenom, mot_de_passe, numtel, date_creation, compte_actif, type_compte, organisation) VALUES
+('thomas.bridoux@orange.fr', 'Bridoux', 'Thomas', 'admin', '0672013966', '2023-03-31', 1, 'administrateur', NULL),
+('mathildesoleil@caramail.fr', 'Bullot', 'Mathilde', 'mot_de_passe', '0655236958', '2013-03-01', 1, 'candidat', NULL),
+('matthieu.perrette@payant.fr', 'Perrette', 'Matthieu', 'mdp', '0776692044', '2023-03-07', 1, 'recruteur', 127456791),
+('htreht@frezfrz.fr', 'clem', 'toto', 'Compte2000', '062548552', '2023-04-14', 1, 'candidat', NULL);
 
 
 -- --------------------------------------------------------
@@ -122,19 +121,19 @@ CREATE TABLE fiche_postes (
   lieu varchar(255) NOT NULL,
   description text NOT NULL,
   rythme varchar(255) NOT NULL,
-  recruteur int(11) NOT NULL,
+  recruteur varchar(255) NOT NULL,
   nom_metier varchar(255) NOT NULL,
   nom_statut varchar(255) NOT NULL,
   min_salaire int(11) NOT NULL,
   max_salaire int(11) NOT NULL,
   PRIMARY KEY (id_fiche),
-  FOREIGN KEY(recruteur) REFERENCES utilisateurs(id_utilisateur),
+  FOREIGN KEY(recruteur) REFERENCES utilisateurs(email),
   FOREIGN KEY(nom_metier) REFERENCES type_metiers(nom_metier),
   FOREIGN KEY(nom_statut) REFERENCES statut_activites(nom_activite)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO fiche_postes (id_fiche, intitule, lieu, description, rythme, recruteur, nom_metier, nom_statut, min_salaire, max_salaire) VALUES
-(NULL, 'Dev OPS', '13 rue blabla', 'developeur', '35heure/semaine, sans teletravail', 3, 'informatique', 'chef de projet', 1200, 1800);
+(NULL, 'Dev OPS', '13 rue blabla', 'developeur', '35heure/semaine, sans teletravail', 'matthieu.perrette@payant.fr', 'informatique', 'chef de projet', 1200, 1800);
 
 
 -- --------------------------------------------------------
@@ -157,8 +156,8 @@ CREATE TABLE offre_emplois (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO offre_emplois (id_offre, etat, date_validite, indication, nombre_pieces, organisation, fiche) VALUES
-(NULL, 'Publiee', '2023-06-25', 'Chef de projet chez payant', 2, 127456791, 1),
-(NULL, 'Expiree', '2023-06-25', 'Chef de projet chez payant', 2, 127456791, 1);
+(NULL, 'Publiee', '2023-06-25', 'CV et lettre de motivation', 2, 127456791, 1),
+(NULL, 'Expiree', '2022-06-25', 'CV et lettre de motivation', 2, 127456791, 1);
 
 -- --------------------------------------------------------
 
@@ -170,15 +169,16 @@ CREATE TABLE candidatures (
   id_candidature int(11) NOT NULL AUTO_INCREMENT,
   date_candidature date NOT NULL,
   pieces text NOT NULL,
-  candidat int(11) NOT NULL,
+  candidat VARCHAR(255) NOT NULL,
   offre int(11) NOT NULL,
   PRIMARY KEY(id_candidature),
   FOREIGN KEY(offre) REFERENCES offre_emplois(id_offre),
-  FOREIGN KEY(candidat) REFERENCES utilisateurs(id_utilisateur)
+  FOREIGN KEY(candidat) REFERENCES utilisateurs(email),
+  UNIQUE(candidat, offre)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO candidatures (id_candidature, date_candidature, pieces, candidat, offre) VALUES
-(NULL, '2023-04-25', 'CV et lettre de motivation', 2, 1);
+(NULL, '2023-04-25', 'CV et lettre de motivation', 'mathildesoleil@caramail.fr', 1);
 
 
 

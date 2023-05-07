@@ -18,6 +18,7 @@ router.post('/nouvelUtilisateur', function(req, res, next) {
   const motdepasse = req.body.utilisateur_motdepasse;
   const tel = req.body.utilisateur_tel;
   if(utilisateurs.create(email, nom, prenom, motdepasse, tel, function(){})){
+    req.session.email = email;
     req.session.nom = nom;
     req.session.type_compte = 'candidat';
     req.session.save();
@@ -33,6 +34,7 @@ router.post('/connexionUtilisateur', function(req, res, next) {
     if(result){
       result=utilisateurs.read(email, function(result){
         console.log();
+        req.session.email = result[0].email;
         req.session.nom = result[0].nom;
         req.session.type_compte = result[0].type_compte;
         req.session.save()
@@ -43,9 +45,6 @@ router.post('/connexionUtilisateur', function(req, res, next) {
       res.redirect('/');
     }
   });
-
-  
-
 });
   
 module.exports = router;

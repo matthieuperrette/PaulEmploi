@@ -71,76 +71,51 @@
         
     </div>
       <% }; %>
-        
     <div class="col-11">
-
-        <form class="container-block m-3 align-items-center border border-secondary row p-3">
-            <div class="col-10">
-                <input type="search" class="form-control" id="colFormLabelSm" placeholder="Recherche">
-            </div>
-            <div class="dropdown col-1">
-                <button type="button" class="btn btn-secondary rounded-0 dropdown-toggle">Trier par</button>
-            </div>
-            <div class="dropdown col-1">
-                <button type="button" class="btn btn-secondary rounded-0 dropdown-toggle">Filtres</button>
-            </div>
-        </form>
-        <% offres.forEach((offre)=> { %>
+        <% candidatures.forEach((candidature)=> { %>
         <div class="container-block border border-secondary m-3">
             
             <div class="container-block m-3 align-items-center row">
-                <div class="col-10">
-                    <span><%= offre.intitule%> chez <%=offre.nom%></span>
+                <div class="col-3">
+                    <span><%= candidature.intitule%> chez <%=candidature.nom%></span> 
                 </div>
-                <div class="col-2">
-                        <button class="btn btn-primary float-end rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Plus</button>
+                <div class="col-3">
+                    <span>Date de candidature : <%= moment(candidature.date_candidature).format('DD/MM/YYYY');%></span>
+                </div>
+                <div class="col-5">
+                    <form id="form_inscription" class="" method="post" action="/candidat/PageOffre">
+                        <input type="hidden" name="id_offre" id="hiddenField" value=<%= candidature.id_offre%>/>
+                        <button class="btn btn-primary float-end rounded-0" type="submit">Revoir l'offre</button>
+                      </form>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-primary float-end rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Plus</button>
                 </div>
             </div>
 
             <div class="collapse border-top border-secondary" id="collapseExample">
-                <div class="container-block m-3 row">
-                    <p class="w-75 col"><%= offre.nom_statut%> en <%=offre.nom_metier%></p>
-                    <form id="form_inscription" class="" method="post" action="/candidat/PageOffre">
-                      <input type="hidden" name="id_offre" id="hiddenField" value=<%= offre.id_offre%>/>
-                      <button class="btn btn-primary float-end col-2" type="submit">Aller sur la page de l'offre</button>
-                    </form>
+                <div class="row">
+                    <div class="col-10">
+                        <p class="m-3">
+                            Pièces nécessaires : <%=candidature.indication%><br>
+                            Pièces fournies : <%=candidature.pieces%>
+                        </p>
+                    </div>
+                    <div class="col-2">
+                        <a class="btn btn-primary rounded-0 float-end m-2" href="#" role="button">Modifier</a>
+                        <form id="form_inscription" class="" method="post" action="/candidat/SupprimerCandidature">
+                            <input type="hidden" name="id_offre" id="hiddenField" value=<%= candidature.id_offre%>/>
+                            <button class="btn btn-primary float-end col-2" type="submit">Supprimer</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="container-block m-3 row">
-                    <p class="col">
-                      <%= offre.rythme%><br>
-                      <%= offre.min_salaire%>~<%= offre.max_salaire%>€/mois<br>
-                      <%= offre.indication%> dsisponible jusqu'au <%= moment(offre.date_validite).format('DD/MM/YYYY');%>
-                    </p>
-                    <form id="form_inscription" class="" method="post" action="/candidat/candidater">
-                      <input type="hidden" name="id_offre" id="hiddenField" value=<%= offre.id_offre%>/>
-                      <button class="btn btn-primary float-end col-2" type="submit">Candidater</button>
-                    </form>
-                </div>
+                
             </div>
 
         </div>
-        <% }) %>
-        <div class="btn-toolbar position-absolute start-50 translate-middle-x" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group me-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-primary">1</button>
-                <button type="button" class="btn btn-primary">2</button>
-                <button type="button" class="btn btn-primary">3</button>
-                <button type="button" class="btn btn-primary">4</button>
-                </div>
-                <div class="btn-group me-2" role="group" aria-label="Second group">
-                <button type="button" class="btn btn-secondary">5</button>
-                <button type="button" class="btn btn-secondary">6</button>
-                <button type="button" class="btn btn-secondary">7</button>
-                </div>
-                <div class="btn-group" role="group" aria-label="Third group">
-                <button type="button" class="btn btn-info">8</button>
-         </div>
-
-        </div>   
-    </div>
+        <% })%>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>
-
