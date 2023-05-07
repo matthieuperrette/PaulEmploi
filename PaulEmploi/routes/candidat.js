@@ -54,8 +54,9 @@ router.post('/SupprimerCandidature', function(req, res, next) {
   var id_offre = req.body.id_offre;
   id_offre=id_offre.slice(0, -1);
   result=candidatureModel.delete(req.session.email,id_offre,function(result){
-    console.log(result);
+    console.log("Number of records deleted: " + result.affectedRows);
   });
+  return(true);
 });
 
 
