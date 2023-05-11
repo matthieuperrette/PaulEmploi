@@ -14,30 +14,12 @@
     </div>
     <div class="col-2">
       <% if(type == 'administrateur') { %>
-        <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Administrer</button>
-      </div>
-  </header>
-  <div class="row m-0 vh-100">
-    <div id="navbar" class="col-1 p-0">
-        <div class="d-grid">
-            <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="#">Utilisateurs</a>
-            <a class="btn btn-primary-outline rounded-0 " href="#">Organisations</a>
-        </div>
-        
-    </div>
+        <a href="/administrateur" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Administrer</a>
       <%} else if(type == 'recruteur') {%>
-        <button href="/" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Recruter</button>
-      </div>
-  </header>
-  <div class="row m-0 vh-100">
-    <div id="navbar" class="col-1 p-0">
-        <div class="d-grid">
-            <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="#">Offres</a>
-            <a class="btn btn-primary-outline rounded-0 " href="#">Recruteurs</a>
-        </div>
-        
-    </div>
-      <% } else { %>
+        <a href="/recruteur" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Recruter</a>
+        <%} else if(typeof type == 'undefined') {%>
+          <a href="/" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Se connecter</a>
+        <% } else { %>
         <div class="dropdown">
             <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Devenir Recruteur</button>
             <form class="dropdown-menu p-4">
@@ -60,18 +42,18 @@
               <button type="submit" class="btn btn-primary">Sign in</button>
             </form>
           </div>
-      </div>
-  </header>
-  <div class="row m-0 vh-100">
-    <div id="navbar" class="col-1 p-0">
-        <div class="d-grid">
-            <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="/candidat">Offres</a>
-            <a class="btn btn-primary-outline rounded-0 " href="/candidat/candidatures">Candidatures</a>
-        </div>
-        
-    </div>
       <% }; %>
-        
+    </div>
+  </header>
+      <div class="row m-0 vh-100">
+        <div id="navbar" class="col-1 p-0">
+            <div class="d-grid">
+                <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="/candidat">Offres</a>
+                <% if(type == 'candidat') { %>
+                <a class="btn btn-primary-outline rounded-0 " href="/candidat/candidatures">Candidatures</a>
+                <% }; %>
+            </div>
+        </div>    
     <div class="col-11">
 
         <form class="container-block m-3 align-items-center border border-secondary row p-3">
@@ -111,10 +93,12 @@
                       <%= offre.min_salaire%>~<%= offre.max_salaire%>€/mois<br>
                       <%= offre.indication%> dsisponible jusqu'au <%= moment(offre.date_validite).format('DD/MM/YYYY');%>
                     </p>
+                    <% if(type == 'candidat') { %>
                     <form id="form_inscription" class="" method="post" action="/candidat/candidater">
                       <input type="hidden" name="id_offre" id="hiddenField" value=<%= offre.id_offre%>/>
                       <button class="btn btn-primary float-end col-2" type="submit">Candidater</button>
                     </form>
+                    <% }; %>
                 </div>
             </div>
 

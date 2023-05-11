@@ -65,11 +65,16 @@ test de quelque model
 25/04/2023 -> finition des models
 06/05/2023 -> debut d'adaptation des vues candidatOffre et candidatPageOffre 
 fait et adaptation des boutons selon la session
+07/05/2023 -> vues candidatCandidatures faite et test des boutons candidater/supprimer (charge dans le vide mais fonctionne a peu près)
+11/05/2023 -> ajout des vues administrateurs
 
 
 chose a changer :
 
 - dans l'index faire en sorte qu'on puisse appuyer que sur un seul des boutons
+- debugger les boutons candidater et supprimer
+- faire un regex pour le mot de passe
+- appuyer sur le logo fais revenir au départ
 
 
 Questions prof :
