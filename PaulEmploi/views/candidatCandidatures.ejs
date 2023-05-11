@@ -14,30 +14,12 @@
     </div>
     <div class="col-2">
       <% if(type == 'administrateur') { %>
-        <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Administrer</button>
-      </div>
-  </header>
-  <div class="row m-0 vh-100">
-    <div id="navbar" class="col-1 p-0">
-        <div class="d-grid">
-            <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="#">Utilisateurs</a>
-            <a class="btn btn-primary-outline rounded-0 " href="#">Organisations</a>
-        </div>
-        
-    </div>
-      <%} else if(type == 'recruteur') {%>
-        <button href="/" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Recruter</button>
-      </div>
-  </header>
-  <div class="row m-0 vh-100">
-    <div id="navbar" class="col-1 p-0">
-        <div class="d-grid">
-            <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="#">Offres</a>
-            <a class="btn btn-primary-outline rounded-0 " href="#">Recruteurs</a>
-        </div>
-        
-    </div>
-      <% } else { %>
+        <button href="/administrateur" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Administrer</button>
+        <%} else if(type == 'recruteur') {%>
+          <a href="/recruteur" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Recruter</a>
+          <%} else if(typeof type == 'undefined') {%>
+            <a href="/" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Se connecter</a>
+          <% } else { %>
         <div class="dropdown">
             <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Devenir Recruteur</button>
             <form class="dropdown-menu p-4">
@@ -60,17 +42,17 @@
               <button type="submit" class="btn btn-primary">Sign in</button>
             </form>
           </div>
-      </div>
-  </header>
-  <div class="row m-0 vh-100">
-    <div id="navbar" class="col-1 p-0">
-        <div class="d-grid">
-            <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="/candidat">Offres</a>
-            <a class="btn btn-primary-outline rounded-0 " href="/candidat/candidatures">Candidatures</a>
-        </div>
-        
-    </div>
       <% }; %>
+    </div>
+  </header>
+      <div class="row m-0 vh-100">
+        <div id="navbar" class="col-1 p-0">
+            <div class="d-grid">
+                <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="/candidat">Offres</a>
+                <a class="btn btn-primary-outline rounded-0 " href="/candidat/candidatures">Candidatures</a>
+            </div>
+            
+        </div>
     <div class="col-11">
         <% candidatures.forEach((candidature)=> { %>
         <div class="container-block border border-secondary m-3">
