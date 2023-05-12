@@ -36,12 +36,17 @@ module.exports = {
     },
     update : function (nom,value,siren,callback){
         if(nom.length!==value.length)   throw("Erreur les deux tableaux en parametre doivent etre de meme taille") 
-        for (var i = 0; i < nom.length; i++){
-            db.query("UPDATE organisations SET " + nom[i] + "=? WHERE siren=?", [value[i], siren],function (err, results) {
-                if (err) throw err;
-                callback(results);
-                });
+        sql="UPDATE organisations SET "
+        for (var i = 0; i < nom.length-1; i++){
+            sql +=nom[i] + "='"+value[i]+"',"; 
         };
+        sql+=nom[i] + "='"+value[i]+"'WHERE siren=?";
+        console.log(sql);
+        db.query(sql, siren,function (err, results) {
+            if (err) throw err;
+            callback(results);
+            });
+        return true;
     },
     updateNom : function (nom, siren,callback){
         db.query("UPDATE organisations SET nom=? WHERE siren=?", [nom, siren],function (err, results) {

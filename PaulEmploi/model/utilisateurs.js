@@ -56,13 +56,16 @@ module.exports = {
     },
     update : function (nom,value,email,callback){
         if(nom.length!==value.length)   throw("Erreur les deux tableaux en parametre doivent etre de meme taille") 
-        for (var i = 0; i < nom.length; i++){
-            console.log(nom[i])
-            db.query("UPDATE utilisateurs SET " + nom[i] + "=? WHERE email=?", [value[i], email],function (err, results) {
-                if (err) throw err;
-                callback(results);
-                });
+        sql="UPDATE utilisateurs SET "
+        for (var i = 0; i < nom.length-1; i++){
+            sql +=nom[i] + "='"+value[i]+"',"; 
         };
+        sql+=nom[i] + "='"+value[i]+"'WHERE email=?";
+        console.log(sql);
+        db.query(sql, email,function (err, results) {
+            if (err) throw err;
+            callback(results);
+            });
         return true;
     },
     updateNom : function (nom,email,callback){
