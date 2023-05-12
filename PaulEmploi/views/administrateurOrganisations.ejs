@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Application Recrutement</title>
     <meta name="description" content="">
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link href="css/main.css" rel="stylesheet">
+    <link href="/stylesheets/main.css" rel="stylesheet">
 </head>
 <body class="vh-100 row">
   <header class="container-fluid m-0 p-4 row">
@@ -48,10 +48,16 @@
                     <% } else if (organisation.statut_demande == 'refusee'){ %>
                         <span class="float-end">Refusée</span>
                     <% } else {%>
-                        <button class="btn btn-primary active rounded-1 ">Accepter</button>
+                        <form method="post" action="/administrateur/accepterOrganisation">
+                            <input class="d-none" name="organisation_siren"  readonly value="<%= organisation.siren %>">
+                            <button type="submit" class="btn btn-primary active rounded-1 ">Accepter</button>
+                        </form>
                     </div>
                     <div class="col-1">
-                        <button class="btn btn-primary active rounded-1 ">Refuser</button>
+                        <form method="post" action="/administrateur/refuserOrganisation">
+                            <input class="d-none" name="organisation_siren"  readonly value="<%= organisation.siren %>">
+                            <button type="submit" class="btn btn-primary active rounded-1 ">Refuser</button>
+                        </form>
                     <%};%>
                 </div>
             </div>
