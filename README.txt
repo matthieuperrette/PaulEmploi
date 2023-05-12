@@ -67,6 +67,7 @@ test de quelque model
 fait et adaptation des boutons selon la session
 07/05/2023 -> vues candidatCandidatures faite et test des boutons candidater/supprimer (charge dans le vide mais fonctionne a peu près)
 11/05/2023 -> ajout des vues administrateurs
+11/05/2023 -> ajout fonctionnalitéss admin et d'une vue recruteur
 
 
 chose a changer :
