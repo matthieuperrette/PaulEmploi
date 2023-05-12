@@ -1,5 +1,5 @@
 var express = require('express');
-var moment = require('moment')
+var moment = require('moment');
 const offreModel = require('../model/offre_emplois');
 const candidatureModel = require('../model/candidatures');
 var router = express.Router();
@@ -38,15 +38,15 @@ router.post('/PageOffre', function(req, res, next) {
     id_offre=id_offre.slice(0, -1);
     console.log(id_offre);
     if(req.session.type_compte === 'candidat'){
-      try{
+      //try{
       result=candidatureModel.create("",req.session.email,id_offre,function(result){
         console.log(result);
         console.log('hello');
         return(true);
       });
-    }catch(ER_DUP_ENTRY){
-      console.log("deja candidater");
-    }
+    //}catch(ER_DUP_ENTRY){
+     // console.log("deja candidater");
+    //}
     }
 });
 
