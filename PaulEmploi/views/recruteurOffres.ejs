@@ -4,71 +4,46 @@
     <meta charset="UTF-8">
     <title>Application Recrutement</title>
     <meta name="description" content="">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link href="/stylesheets/main.css" rel="stylesheet">
 </head>
 <body class="vh-100 row">
   <header class="container-fluid m-0 p-4 row">
     <div class="col-10">
-        <p class="fs-2 fw-semibold m-0" >Paul Emploi  Nom : <%= nom %></p>
+        <p class="fs-2 fw-semibold m-0" >Paul Emploi</p>
     </div>
     <div class="col-2">
-      <% if(type == 'administrateur') { %>
-        <a href="/administrateur" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Administrer</a>
-      <%} else if(type == 'recruteur') {%>
-        <a href="/recruteur" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Recruter</a>
-        <%} else if(typeof type == 'undefined') {%>
-          <a href="/" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Se connecter</a>
-        <% } else { %>
-        <div class="dropdown">
-            <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Devenir Recruteur</button>
-            <form class="dropdown-menu p-4">
-              <div class="mb-3">
-                <label for="exampleDropdownFormEmail2" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
-              </div>
-              <div class="mb-3">
-                <label for="exampleDropdownFormPassword2" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
-              </div>
-              <div class="mb-3">
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="dropdownCheck2">
-                  <label class="form-check-label" for="dropdownCheck2">
-                    Remember me
-                  </label>
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary">Sign in</button>
-            </form>
-          </div>
-      <% }; %>
+        <a href="/candidat" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Accueil</a>
     </div>
   </header>
-      <div class="row m-0 vh-100">
-        <div id="navbar" class="col-1 p-0">
-            <div class="d-grid">
-                <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="/candidat">Offres</a>
-                <% if(type == 'candidat') { %>
-                <a class="btn btn-primary-outline rounded-0 " href="/candidat/candidatures">Candidatures</a>
-                <% }; %>
-            </div>
-        </div>    
+  <div class="row m-0 vh-100">
+    <div id="navbar" class="col-1 p-0">
+        <div class="d-grid">
+            <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="#">Offres</a>
+            <a class="btn btn-primary-outline rounded-0 " href="#">Recruteurs</a>
+        </div>
+        
+    </div>
     <div class="col-11">
 
         <form class="container-block m-3 align-items-center border border-secondary row p-3">
             <div class="col-10">
                 <input type="search" class="form-control" id="colFormLabelSm" placeholder="Recherche">
             </div>
-            <div class="dropdown col-1">
-                <button type="button" class="btn btn-secondary rounded-0 dropdown-toggle">Trier par</button>
-            </div>
-            <div class="dropdown col-1">
-                <button type="button" class="btn btn-secondary rounded-0 dropdown-toggle">Filtres</button>
-            </div>
+            <button type="button" class="btn btn-secondary rounded-0 dropdown-toggle col-1  ">Trier par</button>
+            <button type="button" class="btn btn-secondary rounded-0 dropdown-toggle col-1  ">Filtres</button>
         </form>
-        <% offres.forEach((offre)=> { %>
+
+      
+      <div class="container-block m-3">
+        <button class="btn btn-primary rounded-0" >Ajouter une offre</button>
+      </div>
+
+
+      <% offres.forEach((offre)=> { %>
         <div class="container-block border border-secondary m-3">
+            
             
             <div class="container-block m-3 align-items-center row">
                 <div class="col-10">
@@ -91,14 +66,12 @@
                     <p class="col">
                       <%= offre.rythme%><br>
                       <%= offre.min_salaire%>~<%= offre.max_salaire%>€/mois<br>
-                      <%= offre.indication%> dsisponible jusqu'au <%= moment(offre.date_validite).format('DD/MM/YYYY');%>
+                      <%= offre.indication%> disponible jusqu'au <%= moment(offre.date_validite).format('DD/MM/YYYY');%>
                     </p>
-                    <% if(type == 'candidat') { %>
-                    <form id="form_inscription" class="" method="post" action="/candidat/candidater">
-                      <input type="hidden" name="id_offre" id="hiddenField" value=<%= offre.id_offre%>/>
-                      <button class="btn btn-primary float-end col-2" type="submit">Candidater</button>
-                    </form>
-                    <% }; %>
+                    <div class="col-2">
+                        <a class="btn btn-primary rounded-0 float-end m-2" href="#" role="button">Modifier</a>
+                        <a class="btn btn-primary rounded-0 float-end m-2" href="#" role="button">Supprimer</a>
+                    </div>
                 </div>
             </div>
 
