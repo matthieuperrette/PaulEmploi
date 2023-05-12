@@ -41,7 +41,7 @@ module.exports = {
         numtel=numtel.replace(/\s/g,'');
         numtel=numtel.replace(/\./g,'');
         var data = [email, nom, prenom, motdepasse, numtel, date, 1, 'candidat'];
-        db.query("INSERT INTO utilisateurs (id_utilisateur, email, nom, prenom, mot_de_passe, numtel, date_creation, compte_actif, type_compte, organisation) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, NULL)", data, function (err, results) {
+        db.query("INSERT INTO utilisateurs (email, nom, prenom, mot_de_passe, numtel, date_creation, compte_actif, type_compte, organisation) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, NULL)", data, function (err, results) {
         if (err) throw err;
         callback(results);
         });
@@ -57,11 +57,13 @@ module.exports = {
     update : function (nom,value,email,callback){
         if(nom.length!==value.length)   throw("Erreur les deux tableaux en parametre doivent etre de meme taille") 
         for (var i = 0; i < nom.length; i++){
+            console.log(nom[i])
             db.query("UPDATE utilisateurs SET " + nom[i] + "=? WHERE email=?", [value[i], email],function (err, results) {
                 if (err) throw err;
                 callback(results);
                 });
         };
+        return true;
     },
     updateNom : function (nom,email,callback){
         db.query("UPDATE utilisateurs SET nom=? WHERE email=?", [nom, email],function (err, results) {

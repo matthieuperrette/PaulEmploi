@@ -46,5 +46,26 @@ router.post('/connexionUtilisateur', function(req, res, next) {
     }
   });
 });
+
+router.post('/supprimerUtilisateur', function(req, res, next) {
+    const id_email = req.body.utilisateur_id_email;
+    result=utilisateurs.delete(id_email, function(result){
+      res.redirect('/administrateur');
+    });
+});
+
+router.post('/editUtilisateur', function(req, res, next) {
+  const id_email = req.body.utilisateur_id_email;
+  const prenom = req.body.utilisateur_prenom;
+  const nom = req.body.utilisateur_nom;
+  const email = req.body.utilisateur_email;
+  const numtel = req.body.utilisateur_numtel;
+  const type = req.body.utilisateur_type;
+  const actif = req.body.utilisateur_actif;
+  let nom_col = ['nom', 'prenom', 'numtel', 'compte_actif', 'type_compte', 'email'];
+  let value= [nom, prenom, numtel, actif, type, email]
+  result=utilisateurs.update(nom_col, value, id_email, function(result){});
+  res.redirect('/administrateur');
+});
   
 module.exports = router;
