@@ -74,8 +74,8 @@ chose a changer :
 
 - dans l'index faire en sorte qu'on puisse appuyer que sur un seul des boutons
 - debugger les boutons candidater et supprimer
-- faire un regex pour le mot de passe
-- appuyer sur le logo fais revenir au départ
+- faire un regex pour le mot de passe/mettre nom et prenom tout en minuscule
+- changer les updates
 
 
 Questions prof :

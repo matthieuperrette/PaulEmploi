@@ -27,11 +27,23 @@ module.exports = {
             callback(results);
         });
     },
+    readAllInfosPublieePasCandidater: function (email,callback) {
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
+        "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom, candidat " + 
+        "FROM offre_emplois oe LEFT OUTER JOIN candidatures c ON oe.id_offre=c.offre " +
+        "LEFT OUTER JOIN fiche_postes fp ON fp.id_fiche=oe.fiche " +
+        "LEFT OUTER JOIN organisations o ON  oe.organisation=o.siren "+ 
+        "WHERE oe.etat='Publiee' AND (c.candidat is NULL OR c.candidat<>'"+email+"')";
+        db.query(sql, function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     readInfosPubliee: function (id_offre,callback) {
         var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
-        "WHERE oe.id_offre=" + id_offre + " fp.id_fiche=oe.fiche AND oe.organisation=o.siren AND oe.etat='Publiee'";
+        "WHERE oe.id_offre=" + id_offre + " AND fp.id_fiche=oe.fiche AND oe.organisation=o.siren";
         db.query(sql, function(err, results) {
             if (err) throw err;
             callback(results);
@@ -79,13 +91,13 @@ module.exports = {
         for (var i = 0; i < nom.length-1; i++){
             sql +=nom[i] + "='"+value[i]+"',"; 
         };
-        sql+=nom[i] + "='"+value[i]+"'WHERE id_offre=?";
+        sql+=nom[i] + "='"+value[i]+"' WHERE id_offre=?";
         console.log(sql);
         db.query(sql, id_offre,function (err, results) {
             if (err) throw err;
             callback(results);
             });
         return true;
-    }, 
+    }
 }
 

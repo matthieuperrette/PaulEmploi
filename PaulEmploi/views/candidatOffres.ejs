@@ -83,7 +83,8 @@
                 <div class="container-block m-3 row">
                     <p class="w-75 col"><%= offre.nom_statut%> en <%=offre.nom_metier%></p>
                     <form id="form_inscription" class="" method="post" action="/candidat/PageOffre">
-                      <input type="hidden" name="id_offre" id="hiddenField" value=<%= offre.id_offre%>/>
+                      <input type="hidden" name="id_offre" id="hiddenField" value=<%= offre.id_offre%> >
+                      <input type="hidden" name="sansCandidature" id="hiddenField" value=0>
                       <button class="btn btn-primary float-end col-2" type="submit">Aller sur la page de l'offre</button>
                     </form>
                 </div>
@@ -95,7 +96,7 @@
                     </p>
                     <% if(type == 'candidat') { %>
                     <form id="form_inscription" class="" method="post" action="/candidat/candidater">
-                      <input type="hidden" name="id_offre" id="hiddenField" value=<%= offre.id_offre%>/>
+                      <input type="hidden" name="id_offre" id="hiddenField" value=<%=offre.id_offre%> >
                       <button class="btn btn-primary float-end col-2" type="submit">Candidater</button>
                     </form>
                     <% }; %>

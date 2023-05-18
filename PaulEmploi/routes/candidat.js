@@ -6,7 +6,8 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  result=offreModel.readAllInfosPubliee(function(result){
+  email=req.session.email;
+  result=offreModel.readAllInfosPublieePasCandidater(email,function(result){
     //console.log(result);
     res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment});
   });
@@ -25,29 +26,24 @@ router.get('/Candidatures', function(req, res, next) {
 
 router.post('/PageOffre', function(req, res, next) {
   const id_offre = req.body.id_offre;
-  //console.log("id_offre=",id_offre);
+  const sansCand=req.body.sansCandidature;
+  console.log("sansCandidature=",sansCand);
+  console.log("id_offre=",id_offre);
   result=offreModel.readInfosPubliee(id_offre,function(result){
     console.log(result);
-    res.render('candidatPageOffre', { nom:  req.session.nom, type:  req.session.type_compte, offre: result, moment: moment});
+    res.render('candidatPageOffre', { nom:  req.session.nom, type:  req.session.type_compte, offre: result, moment: moment, sansCandidature: sansCand});
   });
 });
-  router.post('/candidater', function(req, res, next) {
-    
-    var id_offre = req.body.id_offre;
-    console.log(id_offre);
-    id_offre=id_offre.slice(0, -1);
-    console.log(id_offre);
-    if(req.session.type_compte === 'candidat'){
-      //try{
-      result=candidatureModel.create("",req.session.email,id_offre,function(result){
-        console.log(result);
-        console.log('hello');
-        return(true);
-      });
-    //}catch(ER_DUP_ENTRY){
-     // console.log("deja candidater");
-    //}
-    }
+router.post('/candidater', function(req, res, next) {
+  var id_offre = req.body.id_offre;
+  console.log(id_offre);
+  if(req.session.type_compte === 'candidat'){
+    result=candidatureModel.create("",req.session.email,id_offre,function(result){
+      console.log(result);
+      console.log('hello');
+      res.redirect('/candidat/Candidatures');
+    });
+  }
 });
 
 router.post('/SupprimerCandidature', function(req, res, next) { 
@@ -55,6 +51,7 @@ router.post('/SupprimerCandidature', function(req, res, next) {
   id_offre=id_offre.slice(0, -1);
   result=candidatureModel.delete(req.session.email,id_offre,function(result){
     console.log("Number of records deleted: " + result.affectedRows);
+    res.redirect('/candidat/Candidatures');
   });
   return(true);
 });
