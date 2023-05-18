@@ -7,6 +7,12 @@ module.exports = {
             callback(results);
         });
     },
+    readCandidatures: function (id_offre, callback) {
+        db.query("select * from offre_emplois oe, candidatures c, utilisateurs u where oe.id_offre= ? AND c.offre=oe.id_offre AND c.candidat=u.email",id_offre, function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     readAllInfos: function (callback) {
         var sql="SELECT intitule, lieu, description, rythme, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 

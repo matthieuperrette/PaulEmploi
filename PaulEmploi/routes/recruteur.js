@@ -30,6 +30,12 @@ router.post('/accepterDemande', function(req, res, next) {
   utilisateurModel.updateTypeCompte('recruteur', email,function(result){});
   res.redirect('/recruteur/demandes');
 });
-
+router.post('/chercherCandidatures', function(req, res, next) {
+  const id_offre = req.body.id_offre;
+  offreModel.readCandidatures(id_offre,function(result){
+    console.log(result)
+    res.render('recruteurCandidaturesOffre', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment});
+  });
+});
 
 module.exports = router;
