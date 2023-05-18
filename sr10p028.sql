@@ -74,7 +74,7 @@ INSERT INTO utilisateurs (email, nom, prenom, mot_de_passe, numtel, date_creatio
 ('thomas.bridoux@orange.fr', 'Bridoux', 'Thomas', 'admin', '0672013966', '2023-03-31', 1, 'administrateur', NULL),
 ('mathildesoleil@caramail.fr', 'Bullot', 'Mathilde', 'mot_de_passe', '0655236958', '2013-03-01', 1, 'candidat', NULL),
 ('matthieu.perrette@payant.fr', 'Perrette', 'Matthieu', 'mdp', '0776692044', '2023-03-07', 1, 'recruteur', 127456791),
-('htreht@frezfrz.fr', 'clem', 'toto', 'Compte2000', '062548552', '2023-04-14', 1, 'candidat', NULL);
+('htreht@frezfrz.fr', 'clem', 'toto', 'Compte2000', '062548552', '2023-04-14', 1, 'candidat', 127456791);
 
 
 -- --------------------------------------------------------

@@ -8,7 +8,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var utilisateursRouter = require('./routes/utilisateurs');
 var candidatRouter = require('./routes/candidat');
-var testRouter = require('./routes/test');
+var testRouter = require('./routes/pm');
 var adminRouter = require('./routes/administrateur');
 var recrutRouter = require('./routes/recruteur');
 

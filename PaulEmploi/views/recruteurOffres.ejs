@@ -20,10 +20,9 @@
   <div class="row m-0 vh-100">
     <div id="navbar" class="col-1 p-0">
         <div class="d-grid">
-            <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="#">Offres</a>
-            <a class="btn btn-primary-outline rounded-0 " href="#">Recruteurs</a>
+            <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="/recruteur">Offres</a>
+            <a class="btn btn-primary-outline rounded-0 " href="/recruteur/demandes">Recruteurs</a>
         </div>
-        
     </div>
     <div class="col-11">
 
@@ -57,9 +56,9 @@
             <div class="collapse border-top border-secondary" id="collapseExample">
                 <div class="container-block m-3 row">
                     <p class="w-75 col"><%= offre.nom_statut%> en <%=offre.nom_metier%></p>
-                    <form id="form_inscription" class="" method="post" action="/candidat/PageOffre">
-                      <input type="hidden" name="id_offre" id="hiddenField" value=<%= offre.id_offre%>/>
-                      <button class="btn btn-primary float-end col-2" type="submit">Aller sur la page de l'offre</button>
+                    <form id="form_inscription" class="" method="post" action="/recruteur/chercherCandidatures">
+                      <input type="hidden" name="id_offre" id="hiddenField" value=<%= offre.id_offre%> >
+                      <button class="btn btn-primary float-end col-2" type="submit">Regarder les candidatures</button>
                     </form>
                 </div>
                 <div class="container-block m-3 row">

@@ -64,8 +64,9 @@ router.post('/editUtilisateur', function(req, res, next) {
   const actif = req.body.utilisateur_actif;
   let nom_col = ['nom', 'prenom', 'numtel', 'compte_actif', 'type_compte', 'email'];
   let value= [nom, prenom, numtel, actif, type, email]
-  result=utilisateurs.update(nom_col, value, id_email, function(result){});
-  res.redirect('/administrateur');
+  result=utilisateurs.update(nom_col, value, id_email, function(result){
+    res.redirect('/administrateur');
+  });
 });
   
 module.exports = router;

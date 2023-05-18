@@ -7,6 +7,12 @@ module.exports = {
             callback(results);
         });
     },
+    readCandidatures: function (id_offre, callback) {
+        db.query("select * from offre_emplois oe, candidatures c, utilisateurs u where oe.id_offre= ? AND c.offre=oe.id_offre AND c.candidat=u.email",id_offre, function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     readAllInfos: function (callback) {
         var sql="SELECT intitule, lieu, description, rythme, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
@@ -27,11 +33,23 @@ module.exports = {
             callback(results);
         });
     },
+    readAllInfosPublieePasCandidater: function (email,callback) {
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
+        "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom, candidat " + 
+        "FROM offre_emplois oe LEFT OUTER JOIN candidatures c ON oe.id_offre=c.offre " +
+        "LEFT OUTER JOIN fiche_postes fp ON fp.id_fiche=oe.fiche " +
+        "LEFT OUTER JOIN organisations o ON  oe.organisation=o.siren "+ 
+        "WHERE oe.etat='Publiee' AND (c.candidat is NULL OR c.candidat<>'"+email+"')";
+        db.query(sql, function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     readInfosPubliee: function (id_offre,callback) {
         var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
-        "WHERE oe.id_offre=" + id_offre + " fp.id_fiche=oe.fiche AND oe.organisation=o.siren AND oe.etat='Publiee'";
+        "WHERE oe.id_offre=" + id_offre + " AND fp.id_fiche=oe.fiche AND oe.organisation=o.siren";
         db.query(sql, function(err, results) {
             if (err) throw err;
             callback(results);
@@ -73,14 +91,19 @@ module.exports = {
             callback(results);
             });
     },
-    update : function (nom, value, id_offre,callback){
+    update : function (nom,value, id_offre,callback){
         if(nom.length!==value.length)   throw("Erreur les deux tableaux en parametre doivent etre de meme taille") 
-        for (var i = 0; i < nom.length; i++){
-            db.query("UPDATE offre_emplois SET " + nom[i] + "=? WHERE id_offre=?", [value[i], id_offre],function (err, results) {
-                if (err) throw err;
-                callback(results);
-                });
+        sql="UPDATE offre_emplois SET "
+        for (var i = 0; i < nom.length-1; i++){
+            sql +=nom[i] + "='"+value[i]+"',"; 
         };
-    } 
+        sql+=nom[i] + "='"+value[i]+"' WHERE id_offre=?";
+        console.log(sql);
+        db.query(sql, id_offre,function (err, results) {
+            if (err) throw err;
+            callback(results);
+            });
+        return true;
+    }
 }
 

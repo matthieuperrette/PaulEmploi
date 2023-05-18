@@ -66,7 +66,8 @@
                 </div>
                 <div class="col-5">
                     <form id="form_inscription" class="" method="post" action="/candidat/PageOffre">
-                        <input type="hidden" name="id_offre" id="hiddenField" value=<%= candidature.id_offre%>/>
+                        <input type="hidden" name="id_offre" id="hiddenField" value=<%= candidature.id_offre%>>
+                        <input type="hidden" name="sansCandidature" id="hiddenField" value=1>
                         <button class="btn btn-primary float-end rounded-0" type="submit">Revoir l'offre</button>
                       </form>
                 </div>
@@ -86,7 +87,7 @@
                     <div class="col-2">
                         <button class="btn btn-primary rounded-0 float-end m-2" href="#">Modifier</button>
                         <form id="form_inscription" class="" method="post" action="/candidat/SupprimerCandidature">
-                            <input type="hidden" name="id_offre" id="hiddenField" value=<%= candidature.id_offre%>/>
+                            <input type="hidden" name="id_offre" id="hiddenField" value=<%=candidature.id_offre%>/>
                             <button class="btn btn-primary rounded-0 float-end m-2" type="submit">Supprimer</button>
                         </form>
                     </div>

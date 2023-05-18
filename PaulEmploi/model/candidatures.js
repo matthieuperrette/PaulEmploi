@@ -27,14 +27,19 @@ module.exports = {
             callback(results);
         });
     },
-    update : function (nom, value, id_candidature,callback){
+    update : function (nom,value,id_candidature,callback){
         if(nom.length!==value.length)   throw("Erreur les deux tableaux en parametre doivent etre de meme taille") 
-        for (var i = 0; i < nom.length; i++){
-            db.query("UPDATE candidatures SET " + nom[i] + "=? WHERE id_candidature=?", [value[i], id_candidature],function (err, results) {
-                if (err) throw err;
-                callback(results);
-                });
+        sql="UPDATE candidatures SET "
+        for (var i = 0; i < nom.length-1; i++){
+            sql +=nom[i] + "='"+value[i]+"',"; 
         };
+        sql+=nom[i] + "='"+value[i]+"' WHERE id_candidature=?";
+        console.log(sql);
+        db.query(sql, id_candidature,function (err, results) {
+            if (err) throw err;
+            callback(results);
+            });
+        return true;
     },
     delete: function (candidat, offre, callback) {
         var data = [candidat, offre];
