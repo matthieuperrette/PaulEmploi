@@ -1,10 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var moment = require('moment'); 
-
 const userModel = require('../model/utilisateurs');
 const orgaModel = require('../model/organisations');
-var router = express.Router();
 
 
 /* GET users listing. */
