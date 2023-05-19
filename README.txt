@@ -68,14 +68,20 @@ fait et adaptation des boutons selon la session
 07/05/2023 -> vues candidatCandidatures faite et test des boutons candidater/supprimer (charge dans le vide mais fonctionne a peu près)
 11/05/2023 -> ajout des vues administrateurs
 11/05/2023 -> ajout fonctionnalitéss admin et d'une vue recruteur
+18/05/2023 -> ajout des vues de recruteur bouton candidater/supprimer fait + nom et prenom mis correctement dans la bdd
 
 
-chose a changer :
+TO DO:
 
 - dans l'index faire en sorte qu'on puisse appuyer que sur un seul des boutons
-- debugger les boutons candidater et supprimer
-- faire un regex pour le mot de passe/mettre nom et prenom tout en minuscule
-- changer les updates
+- faire un regex pour le mot de passe
+- connexion check compte_actif
+- suppression compte mettre compte_actif a 0
+- bouton log out
+- recherche/tri/filtre
+- pagination
+- bouton ajouter des offres/modifier
+- demande pour devenir un recruteur
 
 
 Questions prof :
@@ -83,4 +89,8 @@ Questions prof :
 /!\ pas assez de droit pour utiliser TO_DATE() sur la bdd :
 execute command denied to user 'sr10p028'@'localhost' for routine 'sr10p028.TO_DATE'
 
-
+100 -> informatif
+200 -> succès
+300 -> redirection 
+400 -> erreur req client
+500 -> erreur serveur

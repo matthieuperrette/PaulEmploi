@@ -40,7 +40,7 @@ module.exports = {
         for (var i = 0; i < nom.length-1; i++){
             sql +=nom[i] + "='"+value[i]+"',"; 
         };
-        sql+=nom[i] + "='"+value[i]+"'WHERE siren=?";
+        sql+=nom[i] + "='"+value[i]+"' WHERE siren=?";
         console.log(sql);
         db.query(sql, siren,function (err, results) {
             if (err) throw err;
