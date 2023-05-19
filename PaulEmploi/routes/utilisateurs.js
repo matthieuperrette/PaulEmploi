@@ -13,8 +13,12 @@ router.get('/', function(req, res, next) {
 
 router.post('/nouvelUtilisateur', function(req, res, next) {
   const email = req.body.utilisateur_email;
-  const nom = req.body.utilisateur_nom;
-  const prenom = req.body.utilisateur_prenom;
+  let nom = req.body.utilisateur_nom;
+  nom=nom.toLowerCase();
+  nom=nom[0].toUpperCase()+nom.slice(1);
+  let prenom = req.body.utilisateur_prenom;
+  prenom=prenom.toLowerCase();
+  prenom=prenom[0].toUpperCase()+prenom.slice(1);
   const motdepasse = req.body.utilisateur_motdepasse;
   const tel = req.body.utilisateur_tel;
   if(utilisateurs.create(email, nom, prenom, motdepasse, tel, function(){})){
