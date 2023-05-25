@@ -77,7 +77,7 @@ DONE -> fait
 QUESTION -> voir le partie question prof a la fin du readme
 
 - pop up en cas d'erreur de duplication lors de la creation d'un compte (genre deux fois le même email dans la bdd)
-
+- corriger le log out pour mettre req.session.destroy()
 - recherche/tri/filtre
 - pagination
 - bouton ajouter des offres/modifier
