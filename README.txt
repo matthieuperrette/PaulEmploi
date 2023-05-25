@@ -69,22 +69,31 @@ fait et adaptation des boutons selon la session
 11/05/2023 -> ajout des vues administrateurs
 11/05/2023 -> ajout fonctionnalitéss admin et d'une vue recruteur
 18/05/2023 -> ajout des vues de recruteur bouton candidater/supprimer fait + nom et prenom mis correctement dans la bdd
-
+25/05/2023 -> completion de la to do list
 
 TO DO:
 
-- dans l'index faire en sorte qu'on puisse appuyer que sur un seul des boutons
-- faire un regex pour le mot de passe
-- connexion check compte_actif
-- suppression compte mettre compte_actif a 0
-- bouton log out
+DONE -> fait
+QUESTION -> voir le partie question prof a la fin du readme
+
+- pop up en cas d'erreur de duplication lors de la creation d'un compte (genre deux fois le même email dans la bdd)
+
 - recherche/tri/filtre
 - pagination
 - bouton ajouter des offres/modifier
-- demande pour devenir un recruteur
+- demande pour devenir un recruteur/creation d'entreprise
+- les plus déroule tous régler le bug + certain plus ne peuvent etre refermer (par exemple /candidat)
+- faire en sorte d'envoyer un warning pour les regex lors de la creation d'un utilisateur
+- QUESTION suppression compte mettre compte_actif a 0
+- DONE faire un regex pour le mot de passe
+- DONE partials pour le header et la navbar
+- DONE verifier si connecter sinon rediriger vers l'accueil/si le bon type de compte pour la page
+- DONE dans l'index faire en sorte qu'on puisse appuyer que sur un seul des boutons
+- DONE connexion check compte_actif
+- DONE bouton log out
 
 
-Questions prof :
+
 
 /!\ pas assez de droit pour utiliser TO_DATE() sur la bdd :
 execute command denied to user 'sr10p028'@'localhost' for routine 'sr10p028.TO_DATE'
@@ -94,3 +103,6 @@ execute command denied to user 'sr10p028'@'localhost' for routine 'sr10p028.TO_D
 300 -> redirection 
 400 -> erreur req client
 500 -> erreur serveur
+
+Question prof:
+la suppression de compte définitif -> drop cascade ou alors juste mettre le compte_actif
