@@ -11,6 +11,14 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/deconnection', function(req, res, next) {
+  req.session.email = undefined;
+  req.session.nom = undefined;
+  req.session.type_compte = undefined;
+  req.session.save();
+  res.redirect('/');
+});
+
 router.post('/nouvelUtilisateur', function(req, res, next) {
   const email = req.body.utilisateur_email;
   let nom = req.body.utilisateur_nom;
@@ -20,22 +28,38 @@ router.post('/nouvelUtilisateur', function(req, res, next) {
   prenom=prenom.toLowerCase();
   prenom=prenom[0].toUpperCase()+prenom.slice(1);
   const motdepasse = req.body.utilisateur_motdepasse;
-  const tel = req.body.utilisateur_tel;
-  if(utilisateurs.create(email, nom, prenom, motdepasse, tel, function(){})){
+  let tel = req.body.utilisateur_tel;
+  //remplacer par un warning a l'utilisateur au lieu de renvoyer une erreur
+  /*
+  let telRegex = new RegExp(/^0\d{1}([\s ]|[\. ]?\d{2}){4}/) //commence par 0 et un chiffre puis suivi de 4 fois 2 chiffres separe par un espace un point ou rien
+  if (!telRegex.test(tel))
+    throw new Error('Format téléphone non respecté');
+  //enleve tous les points et les espaces du numtel pour le stocker dans la bdd
+  tel=tel.replace(/\s/g,'');
+  tel=tel.replace(/\./g,'');
+  let mdpRegex = 
+    new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-~£€µ§ù¨¤}{|²<>)(°`',;:\\.)]).{12,}$/);
+  if(!mdpRegex.test(motdepasse))
+    throw new Error('Format mdp non respecté');
+*/
+    
+
+  /*if(utilisateurs.create(email, nom, prenom, motdepasse, tel, function(){})){
     req.session.email = email;
     req.session.nom = nom;
     req.session.type_compte = 'candidat';
     req.session.save();
     res.redirect('/candidat')
   }
-  else throw err;
+  else throw err;*/
 });
 
 router.post('/connexionUtilisateur', function(req, res, next) {
   const email = req.body.utilisateur_email;
   const motdepasse = req.body.utilisateur_motdepasse;
   utilisateurs.isValid(email, motdepasse,function(result){
-    if(result){
+    console.log(result);
+    if(result && result[0].compte_actif===1){
       result=utilisateurs.read(email, function(result){
         console.log();
         req.session.email = result[0].email;
@@ -53,7 +77,7 @@ router.post('/connexionUtilisateur', function(req, res, next) {
 
 router.post('/supprimerUtilisateur', function(req, res, next) {
     const id_email = req.body.utilisateur_id_email;
-    result=utilisateurs.delete(id_email, function(result){
+    result=utilisateurs.updateCompteActif(0,id_email, function(result){
       res.redirect('/administrateur');
     });
 });

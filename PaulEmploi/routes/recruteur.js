@@ -6,19 +6,31 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  const email = req.session.email
-  result=offreModel.readInfosPublieeByAuthor(email, function(result){
-    //console.log(result);
-    res.render('recruteurOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment});
-  });
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'recruteur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    const email = req.session.email
+    result=offreModel.readInfosPublieeByAuthor(email, function(result){
+      //console.log(result);
+      res.render('recruteurOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment});
+    });
+  }
 });
 router.get('/demandes', function(req, res, next) {
-  const email = req.session.email
-  retour=utilisateurModel.checkOrga(email, function(retour){
-    result=utilisateurModel.readallDemandes(retour[0].organisation, function(result){
-      res.render('recruteurDemandes', { nom:  req.session.nom, type:  req.session.type_compte, users: result, moment: moment});
-    });  
-  });
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'recruteur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    const email = req.session.email
+    retour=utilisateurModel.checkOrga(email, function(retour){
+      result=utilisateurModel.readallDemandes(retour[0].organisation, function(result){
+        res.render('recruteurDemandes', { nom:  req.session.nom, type:  req.session.type_compte, users: result, moment: moment});
+      });  
+    });
+  }
 });
 router.post('/refuserDemande', function(req, res, next) {
   const email = req.body.email;
@@ -31,11 +43,17 @@ router.post('/accepterDemande', function(req, res, next) {
   res.redirect('/recruteur/demandes');
 });
 router.post('/chercherCandidatures', function(req, res, next) {
-  const id_offre = req.body.id_offre;
-  offreModel.readCandidatures(id_offre,function(result){
-    console.log(result)
-    res.render('recruteurCandidaturesOffre', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment});
-  });
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'recruteur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    const id_offre = req.body.id_offre;
+    offreModel.readCandidatures(id_offre,function(result){
+      console.log(result)
+      res.render('recruteurCandidaturesOffre', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment});
+    });
+  }
 });
 
 module.exports = router;
