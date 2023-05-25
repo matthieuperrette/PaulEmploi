@@ -14,7 +14,7 @@ router.get('/offres/:id_offre', function (req, res, next) {
         res.status(200).json(result);
     });
 });
-router.post('/offres/:etat/:date_validite/:indication/:nombre_pieces/:organisation/:fiche', function (req, res, next) {
+router.post('/offres', function (req, res, next) {
     let newUser = {
         username: req.body.username,
         lastname: req.body.lastname

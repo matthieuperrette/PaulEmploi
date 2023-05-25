@@ -33,14 +33,14 @@ module.exports = {
         });
     },
     isValid: function (email, password, callback) {
-        sql = "SELECT mot_de_passe FROM utilisateurs WHERE email = ?"; 
+        sql = "SELECT mot_de_passe, compte_actif FROM utilisateurs WHERE email = ?"; 
         rows = db.query(sql, email, function (err, results) {
-        if (err) throw err;
-        if (results.length == 1 && results[0].mot_de_passe === password) {
-        callback(true);
-        } else {
-        callback(false);
-        }
+            if (err) throw err;
+            if (results.length == 1 && results[0].mot_de_passe === password) {
+            callback(results);
+            } else {
+            callback(false);
+            }
         });
     },
     create: function (email, nom, prenom, motdepasse, numtel, callback) {
@@ -104,10 +104,13 @@ module.exports = {
         });
     },
     updateCompteActif : function (compte_actif,email,callback){
-        if (typeof compte_actif == "number")    
-            if (!(compte_actif === 1 || compte_actif === 0))
-                throw new Error('Erreur le compte actif est un booléen');
-        else if( !(typeof compte_actif == "boolean"))
+        console.log(compte_actif)
+        console.log(!(compte_actif === 1 || compte_actif === 0))
+        if (typeof compte_actif == 'number') {
+            if (compte_actif !== 1 && compte_actif !== 0)
+                throw new Error('Erreu le compte actif est un booléen');
+        }
+        else if( !(typeof compte_actif == 'boolean'))
                 throw new Error('Erreur le compte actif est un booléen');
         db.query("UPDATE utilisateurs SET compte_actif=? WHERE email=?", [compte_actif, email],function (err, results) {
             if (err) throw err;

@@ -7,16 +7,28 @@ const orgaModel = require('../model/organisations');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  result=userModel.readall(function(result){
-    console.log(result);
-    res.render('administrateurUtilisateurs', { title: 'titre', nom:  req.session.nom, type:  req.session.type_compte, users: result, moment: moment});
-  });
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'administrateur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    result=userModel.readall(function(result){
+      console.log(result);
+      res.render('administrateurUtilisateurs', { title: 'titre', nom:  req.session.nom, type:  req.session.type_compte, users: result, moment: moment});
+    });
+  }
 });
 
 router.get('/organisations', function(req, res, next) {
-    result=orgaModel.readall(function(result){
-      res.render('administrateurOrganisations', { nom:  req.session.nom, type:  req.session.type_compte, organisations: result, moment: moment});
-    });
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'administrateur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+      result=orgaModel.readall(function(result){
+        res.render('administrateurOrganisations', { nom:  req.session.nom, type:  req.session.type_compte, organisations: result, moment: moment});
+      });
+    }
   });
 
   router.post('/accepterOrganisation', function(req, res, next) {

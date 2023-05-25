@@ -6,17 +6,19 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  email=req.session.email;
-  result=offreModel.readAllInfosPublieePasCandidater(email,function(result){
-    //console.log(result);
-    res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment});
-  });
+    email=req.session.email;
+    result=offreModel.readAllInfosPublieePasCandidater(email,function(result){
+      //console.log(result);
+      res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment});
+    });
 });
 
 router.get('/Candidatures', function(req, res, next) {
   if (typeof req.session.email === 'undefined') {
     res.redirect('/');
-  }else{
+  }else if (req.session.type_compte !== 'candidat') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
     candidatures=candidatureModel.readCandidatOffre(req.session.email, function(result){
       console.log(result);
       res.render('candidatCandidatures', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment});
@@ -25,14 +27,18 @@ router.get('/Candidatures', function(req, res, next) {
 });
 
 router.post('/PageOffre', function(req, res, next) {
-  const id_offre = req.body.id_offre;
-  const sansCand=req.body.sansCandidature;
-  console.log("sansCandidature=",sansCand);
-  console.log("id_offre=",id_offre);
-  result=offreModel.readInfosPubliee(id_offre,function(result){
-    console.log(result);
-    res.render('candidatPageOffre', { nom:  req.session.nom, type:  req.session.type_compte, offre: result, moment: moment, sansCandidature: sansCand});
-  });
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else{
+    const id_offre = req.body.id_offre;
+    const sansCand=req.body.sansCandidature;
+    console.log("sansCandidature=",sansCand);
+    console.log("id_offre=",id_offre);
+    result=offreModel.readInfosPubliee(id_offre,function(result){
+      console.log(result);
+      res.render('candidatPageOffre', { nom:  req.session.nom, type:  req.session.type_compte, offre: result, moment: moment, sansCandidature: sansCand});
+    });
+  }
 });
 router.post('/candidater', function(req, res, next) {
   var id_offre = req.body.id_offre;

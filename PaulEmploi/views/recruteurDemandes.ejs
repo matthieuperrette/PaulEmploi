@@ -8,27 +8,13 @@
     <link href="/stylesheets/main.css" rel="stylesheet">
 </head>
 <body class="vh-100 row">
-    <header class="container-fluid m-0 p-4 row">
-      <div class="col-10">
-          <p class="fs-2 fw-semibold m-0" >Paul Emploi</p>
-      </div>
-      <div class="col-2">
-          <a href="/candidat" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Accueil</a>
-      </div>
-    </header>
-    <div class="row m-0 vh-100">
-      <div id="navbar" class="col-1 p-0">
-          <div class="d-grid">
-              <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="/recruteur">Offres</a>
-              <a class="btn btn-primary-outline rounded-0 " href="/recruteur/demandes">Recruteurs</a>
-          </div>
-      </div>
+    <%- include('partials/header.ejs', {boutonAccueil: true}) %>
+  <div class="row m-0 vh-100">
+    <%- include('partials/navbar.ejs',{nav: 2}) %>
     <div class="col-11">
-
         <form class="container-block m-3 align-items-center border border-secondary row p-3">
                 <input type="search" class="form-control" id="colFormLabelSm" placeholder="Recherche">
         </form>
-
         <div class="container-block border border-secondary m-3">
             <% users.forEach((user)=> { %>
                 <div class="container-block m-3 align-items-center row">
