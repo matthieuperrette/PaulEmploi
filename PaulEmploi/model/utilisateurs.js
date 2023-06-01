@@ -14,8 +14,21 @@ module.exports = {
         callback(results);
         });
     },
+    readallLike: function (like, callback) {
+        sql="select * from utilisateurs WHERE nom LIKE '%" + like +"%' OR prenom LIKE '%"+like+"%' ORDER BY nom";
+        db.query(sql, function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     readallDemandes: function (SIREN, callback) {
         db.query("select * from utilisateurs WHERE organisation=? AND type_compte='candidat'",SIREN, function (err, results) {
+        if (err) throw err;
+        callback(results);
+        });
+    },
+    readallDemandesLike: function (SIREN, search, callback) {
+        db.query("select * from utilisateurs WHERE organisation=? AND type_compte='candidat' AND (nom LIKE '%"+search+"%'OR prenom LIKE '%"+search+"%') ORDER BY nom",SIREN, function (err, results) {
         if (err) throw err;
         callback(results);
         });
@@ -45,12 +58,6 @@ module.exports = {
     },
     create: function (email, nom, prenom, motdepasse, numtel, callback) {
         var date = new Date().toISOString().slice(0, 10);
-        var regex = /^0\d{1}([\s ]|[\. ]?\d{2}){4}/ //commence par 0 et un chiffre puis suivi de 4 fois 2 chiffres separe par un espace un point ou rien
-        if (!regex.test(numtel))
-            throw new Error('Format téléphone non respecté');
-        //enleve tous les points et les espaces du numtel pour le stocker dans la bdd
-        numtel=numtel.replace(/\s/g,'');
-        numtel=numtel.replace(/\./g,'');
         var data = [email, nom, prenom, motdepasse, numtel, date, 1, 'candidat'];
         db.query("INSERT INTO utilisateurs (email, nom, prenom, mot_de_passe, numtel, date_creation, compte_actif, type_compte, organisation) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, NULL)", data, function (err, results) {
         if (err) throw err;

@@ -12,11 +12,15 @@
   <div class="row m-0 vh-100">
     <%- include('partials/navbar.ejs',{nav: 2}) %>
     <div class="col-11">
-        <form class="container-block m-3 align-items-center border border-secondary row p-3">
-                <input type="search" class="form-control" id="colFormLabelSm" placeholder="Recherche">
+        <form class="container-block m-3 align-items-center border border-secondary row p-3" method="get" action="demandes">
+            <input type="search" class="form-control" name="search" id="recherche" placeholder="Recherche">
         </form>
+        
         <div class="container-block border border-secondary m-3">
-            <% users.forEach((user)=> { %>
+            <%var user, taille=users.length;%>
+            <%var limit=2;%>
+            <% for (var i=(page-1)*limit; i < page*limit && i < taille; i++){ %>
+                <%user=users[i]%>
                 <div class="container-block m-3 align-items-center row">
                     <div class="col-5">
                         <span><%= user.nom %> <%= user.prenom %></span>
@@ -38,7 +42,7 @@
                     </div>
                 </div>
                 
-            <% }) %>
+            <% };%>
 
             
 
@@ -46,21 +50,28 @@
         </div>
 
         <div class="btn-toolbar position-absolute start-50 translate-middle-x" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group me-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-primary">1</button>
-                <button type="button" class="btn btn-primary">2</button>
-                <button type="button" class="btn btn-primary">3</button>
-                <button type="button" class="btn btn-primary">4</button>
-                </div>
-                <div class="btn-group me-2" role="group" aria-label="Second group">
-                <button type="button" class="btn btn-secondary">5</button>
-                <button type="button" class="btn btn-secondary">6</button>
-                <button type="button" class="btn btn-secondary">7</button>
-                </div>
-                <div class="btn-group" role="group" aria-label="Third group">
-                <button type="button" class="btn btn-info">8</button>
-         </div>
-
+            <div class="btn-group me-2" role="group" aria-label="First group">
+                <% if(page != 1 && taille != 0) {%>
+                    <a href="/recruteur/demandes?page=<%=Number(page)-1%>&search=<%=search%>" class="btn btn-primary"><</a>
+                <%};%>
+            </div>
+            <div class="btn-group me-2" role="group" aria-label="Second group">
+                <% for (i=Number(page)-2; (i <= Math.ceil(taille/limit) && i <= Number(page)+2);i++ ) {%>
+                    <% if(i>0) {%>
+                        <% if(i==Number(page)) {%>
+                            <a href="/recruteur/demandes?page=<%=i%>&search=<%=search%>" class="btn btn-secondary"><%=i%></a>   
+                        <%} else {%>
+                            <a href="/recruteur/demandes?page=<%=i%>&search=<%=search%>" class="btn btn-primary"><%=i%></a>   
+                        <%};%>
+                    <%};%>
+                <%};%>
+            </div>
+                <% if(page != Math.ceil(taille/limit) && taille != 0) {%>
+                    <div class="btn-group" role="group" aria-label="Third group">
+                        <a href="/recruteur/demandes?page=<%=Number(page)+1%>&search=<%=search%>" class="btn btn-primary">></a>
+                    </div>
+                <%};%>
+        </div>
         </div>   
     </div>
     </div>

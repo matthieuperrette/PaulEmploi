@@ -13,6 +13,13 @@ module.exports = {
             callback(results);
         });
     },
+    readallLike: function (like, callback) {
+        sql="select * from organisations WHERE nom LIKE '%" + like +"%' ORDER BY nom";
+        db.query(sql, function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     readallOrderBy: function ( colonne_ordre, callback) {
         db.query("select * from organisations ORDER BY " + colonne_ordre, function(err, results) {
             if (err) throw err;
