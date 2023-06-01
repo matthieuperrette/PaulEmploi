@@ -12,10 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/deconnection', function(req, res, next) {
-  req.session.email = undefined;
-  req.session.nom = undefined;
-  req.session.type_compte = undefined;
-  req.session.save();
+  req.session.destroy()
   res.redirect('/');
 });
 

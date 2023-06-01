@@ -12,9 +12,13 @@ router.get('/', function(req, res, next) {
     res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
   } else {
     const email = req.session.email
-    result=offreModel.readInfosPublieeByAuthor(email, function(result){
+    let search=req.query.search;
+    let page= req.query.page;
+    if(!page) page=1;
+    if (!search) search='';
+    result=offreModel.readInfosPublieeByAuthorLike(email, search, function(result){
       //console.log(result);
-      res.render('recruteurOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment});
+      res.render('recruteurOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search});
     });
   }
 });
@@ -26,8 +30,12 @@ router.get('/demandes', function(req, res, next) {
   } else {
     const email = req.session.email
     retour=utilisateurModel.checkOrga(email, function(retour){
-      result=utilisateurModel.readallDemandes(retour[0].organisation, function(result){
-        res.render('recruteurDemandes', { nom:  req.session.nom, type:  req.session.type_compte, users: result, moment: moment});
+      let search=req.query.search;
+      let page= req.query.page;
+      if(!page) page=1;
+      if (!search) search='';
+      result=utilisateurModel.readallDemandesLike(retour[0].organisation, search, function(result){
+        res.render('recruteurDemandes', { nom:  req.session.nom, type:  req.session.type_compte, users: result, moment: moment, page: page, search: search});
       });  
     });
   }
