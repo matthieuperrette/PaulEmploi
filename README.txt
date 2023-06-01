@@ -70,27 +70,28 @@ fait et adaptation des boutons selon la session
 11/05/2023 -> ajout fonctionnalitéss admin et d'une vue recruteur
 18/05/2023 -> ajout des vues de recruteur bouton candidater/supprimer fait + nom et prenom mis correctement dans la bdd
 25/05/2023 -> completion de la to do list
+01/06/2023 -> completion to do list
 
 TO DO:
 
 DONE -> fait
 QUESTION -> voir le partie question prof a la fin du readme
 
-- pop up en cas d'erreur de duplication lors de la creation d'un compte (genre deux fois le même email dans la bdd)
-- corriger le log out pour mettre req.session.destroy()
-- recherche/tri/filtre
-- pagination
-- bouton ajouter des offres/modifier
+- pop up en cas d'erreur lors de la creation d'un compte (genre deux fois le même email dans la bdd ou un regex qui ne fonctionne pas)
+- tri/filtre sur candidat
+- bouton ajouter des offres et modifier/supprimer
 - demande pour devenir un recruteur/creation d'entreprise
 - les plus déroule tous régler le bug + certain plus ne peuvent etre refermer (par exemple /candidat)
-- faire en sorte d'envoyer un warning pour les regex lors de la creation d'un utilisateur
+- rendre une recherche sans rien plus belle
 - QUESTION suppression compte mettre compte_actif a 0
+- DONE pagination
 - DONE faire un regex pour le mot de passe
 - DONE partials pour le header et la navbar
 - DONE verifier si connecter sinon rediriger vers l'accueil/si le bon type de compte pour la page
 - DONE dans l'index faire en sorte qu'on puisse appuyer que sur un seul des boutons
 - DONE connexion check compte_actif
 - DONE bouton log out
+- DONE corriger le log out pour mettre req.session.destroy()
 
 
 
