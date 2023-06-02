@@ -66,7 +66,7 @@
         <%};%>
         <div class="btn-toolbar position-absolute start-50 translate-middle-x" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group me-2" role="group" aria-label="First group">
-              <% if(page != 1) {%>
+              <% if(page != 1 && taille != 0) {%>
                   <a href="/recruteur?page=<%=Number(page)-1%>&search=<%=search%>" class="btn btn-primary"><</a>
               <%};%>
           </div>

@@ -92,7 +92,9 @@ QUESTION -> voir le partie question prof a la fin du readme
     autre?
 - rendre une recherche sans rien plus belle
 - faire + de test de models et de pages
-- QUESTION suppression compte mettre compte_actif a 0
+- Changement bdd 
+    par candidature faire colonnes CV et lettre de motiv a la place de piece 
+    dans offre emploi transformer indication en enum CV, lettre de motivation, lettre de motiv et CV
 - DONE pagination
 - DONE faire un regex pour le mot de passe
 - DONE partials pour le header et la navbar
