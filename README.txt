@@ -77,12 +77,21 @@ TO DO:
 DONE -> fait
 QUESTION -> voir le partie question prof a la fin du readme
 
-- pop up en cas d'erreur lors de la creation d'un compte (genre deux fois le même email dans la bdd ou un regex qui ne fonctionne pas)
+- pop up en cas d'erreur lors de la creation d'un compte/connection
+    Deux fois le même email dans la bdd
+    Un regex qui ne fonctionne pas
+    mauvais mdp/identifiant connexion
+    connection a un compte supprimer/inactif
 - tri/filtre sur candidat
 - bouton ajouter des offres et modifier/supprimer
 - demande pour devenir un recruteur/creation d'entreprise
-- les plus déroule tous régler le bug + certain plus ne peuvent etre refermer (par exemple /candidat)
+- mettre des documents pour les candidats et pouvoir les télécharger
+- bug
+    les boutons "plus" déroule tous et ne se referme pas
+    affichage de la navbar
+    autre?
 - rendre une recherche sans rien plus belle
+- faire + de test de models et de pages
 - QUESTION suppression compte mettre compte_actif a 0
 - DONE pagination
 - DONE faire un regex pour le mot de passe
