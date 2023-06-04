@@ -12,36 +12,34 @@
   <div class="row m-0 vh-100">
       <%- include('partials/navbar.ejs',{nav: 0}) %>
     <div class="col-11">
+        <%var i=-1%>
         <% candidatures.forEach((candidature)=> { %>
+            <% i= i + 1 %>
         <div class="container-block border border-secondary m-3">
             
             <div class="container-block m-3 align-items-center row">
                 <div class="col-3">
                     <span><%= candidature.nom%> <%= candidature.prenom%></span> 
                 </div>
-                <div class="col-">
+                <div class="col-7">
                     <span>Date de candidature : <%= moment(candidature.date_candidature).format('DD/MM/YYYY');%></span>
                 </div>
-                <div class="col-1">
-                    <button class="btn btn-primary float-end rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Plus</button>
+                <div class="col-2">
+                    <button class="btn btn-primary float-end rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample<%=i%>" aria-expanded="false" aria-controls="collapseExample">Plus</button>
                 </div>
             </div>
 
-            <div class="collapse border-top border-secondary" id="collapseExample">
+            <div class="collapse border-top border-secondary" id="collapseExample<%=i%>">
                 <div class="row">
                     <div class="col-10">
                         <p class="m-3">
                             email : <%= candidature.email%> <br>
                             numéro de téléphone : <%= candidature.numtel%><br>
                             Pièces nécessaires : <%=candidature.indication%><br>
-                            Pièces fournies : <%=candidature.pieces%>
+                            Pièces fournies : <%if (!candidature.CV && !candidature.LM) {%> aucune <%};%>
+                            <%if (candidature.CV) {%> <a href="/getfile?fichier=<%=candidature.CV%>">CV</a> <%};%>
+                            <%if (candidature.LM) {%> <a href="/getfile?fichier=<%=candidature.LM%>"> LM</a> <%};%>
                         </p>
-                    </div>
-                    <div class="col-2">
-                        <form id="form_inscription" class="" method="post" action="#">
-                            <input type="hidden" name="id_offre" id="hiddenField" value=<%=candidature.id_offre%>/>
-                            <button class="btn btn-primary rounded-0 float-end m-2" type="submit">Télécharger</button>
-                        </form>
                     </div>
                 </div>
                 

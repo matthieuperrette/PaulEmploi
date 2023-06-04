@@ -4,6 +4,7 @@ var session = require('express-session')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors=require('cors');//a suppr
 
 var indexRouter = require('./routes/index');
 var utilisateursRouter = require('./routes/utilisateurs');
@@ -11,7 +12,8 @@ var candidatRouter = require('./routes/candidat');
 var testRouter = require('./routes/pm');
 var adminRouter = require('./routes/administrateur');
 var recrutRouter = require('./routes/recruteur');
-//var apiRouter = require('./routes/api')// a suppr
+var uploadRouter = require('./routes/getfile');
+var apiRouter = require('./routes/api')// a suppr
 
 var app = express();
 
@@ -19,6 +21,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(cors()); //a suppr
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,7 +36,8 @@ app.use('/candidat', candidatRouter);
 app.use('/test', testRouter);
 app.use('/administrateur', adminRouter);
 app.use('/recruteur', recrutRouter);
-//app.use('/api', apiRouter);//a suppr
+app.use('/getfile', uploadRouter);
+app.use('/api', apiRouter);//a suppr
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

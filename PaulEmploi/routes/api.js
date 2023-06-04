@@ -1,9 +1,15 @@
 var express = require('express');
 var offresModel = require('../model/offre_emplois');
+var userModel = require('../model/utilisateurs');
 var router = express.Router();
 
 router.get('/offres', function (req, res, next) {
     result=offresModel.readall(function(result){
+        res.status(200).json(result);
+    });
+});
+router.get('/users', function (req, res, next) {
+    result=userModel.readall(function(result){
         res.status(200).json(result);
     });
 });

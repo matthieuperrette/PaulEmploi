@@ -147,7 +147,7 @@ CREATE TABLE offre_emplois (
   id_offre int(11) NOT NULL AUTO_INCREMENT,
   etat enum('Non Publiee','Publiee','Expiree') NOT NULL,
   date_validite date NOT NULL,
-  indication text NOT NULL,
+  indication enum('CV', 'lettre de motivation', 'CV et lettre de motivation') NOT NULL,
   nombre_pieces int(11) NOT NULL,
   organisation int(11) NOT NULL,
   fiche int(11) NOT NULL,
@@ -158,7 +158,8 @@ CREATE TABLE offre_emplois (
 
 INSERT INTO offre_emplois (id_offre, etat, date_validite, indication, nombre_pieces, organisation, fiche) VALUES
 (NULL, 'Publiee', '2023-06-25', 'CV et lettre de motivation', 2, 127456791, 1),
-(NULL, 'Expiree', '2022-06-25', 'CV et lettre de motivation', 2, 127456791, 1);
+(NULL, 'Expiree', '2022-06-25', 'CV et lettre de motivation', 2, 127456791, 1),
+(NULL, 'Publiee', '2023-09-25', 'CV', 2, 127456791, 1);
 
 -- --------------------------------------------------------
 
@@ -169,7 +170,8 @@ INSERT INTO offre_emplois (id_offre, etat, date_validite, indication, nombre_pie
 CREATE TABLE candidatures (
   id_candidature int(11) NOT NULL AUTO_INCREMENT,
   date_candidature date NOT NULL,
-  pieces text NOT NULL,
+  CV text,
+  LM text,
   candidat VARCHAR(255) NOT NULL,
   offre int(11) NOT NULL,
   PRIMARY KEY(id_candidature),
@@ -178,8 +180,9 @@ CREATE TABLE candidatures (
   UNIQUE(candidat, offre)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO candidatures (id_candidature, date_candidature, pieces, candidat, offre) VALUES
-(NULL, '2023-04-25', 'CV et lettre de motivation', 'mathildesoleil@caramail.fr', 1);
+INSERT INTO candidatures (id_candidature, date_candidature, candidat, offre) VALUES
+(NULL, '2023-04-25', 'mathildesoleil@caramail.fr', 1),
+(NULL, '2023-04-25', 'mathildesoleil@caramail.fr', 3);
 
 
 

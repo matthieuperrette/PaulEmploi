@@ -37,11 +37,11 @@
                     <span><%= offre.intitule%> chez <%=offre.nom%></span>
                 </div>
                 <div class="col-2">
-                        <button class="btn btn-primary float-end rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Plus</button>
+                        <button class="btn btn-primary float-end rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample<%=i%>" aria-expanded="false" aria-controls="collapseExample">Plus</button>
                 </div>
             </div>
 
-            <div class="collapse border-top border-secondary" id="collapseExample">
+            <div class="collapse border-top border-secondary" id="collapseExample<%=i%>">
                 <div class="container-block m-3 row">
                     <p class="w-75 col"><%= offre.nom_statut%> en <%=offre.nom_metier%></p>
                     <form id="form_inscription" class="" method="post" action="/recruteur/chercherCandidatures">
@@ -66,7 +66,7 @@
         <%};%>
         <div class="btn-toolbar position-absolute start-50 translate-middle-x" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group me-2" role="group" aria-label="First group">
-              <% if(page != 1) {%>
+              <% if(page != 1 && taille != 0) {%>
                   <a href="/recruteur?page=<%=Number(page)-1%>&search=<%=search%>" class="btn btn-primary"><</a>
               <%};%>
           </div>

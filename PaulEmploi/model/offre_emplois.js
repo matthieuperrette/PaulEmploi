@@ -45,6 +45,19 @@ module.exports = {
             callback(results);
         });
     },
+    readAllInfosPublieePasCandidaterLike: function (email, like, callback) {
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
+        "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom, candidat " + 
+        "FROM offre_emplois oe LEFT OUTER JOIN candidatures c ON oe.id_offre=c.offre " +
+        "LEFT OUTER JOIN fiche_postes fp ON fp.id_fiche=oe.fiche " +
+        "LEFT OUTER JOIN organisations o ON  oe.organisation=o.siren "+ 
+        "WHERE oe.etat='Publiee' AND (c.candidat is NULL OR c.candidat<>'"+email+"')" +
+        " AND intitule LIKE '%" + like +"%';";
+        db.query(sql, function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     readInfosPubliee: function (id_offre,callback) {
         var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
