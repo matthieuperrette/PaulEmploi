@@ -87,7 +87,7 @@ QUESTION -> voir le partie question prof a la fin du readme
 - demande pour devenir un recruteur/creation d'entreprise
 - mettre des documents pour les candidats et pouvoir les télécharger
 - bug
-    les boutons "plus" déroule tous et ne se referme pas
+    les boutons "plus" ne se referme pas
     affichage de la navbar
     autre?
 - rendre une recherche sans rien plus belle
