@@ -79,7 +79,7 @@ QUESTION -> voir le partie question prof a la fin du readme
 
 
 - tri/filtre sur candidat
-- bouton ajouter des offres et modifier/DONE supprimer
+- bouton DONE ajouter des offres et A FAIRE EN SE BASANT SUR AJOUTER modifier/DONE supprimer
 - demande pour devenir un recruteur/creation d'entreprise
 - bug
     les boutons "plus" ne se referme pas (aucune idée pourquoi)
