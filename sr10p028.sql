@@ -121,7 +121,8 @@ CREATE TABLE fiche_postes (
   intitule varchar(255) NOT NULL,
   lieu varchar(255) NOT NULL,
   description text NOT NULL,
-  rythme varchar(255) NOT NULL,
+  rythme int(11) NOT NULL,
+  teletravail tinyint(1) NOT NULL,
   recruteur varchar(255) NOT NULL,
   nom_metier varchar(255) NOT NULL,
   nom_statut varchar(255) NOT NULL,
@@ -133,8 +134,8 @@ CREATE TABLE fiche_postes (
   FOREIGN KEY(nom_statut) REFERENCES statut_activites(nom_activite)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO fiche_postes (id_fiche, intitule, lieu, description, rythme, recruteur, nom_metier, nom_statut, min_salaire, max_salaire) VALUES
-(NULL, 'Dev OPS', '13 rue blabla', 'developeur', '35heure/semaine, sans teletravail', 'matthieu.perrette@payant.fr', 'informatique', 'chef de projet', 1200, 1800);
+INSERT INTO fiche_postes (id_fiche, intitule, lieu, description, rythme, teletravail, recruteur, nom_metier, nom_statut, min_salaire, max_salaire) VALUES
+(NULL, 'Dev OPS', '13 rue blabla', 'developeur', 35, 0, 'matthieu.perrette@payant.fr', 'informatique', 'chef de projet', 1200, 1800);
 
 
 -- --------------------------------------------------------
@@ -175,8 +176,8 @@ CREATE TABLE candidatures (
   candidat VARCHAR(255) NOT NULL,
   offre int(11) NOT NULL,
   PRIMARY KEY(id_candidature),
-  FOREIGN KEY(offre) REFERENCES offre_emplois(id_offre),
-  FOREIGN KEY(candidat) REFERENCES utilisateurs(email),
+  FOREIGN KEY(offre) REFERENCES offre_emplois(id_offre) ON DELETE CASCADE ON UPDATE RESTRICT,
+  FOREIGN KEY(candidat) REFERENCES utilisateurs(email) ON DELETE RESTRICT ON UPDATE CASCADE,
   UNIQUE(candidat, offre)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

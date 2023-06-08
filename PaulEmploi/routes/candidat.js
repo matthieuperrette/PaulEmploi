@@ -66,39 +66,49 @@ router.post('/PageOffre', function(req, res, next) {
   }
 });
 router.post('/candidater', function(req, res, next) {
-  var id_offre = req.body.id_offre;
-  console.log(id_offre);
-  if(req.session.type_compte === 'candidat'){
-    result=candidatureModel.create("",req.session.email,id_offre,function(result){
-      console.log(result);
-      console.log('hello');
-      res.redirect('/candidat/Candidatures');
-    });
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else{
+    var id_offre = req.body.id_offre;
+    console.log(id_offre);
+    if(req.session.type_compte === 'candidat'){
+      result=candidatureModel.create("",req.session.email,id_offre,function(result){
+        console.log(result);
+        console.log('hello');
+        res.redirect('/candidat/Candidatures');
+      });
+    }
   }
 });
 
 router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
-  const uploaded_file = req.file
-  if (!uploaded_file) {
-    res.redirect('/candidat/Candidatures?error=Veuillez mettre un fichier');
-  } else if(uploaded_file.originalname.slice(uploaded_file.originalname.lastIndexOf("."))!==".pdf"){
-    res.redirect('/candidat/Candidatures?error=Le fichier doit etre un pdf');
-  } else {
-    let id_candidature=req.body.id_candidature
-    result=candidatureModel.update([req.body.myFileType],[uploaded_file.filename],id_candidature, () => {});
-    res.redirect('/candidat/Candidatures');
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else{
+    const uploaded_file = req.file
+    if (!uploaded_file) {
+      res.redirect('/candidat/Candidatures?error=Veuillez mettre un fichier');
+    } else if(uploaded_file.originalname.slice(uploaded_file.originalname.lastIndexOf("."))!==".pdf"){
+      res.redirect('/candidat/Candidatures?error=Le fichier doit etre un pdf');
+    } else {
+      let id_candidature=req.body.id_candidature
+      result=candidatureModel.update([req.body.myFileType],[uploaded_file.filename],id_candidature, () => {});
+      res.redirect('/candidat/Candidatures');
+    }
   }
-
 });
 
 router.post('/SupprimerCandidature', function(req, res, next) { 
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else{
   var id_offre = req.body.id_offre;
-  id_offre=id_offre.slice(0, -1);
-  result=candidatureModel.delete(req.session.email,id_offre,function(result){
-    console.log("Number of records deleted: " + result.affectedRows);
-    res.redirect('/candidat/Candidatures');
-  });
-  return(true);
+    id_offre=id_offre.slice(0, -1);
+    result=candidatureModel.delete(req.session.email,id_offre,function(result){
+      console.log("Number of records deleted: " + result.affectedRows);
+      res.redirect('/candidat/Candidatures');
+    });
+  }
 });
 
 

@@ -10,10 +10,14 @@
     
 </head>
 <body>
+  
   <div id="authenfication_box" class="container position-absolute top-50 start-50 translate-middle border border-secondary w-auto p-0" >
       <div class="btn-group w-100" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-secondary rounded-0" id="btn_connexion" onclick="toggleConnexion()">Connexion</button>
         <button type="button" class="btn btn-secondary rounded-0" id="btn_inscription" onclick="toggleInscription()">Inscription</button>
+      </div>
+      <div class="container mt-3 mb-3" id="error">
+        <span style="color:red"><%=error%></span>
       </div>
       <div class="container mt-3 mb-3">
         <form id= "form_connexion" class="" method="post" action="/utilisateurs/connexionUtilisateur">
@@ -32,24 +36,24 @@
       <div class="container mt-3 mb-3">
           <form id="form_inscription" class="d-none" method="post" action="/utilisateurs/nouvelUtilisateur">
 						<div class="form-group mt-3">
-              <label for="InputNom" class="form-label">Nom</label>
-              <input type="nom" class="form-control" name="utilisateur_nom">
+              <label for="InputNom"  class="form-label">Nom</label>
+              <input type="nom" required class="form-control" name="utilisateur_nom">
             </div>
             <div class="form-group mb-3">
               <label for="InputPrenom" class="form-label">Prenom</label>
-              <input type="prenom" class="form-control" name="utilisateur_prenom">
+              <input type="prenom" required class="form-control" name="utilisateur_prenom">
             </div>	
 						<div class="form-group mb-3">
-              <label for="InputTel" class="form-label">Telephone</label>
-              <input type="tel" class="form-control" name="utilisateur_tel">
+              <label for="InputTel" class="form-label" >Telephone</label>
+              <input type="tel" required class="form-control" name="utilisateur_tel" pattern="0\d{1}([\s ]|[\. ]?\d{2}){4}" title="Un numéro de téléphone commence par 0 et est composé de 10 chiffres" >
             </div>	  
             <div class="form-group mt-3">
               <label for="InputEmail" class="form-label">Email</label>
-              <input type="email" class="form-control" name="utilisateur_email">
+              <input type="email" required class="form-control" name="utilisateur_email">
             </div>
             <div class="form-group mb-3">
-              <label for="InputPassword" class="form-label">Mot de passe</label>
-              <input type="password" class="form-control" name="utilisateur_motdepasse">
+              <label for="InputPassword" class="form-label" >Mot de passe</label>
+              <input type="password" required class="form-control" name="utilisateur_motdepasse" pattern="(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?~'!@#$%^£&\*¤µ§²\(\)\]\[¨_\-€:;\,\+\\\/\{\}ç¿÷×¡]).{12,}" title="Doit contenir au moins une lettre minicsucle, une lettre majuscule, un chiffre et un carcatère spéciale parmi la liste : #?~'!@#$%^£&\*¤µ§²()][¨_-€:;,+/\{}ç¿÷×¡ avec une taille de 12 ou plus">
             </div>	
             <button type="submit" class="btn btn-primary float-end mb-3">S'inscrire</button>
           </form>

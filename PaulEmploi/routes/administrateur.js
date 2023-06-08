@@ -41,22 +41,40 @@ router.get('/organisations', function(req, res, next) {
   });
 
   router.post('/accepterOrganisation', function(req, res, next) {
-    const siren = req.body.organisation_siren;
-    //console.log(siren);
-    orgaModel.updateStatutDemande('validee', siren,function(result){});
-    res.redirect('/administrateur/organisations');
+    if (typeof req.session.email === 'undefined') {
+      res.redirect('/');
+    }else if (req.session.type_compte !== 'administrateur') {
+      res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+    } else {
+      const siren = req.body.organisation_siren;
+      //console.log(siren);
+      orgaModel.updateStatutDemande('validee', siren,function(result){});
+      res.redirect('/administrateur/organisations');
+    }
   });
 
   router.post('/organisations/recherche', function(req, res, next) {
-    const search = req.body.recherche;
-    console.log('search',search);
-    res.redirect('/administrateur/organisations?search=' + search);
+    if (typeof req.session.email === 'undefined') {
+      res.redirect('/');
+    }else if (req.session.type_compte !== 'administrateur') {
+      res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+    } else {
+      const search = req.body.recherche;
+      console.log('search',search);
+      res.redirect('/administrateur/organisations?search=' + search);
+    }
   });
 
   router.post('/refuserOrganisation', function(req, res, next) {
-    const siren = req.body.organisation_siren;
-    orgaModel.updateStatutDemande('refusee', siren,function(result){});
-    res.redirect('/administrateur/organisations');
+    if (typeof req.session.email === 'undefined') {
+      res.redirect('/');
+    }else if (req.session.type_compte !== 'administrateur') {
+      res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+    } else {
+      const siren = req.body.organisation_siren;
+      orgaModel.updateStatutDemande('refusee', siren,function(result){});
+      res.redirect('/administrateur/organisations');
+    }
   });
 
 

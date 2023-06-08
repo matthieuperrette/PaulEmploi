@@ -1,7 +1,10 @@
 var express = require('express');
 var moment = require('moment')
 const offreModel = require('../model/offre_emplois');
+const ficheModel = require('../model/fiche_postes');
 const utilisateurModel = require('../model/utilisateurs');
+const activiteModel = require('../model/statut_activites');
+const metierModel = require('../model/type_metiers');
 var router = express.Router();
 
 /* GET users listing. */
@@ -40,15 +43,108 @@ router.get('/demandes', function(req, res, next) {
     });
   }
 });
+router.get('/ajouterOffre', function(req, res, next) {
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'recruteur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    const email = req.session.email
+    retour=activiteModel.readall( function(activites){
+      
+      result=metierModel.readall( function(metiers) {
+        console.log(activites)
+        console.log(metiers)
+        res.render('recruteurAjouterOffre', { nom:  req.session.nom, type:  req.session.type_compte, offres: false, moment: moment, nom_metiers:metiers, nom_statuts: activites});
+      });
+    });  
+  }
+});
 router.post('/refuserDemande', function(req, res, next) {
-  const email = req.body.email;
-  utilisateurModel.updateOrgaToNull(email,function(result){});
-  res.redirect('/recruteur/demandes');
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'recruteur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    const email = req.body.email;
+    utilisateurModel.updateOrgaToNull(email,function(result){});
+    res.redirect('/recruteur/demandes');
+  }
+});
+router.post('/ajouterOffre', function(req, res, next) {
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'recruteur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    result=utilisateurModel.read(req.session.email, function(user) {
+      let intitule=req.body.intitule;
+      let lieu=req.body.lieu;
+      let description=req.body.description;
+      let rythme=+req.body.rythme;
+      let teletravail=+req.body.teletravail;
+      let recruteur=req.session.email;
+      let nom_metier=req.body.nom_metier;
+      let nom_statut=req.body.nom_statut;
+      console.log("metier", nom_metier);
+      console.log("satut", nom_statut);
+      let min_salaire=+req.body.min_salaire;
+      let max_salaire=+req.body.max_salaire;
+      result=ficheModel.readParams(intitule, lieu, description, rythme, teletravail, recruteur, nom_metier, nom_statut, min_salaire, max_salaire, function(result) {
+        if(result.length===0){
+          ficheModel.create(intitule, lieu, description, rythme, teletravail, recruteur, nom_metier, nom_statut, min_salaire, max_salaire, function(){})
+          result=ficheModel.readParams(intitule, lieu, description, rythme, teletravail, recruteur, nom_metier, nom_statut, min_salaire, max_salaire, function(result) {
+            let id_fiche=result[0].id_fiche;
+            let etat=req.body.etat;
+            let date_validite=req.body.date_validite;
+            let indication=req.body.indication;
+            let nombre_pieces;
+            if(indication==="CV" || indication==="lettre de motivation")
+              nombre_pieces=1;
+            else
+              nombre_pieces=2
+            let organisation=user[0].organisation
+            offreModel.create(etat, date_validite, indication, nombre_pieces, organisation,id_fiche,function() {})
+          });
+        }else{
+          let id_fiche=result[0].id_fiche;
+          let etat=req.body.etat;
+          let date_validite=req.body.date_validite;
+          let indication=req.body.indication;
+          let nombre_pieces;
+          if(indication==="CV" || indication==="lettre de motivation")
+            nombre_pieces=1;
+          else
+            nombre_pieces=2
+          let organisation=user[0].organisation
+          offreModel.create(etat, date_validite, indication, nombre_pieces, organisation,id_fiche,function() {})
+        }
+        res.redirect('/recruteur');
+      });
+    });
+  }
+});
+router.post('/refuserDemande', function(req, res, next) {
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'recruteur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    const email = req.body.email;
+    utilisateurModel.updateOrgaToNull(email,function(result){});
+    res.redirect('/recruteur/demandes');
+  }
 });
 router.post('/accepterDemande', function(req, res, next) {
-  const email = req.body.email;
-  utilisateurModel.updateTypeCompte('recruteur', email,function(result){});
-  res.redirect('/recruteur/demandes');
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'recruteur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    const email = req.body.email;
+    utilisateurModel.updateTypeCompte('recruteur', email,function(result){});
+    res.redirect('/recruteur/demandes');
+  }
 });
 router.post('/chercherCandidatures', function(req, res, next) {
   if (typeof req.session.email === 'undefined') {
@@ -60,6 +156,18 @@ router.post('/chercherCandidatures', function(req, res, next) {
     offreModel.readCandidatures(id_offre,function(result){
       console.log(result)
       res.render('recruteurCandidaturesOffre', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment});
+    });
+  }
+});
+router.post('/supprimerOffre', function(req, res, next) {
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'recruteur') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    const id_offre = req.body.id_offre;
+    result=offreModel.delete(id_offre,function(result){
+      res.redirect('/recruteur');
     });
   }
 });

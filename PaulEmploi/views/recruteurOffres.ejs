@@ -20,7 +20,7 @@
 
       
       <div class="container-block m-3">
-        <button class="btn btn-primary rounded-0" >Ajouter une offre</button>
+        <a href="/recruteur/ajouterOffre" class="button btn btn-primary rounded-0" >Ajouter une offre</a>
       </div>
 
 
@@ -51,13 +51,16 @@
                 </div>
                 <div class="container-block m-3 row">
                     <p class="col">
-                      <%= offre.rythme%><br>
+                      <%= offre.rythme%> heures <% if(offre.teletravail==1) {%>, avec teletravail<%}else{%>, sans teletravail<%};%><br>
                       <%= offre.min_salaire%>~<%= offre.max_salaire%>€/mois<br>
                       <%= offre.indication%> disponible jusqu'au <%= moment(offre.date_validite).format('DD/MM/YYYY');%>
                     </p>
                     <div class="col-2">
-                        <a class="btn btn-primary rounded-0 float-end m-2" href="#" role="button">Modifier</a>
-                        <a class="btn btn-primary rounded-0 float-end m-2" href="#" role="button">Supprimer</a>
+                       <form method="post" action="">
+                            <input type="hidden" name="id_offre" id="hiddenField" value=<%= offre.id_offre%> >
+                            <button type="submit" formaction="/recruteur/modifierOffre" class="btn btn-primary float-end m-2">Modifier</button>
+                            <button type="submit" formaction="/recruteur/supprimerOffre" class="btn btn-primary float-end m-2 ">Supprimer</button>
+                        </form>
                     </div>
                 </div>
             </div>
