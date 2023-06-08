@@ -77,24 +77,31 @@ TO DO:
 DONE -> fait
 QUESTION -> voir le partie question prof a la fin du readme
 
-- pop up en cas d'erreur lors de la creation d'un compte/connection
-    Deux fois le même email dans la bdd
-    Un regex qui ne fonctionne pas
-    mauvais mdp/identifiant connexion
-    connection a un compte supprimer/inactif
+
 - tri/filtre sur candidat
-- bouton ajouter des offres et modifier/supprimer
+- bouton ajouter des offres et modifier/DONE supprimer
 - demande pour devenir un recruteur/creation d'entreprise
-- mettre des documents pour les candidats et pouvoir les télécharger
 - bug
-    les boutons "plus" ne se referme pas
-    affichage de la navbar
-    autre?
-- rendre une recherche sans rien plus belle
+    les boutons "plus" ne se referme pas (aucune idée pourquoi)
+    affichage de la navbar pas belle dès que le navigateur est trop petit
+    dans administrateur utilisateurs les deux points de prénom ne sont pas au bon endroit
+    dans administrateur utilisateurs Statut est décalé
+    autre? 
 - faire + de test de models et de pages
-- Changement bdd 
-    par candidature faire colonnes CV et lettre de motiv a la place de piece 
-    dans offre emploi transformer indication en enum CV, lettre de motivation, lettre de motiv et CV
+- finitions
+    faire js pour empecher la date de validité d'etre avant aujourd'hui
+    rendre une recherche sans rien plus belle
+    message d'erreur sur la page d'acceuil quand un compte est desactivé agranti la div contenant les champs empecher ca
+- DONE pop up en cas d'erreur lors de la creation d'un compte/connection
+    DONE Deux fois le même email dans la bdd
+    DONE Un regex qui ne fonctionne pas
+    DONE mauvais mdp/identifiant connexion
+    DONE connection a un compte supprimer/inactif
+- DONE Changement bdd 
+    DONE par candidature faire colonnes CV et lettre de motiv a la place de piece 
+    DONE dans offre emploi transformer indication en enum CV, lettre de motivation, lettre de motiv et CV
+    DONE le rythme est un chiffre en nombre d'heure et teletravail une autre colonne booleene
+- DONE mettre des documents pour les candidats et pouvoir les télécharger
 - DONE pagination
 - DONE faire un regex pour le mot de passe
 - DONE partials pour le header et la navbar
@@ -103,6 +110,8 @@ QUESTION -> voir le partie question prof a la fin du readme
 - DONE connexion check compte_actif
 - DONE bouton log out
 - DONE corriger le log out pour mettre req.session.destroy()
+- DONE bug
+    DONE les plus deroule tous
 
 
 
@@ -118,3 +127,4 @@ execute command denied to user 'sr10p028'@'localhost' for routine 'sr10p028.TO_D
 
 Question prof:
 la suppression de compte définitif -> drop cascade ou alors juste mettre le compte_actif
+-> compte actif peut en effet etre utilise comme ca a nous de choisir

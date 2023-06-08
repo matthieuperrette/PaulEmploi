@@ -8,13 +8,13 @@ module.exports = {
         });
     },
     readCandidatures: function (id_offre, callback) {
-        db.query("select * from offre_emplois oe, candidatures c, utilisateurs u where oe.id_offre= ? AND c.offre=oe.id_offre AND c.candidat=u.email",id_offre, function(err, results) {
+        db.query("select * from offre_emplois oe, candidatures c, utilisateurs u where oe.id_offre= ? AND c.offre=oe.id_offre AND c.candidat=u.email AND u.compte_actif=1",id_offre, function(err, results) {
             if (err) throw err;
             callback(results);
         });
     },
     readAllInfos: function (callback) {
-        var sql="SELECT intitule, lieu, description, rythme, nom_metier, nom_statut, "+
+        var sql="SELECT intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
         "WHERE fp.id_fiche=oe.fiche AND oe.organisation=o.siren";
@@ -24,7 +24,7 @@ module.exports = {
         });
     },
     readAllInfosPubliee: function (callback) {
-        var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
         "WHERE fp.id_fiche=oe.fiche AND oe.organisation=o.siren AND oe.etat='Publiee'";
@@ -34,7 +34,7 @@ module.exports = {
         });
     },
     readAllInfosPublieePasCandidater: function (email,callback) {
-        var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom, candidat " + 
         "FROM offre_emplois oe LEFT OUTER JOIN candidatures c ON oe.id_offre=c.offre " +
         "LEFT OUTER JOIN fiche_postes fp ON fp.id_fiche=oe.fiche " +
@@ -46,7 +46,7 @@ module.exports = {
         });
     },
     readAllInfosPublieePasCandidaterLike: function (email, like, callback) {
-        var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom, candidat " + 
         "FROM offre_emplois oe LEFT OUTER JOIN candidatures c ON oe.id_offre=c.offre " +
         "LEFT OUTER JOIN fiche_postes fp ON fp.id_fiche=oe.fiche " +
@@ -59,7 +59,7 @@ module.exports = {
         });
     },
     readInfosPubliee: function (id_offre,callback) {
-        var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
         "WHERE oe.id_offre=" + id_offre + " AND fp.id_fiche=oe.fiche AND oe.organisation=o.siren";
@@ -69,7 +69,7 @@ module.exports = {
         });
     },
     readInfosPublieeByAuthor: function (email, callback) {
-        var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
         "WHERE fp.recruteur='" + email + "' AND fp.id_fiche=oe.fiche AND oe.organisation=o.siren AND oe.etat='Publiee'";
@@ -79,7 +79,7 @@ module.exports = {
         });
     },
     readInfosPublieeByAuthorLike: function (email, search, callback) {
-        var sql="SELECT id_offre, intitule, lieu, description, rythme, nom_metier, nom_statut, "+
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
         "WHERE fp.recruteur='" + email + "' AND fp.id_fiche=oe.fiche AND oe.organisation=o.siren AND oe.etat='Publiee'"+

@@ -7,6 +7,16 @@ module.exports = {
             callback(results);
         });
     },
+    readParams: function (intitule, lieu, description, rythme, teletravail, recruteur, nom_metier, nom_statut, min_salaire, max_salaire, callback) {
+        var data = [intitule, lieu, description, rythme, teletravail, recruteur, nom_metier, nom_statut, min_salaire, max_salaire]
+        sql="select * from fiche_postes where intitule= ? AND  lieu=? AND description=?"+
+        "AND rythme=? AND teletravail=? AND recruteur=? AND nom_metier=? AND nom_statut=?"+
+        "AND min_salaire=? AND max_salaire=?"
+        db.query(sql , data, function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     readallOrderBy: function ( colonne_ordre, callback) {
         db.query("select * from fiche_postes ORDER BY " + colonne_ordre, function(err, results) {
             if (err) throw err;
@@ -25,9 +35,9 @@ module.exports = {
         callback(results);
         });
     },
-    create: function (intitule, lieu, description, rythme, recruteur, nom_metier, nom_statut, min_salire, max_salaire, callback) {
-        var data = [intitule, lieu, description, rythme, recruteur, nom_metier, nom_statut, min_salire, max_salaire]
-        var sql = "INSERT INTO fiche_postes VALUES(NULL,?,?,?,?,?,?,?,?,?)";
+    create: function (intitule, lieu, description, rythme, teletravail, recruteur, nom_metier, nom_statut, min_salaire, max_salaire, callback) {
+        var data = [intitule, lieu, description, rythme, teletravail, recruteur, nom_metier, nom_statut, min_salaire, max_salaire]
+        var sql = "INSERT INTO fiche_postes VALUES(NULL,?,?,?,?,?,?,?,?,?,?)";
         db.query(sql,data, function (err, results) {
             if (err) throw err;
             callback(results);

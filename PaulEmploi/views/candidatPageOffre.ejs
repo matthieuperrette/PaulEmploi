@@ -25,7 +25,7 @@
                         <%= offre[0].nom_statut%> en <%=offre[0].nom_metier%><br>
                         description : <%= offre[0].description%><br>
                         Lieu de travail : <%=offre[0].lieu%><br>
-                        rythme: <%= offre[0].rythme%><br>
+                        rythme: <%= offre[0].rythme%> heures<% if(offre[0].teletravail==1) {%>, avec teletravail<%}else{%>, sans teletravail<%};%><br>
                         salaire: <%= offre[0].min_salaire%>~<%= offre[0].max_salaire%>€/mois<br>
                         Document demandé: <%= offre[0].indication%><br>
                         dsisponible jusqu'au <%= moment(offre[0].date_validite).format('DD/MM/YYYY')%>
