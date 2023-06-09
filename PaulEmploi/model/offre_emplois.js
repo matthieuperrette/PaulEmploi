@@ -15,7 +15,7 @@ module.exports = {
     },
     readAllInfos: function (callback) {
         var sql="SELECT intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
-        "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
+        "min_salaire, max_salaire, id_fiche, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
         "WHERE fp.id_fiche=oe.fiche AND oe.organisation=o.siren";
         db.query(sql, function(err, results) {
@@ -46,7 +46,7 @@ module.exports = {
         });
     },
     readAllInfosPublieePasCandidaterLike: function (email, like, callback) {
-        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail nom_metier, nom_statut, "+
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom, candidat " + 
         "FROM offre_emplois oe LEFT OUTER JOIN candidatures c ON oe.id_offre=c.offre " +
         "LEFT OUTER JOIN fiche_postes fp ON fp.id_fiche=oe.fiche " +
@@ -58,9 +58,9 @@ module.exports = {
             callback(results);
         });
     },
-    readInfosPubliee: function (id_offre,callback) {
-        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail nom_metier, nom_statut, "+
-        "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
+    readInfos: function (id_offre,callback) {
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
+        "min_salaire, max_salaire, etat, id_fiche, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
         "WHERE oe.id_offre=" + id_offre + " AND fp.id_fiche=oe.fiche AND oe.organisation=o.siren";
         db.query(sql, function(err, results) {
@@ -69,7 +69,7 @@ module.exports = {
         });
     },
     readInfosPublieeByAuthor: function (email, callback) {
-        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail nom_metier, nom_statut, "+
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
         "WHERE fp.recruteur='" + email + "' AND fp.id_fiche=oe.fiche AND oe.organisation=o.siren AND oe.etat='Publiee'";
@@ -79,7 +79,7 @@ module.exports = {
         });
     },
     readInfosPublieeByAuthorLike: function (email, search, callback) {
-        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail nom_metier, nom_statut, "+
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe, fiche_postes fp, organisations o "+ 
         "WHERE fp.recruteur='" + email + "' AND fp.id_fiche=oe.fiche AND oe.organisation=o.siren AND oe.etat='Publiee'"+
