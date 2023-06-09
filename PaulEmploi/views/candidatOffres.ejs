@@ -53,7 +53,7 @@
                 </div>
                 <div class="container-block m-3 row">
                     <p class="col">
-                      <%= offre.rythme%><br>
+                      <%= offre.rythme%>heures<% if(offre.teletravail==1) {%>, avec teletravail<%}else{%>, sans teletravail<%};%><br>
                       <%= offre.min_salaire%>~<%= offre.max_salaire%>€/mois<br>
                       <%= offre.indication%> dsisponible jusqu'au <%= moment(offre.date_validite).format('DD/MM/YYYY');%>
                     </p>
