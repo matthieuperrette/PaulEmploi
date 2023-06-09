@@ -80,7 +80,7 @@ router.post('/connexionUtilisateur', function(req, res, next) {
 router.post('/supprimerUtilisateur', function(req, res, next) {
   if (typeof req.session.email === 'undefined') {
     res.redirect('/');
-  }else if (req.session.type_compte !== 'recruteur') {
+  }else if (req.session.type_compte !== 'administrateur') {
     res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
   } else {
     const id_email = req.body.utilisateur_id_email;
@@ -93,7 +93,7 @@ router.post('/supprimerUtilisateur', function(req, res, next) {
 router.post('/editUtilisateur', function(req, res, next) {
   if (typeof req.session.email === 'undefined') {
     res.redirect('/');
-  }else if (req.session.type_compte !== 'recruteur') {
+  }else if (req.session.type_compte !== 'administrateur') {
     res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
   } else {
     const id_email = req.body.utilisateur_id_email;

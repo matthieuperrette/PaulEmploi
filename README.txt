@@ -79,7 +79,6 @@ QUESTION -> voir le partie question prof a la fin du readme
 
 
 - tri/filtre sur candidat
-- bouton DONE ajouter des offres et A FAIRE EN SE BASANT SUR AJOUTER modifier/DONE supprimer
 - demande pour devenir un recruteur/creation d'entreprise
 - bug
     les boutons "plus" ne se referme pas (aucune idée pourquoi)
@@ -92,6 +91,7 @@ QUESTION -> voir le partie question prof a la fin du readme
     faire js pour empecher la date de validité d'etre avant aujourd'hui
     rendre une recherche sans rien plus belle
     message d'erreur sur la page d'acceuil quand un compte est desactivé agranti la div contenant les champs empecher ca
+- DONE bouton  ajouter des offres et modifier/supprimer
 - DONE pop up en cas d'erreur lors de la creation d'un compte/connection
     DONE Deux fois le même email dans la bdd
     DONE Un regex qui ne fonctionne pas

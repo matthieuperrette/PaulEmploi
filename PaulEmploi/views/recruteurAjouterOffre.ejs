@@ -24,6 +24,7 @@ let min_salaire=""
 let max_salaire=""
 
 if (offres) {
+    offre=offres[0]
     etat=offre.etat
     date_validite=offre.date_validite
     indication=offre.indication
@@ -44,7 +45,7 @@ if (offres) {
     <div class="col-11 p-0">
         <div class="container-block border border-secondary m-3">
             <div class="container-block ">
-                <form class="m-3 align-items-center row" method="post" action="/recruteur/ajouterOffre">
+                <form class="m-3 align-items-center row" method="post" action="">
                     <div class="col-10">
                         <div class="row">
                             <label for="etat" class="col-sm-3 col-form-label">Etat :</label>
@@ -60,7 +61,7 @@ if (offres) {
                         <div class="row">
                             <label for="date_validite" class="col-sm-3 col-form-label">date de validite :</label>
                             <div class="col-sm-9">
-                                <input required type="date" class="form-control" name="date_validite" value="<%= date_validite%>">
+                                <input required type="date" class="form-control" name="date_validite" value="<%=moment(date_validite).format('YYYY-MM-DD')%>">
                             </div>
                         </div>
                         <div class="row">
@@ -116,7 +117,7 @@ if (offres) {
                                     <select required class="form-control" name="nom_metier">
                                         <option value="">--- nom métier ---</option>
                                         <%nom_metiers.forEach((metier)=> { %>
-                                        <option value="<%=metier.nom_metier%>"<% if(metier.nom_metier == nom_metier) { %> selected <% } %>><%= metier.nom_metier%></option>
+                                            <option value="<%=metier.nom_metier%>"<% if(metier.nom_metier == nom_metier) { %> selected <% } %>><%= metier.nom_metier%></option>
                                         <%});%>
                                     </select>
                                 </div>
@@ -146,7 +147,13 @@ if (offres) {
                             </div>
                             
                             <div class="p-3">
-                                <button type="submit" class="btn btn-primary active rounded-1 ">Ajouter</button>
+                                <% if (offres) {%>
+                                    <input type="hidden" name="id_offre" id="hiddenField" value=<%=offres[0].id_offre%>>
+                                    <input type="hidden" name="id_fiche" id="hiddenField" value=<%=offres[0].id_fiche%> >
+                                    <button type="submit" formaction="/recruteur/updateOffre" class="btn btn-primary active rounded-1 ">Modifier</button>
+                                <%} else {%>
+                                    <button type="submit" formaction="/recruteur/ajouterOffre" class="btn btn-primary active rounded-1 ">Ajouter</button>
+                                <%};%>
                             </div>
                         </div>
                     </div>
