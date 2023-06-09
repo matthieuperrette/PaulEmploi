@@ -9,16 +9,16 @@
 </head>
 <header>
   <div class="container-fluid m-0 p-4 row">
-    <div class="col-10">
+    <div class="col-8">
         <p class="fs-2 fw-semibold m-0" >Paul Emploi  Nom : <%= nom %></p>
     </div>
-    <div class="col-1">
+    <div class="col-2">
       
       <%if(typeof type !== 'undefined') {%>
-        <a href="/utilisateurs/deconnection" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">log out</a>
+        <a href="/utilisateurs/deconnection" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Se déconnecter</a>
       <%};%>
     </div>
-    <div class="col-1">
+    <div class="col-2">
       <% if(boutonAccueil) { %>
         <a href="/candidat" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Accueil</a>
       <%} else if(type == 'administrateur') { %>
@@ -30,25 +30,26 @@
       <% } else { %>
         <div class="dropdown">
           <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Devenir Recruteur</button>
-          <form class="dropdown-menu p-4">
+          <div class="dropdown-menu">
+          <form method="post" action="/organisation/demandeRecruteur" class="p-4">
             <div class="mb-3">
-                <label for="exampleDropdownFormEmail2" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
-            </div>
-            <div class="mb-3">
-              <label for="exampleDropdownFormPassword2" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
-            </div>
-            <div class="mb-3">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="dropdownCheck2">
-                <label class="form-check-label" for="dropdownCheck2">
-                  Remember me
-                </label>
+              <% if(organisations != 'undefined'){%>
+              <p> Vous êtes recruteur ? Entrez le nom de votre organisation pour demander à devenir recruteur en temps que membre de cette organisation.</p>
+                <label for="exampleDropdownFormOrganisationNom" class="form-label">Organisation :</label>
+                <input type="organisation" class="form-control" list="listeOrganisations" name="organisationNom" id="exampleDropdownFormOrganisationNom" placeholder="SNCF">
+                <datalist id="listeOrganisations">
+                  <% organisations.forEach((organisation)=> { %>
+                    <option value="<%= organisation.nom %>">
+                  <% })%>
+                </datalist>
+                
               </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="submit" class="btn btn-primary">Faire une demande</button>
+            <% }else{%>
+              <p>Votre demande est en cours de traitement.</p>
+            <% }%>
           </form>
+          </div>
         </div>   
       <% }; %>
           

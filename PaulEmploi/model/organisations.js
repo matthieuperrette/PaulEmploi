@@ -7,8 +7,20 @@ module.exports = {
             callback(results);
         });
     },
+    readByName: function (nom, callback) {
+        db.query("select * from organisations where nom=?",nom, function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     readall: function (callback) {
         db.query("select * from organisations", function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+    readallOrganisationNames: function (callback) {
+        db.query("select nom from organisations", function (err, results) {
             if (err) throw err;
             callback(results);
         });
