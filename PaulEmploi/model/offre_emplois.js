@@ -47,12 +47,58 @@ module.exports = {
     },
     readAllInfosPublieePasCandidaterLike: function (email, like, callback) {
         var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
-        "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom, candidat " + 
+        "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
         "FROM offre_emplois oe LEFT OUTER JOIN candidatures c ON oe.id_offre=c.offre " +
         "LEFT OUTER JOIN fiche_postes fp ON fp.id_fiche=oe.fiche " +
         "LEFT OUTER JOIN organisations o ON  oe.organisation=o.siren "+ 
         "WHERE oe.etat='Publiee' AND (c.candidat is NULL OR c.candidat<>'"+email+"')" +
-        " AND intitule LIKE '%" + like +"%';";
+        " AND intitule LIKE '%" + like +"%' GROUP BY id_offre;";
+        db.query(sql, function(err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
+    readAllInfosPublieePasCandidaterLikeORDER: function (email, like, order, nom, value, callback) {
+        var sql="SELECT id_offre, intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
+        "min_salaire, max_salaire, etat, date_validite, indication, nombre_pieces, nom " + 
+        "FROM offre_emplois oe LEFT OUTER JOIN candidatures c ON oe.id_offre=c.offre " +
+        "LEFT OUTER JOIN fiche_postes fp ON fp.id_fiche=oe.fiche " +
+        "LEFT OUTER JOIN organisations o ON  oe.organisation=o.siren "+ 
+        "WHERE oe.etat='Publiee' AND (c.candidat is NULL OR c.candidat<>'"+email+"')" +
+        " AND intitule LIKE '%" + like +"%' ";
+        let min=-1;
+        let max=-1;
+        let min_rythme=-1;
+        let max_rythme=-1;
+        if(nom.length!==value.length)   throw("Erreur les deux tableaux en parametre doivent etre de meme taille") 
+        for (var i = 0; i < nom.length; i++){
+            if(nom[i]!='min_salaire' && nom[i]!='max_salaire' && nom[i]!='min_rythme' && nom[i]!='max_rythme' && nom[i]!='teletravail')
+                sql += "AND " +nom[i] + " LIKE '%"+value[i]+"%' "; 
+            else if (nom[i]=='min_salaire')
+                min=i;
+            else if (nom[i]=='max_salaire')
+                max=i
+            else if (nom[i]=='teletravail' && value[i]!=-1)
+                sql+= "AND teletravail="+value[i]+" ";
+            else if (nom[i]=='min_rythme')
+                min_rythme=i;
+            else if (nom[i]=='max_rythme')
+                max_rythme=i
+        };
+        if(value[min]!=-1){
+            sql += "AND ((min_salaire<="+value[max]+" AND max_salaire>="+value[max]+")" +
+            " OR (min_salaire<="+value[min]+" AND max_salaire>="+value[min]+")" +
+            " OR (min_salaire>="+value[min]+" AND max_salaire<="+value[max]+")) "
+        }
+        if(value[min_rythme]!=-1){
+            sql += "AND (rythme>"+value[min_rythme]+" AND rythme<="+value[max_rythme]+") "
+        }
+        sql +="GROUP BY id_offre "
+        if(order!=='')
+            sql += "ORDER BY "+ order;
+        else 
+            sql+=";"
+        console.log(sql)
         db.query(sql, function(err, results) {
             if (err) throw err;
             callback(results);

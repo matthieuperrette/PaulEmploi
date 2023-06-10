@@ -78,19 +78,19 @@ DONE -> fait
 QUESTION -> voir le partie question prof a la fin du readme
 
 
-- tri/filtre sur candidat
-- demande pour devenir un recruteur/creation d'entreprise
+
+- demande pour devenir un recruteur/creation d'entreprise -> en cours
+    DONE si jamais une entreprise est accepter il faut accepeter tous les recruteurs qui sont en demandes actuelement
 - bug
     les boutons "plus" ne se referme pas (aucune idée pourquoi)
     affichage de la navbar pas belle dès que le navigateur est trop petit
-    dans administrateur utilisateurs les deux points de prénom ne sont pas au bon endroit
-    dans administrateur utilisateurs Statut est décalé
     autre? 
 - faire + de test de models et de pages
 - finitions
+    immonde dropdown button pour candidat
     faire js pour empecher la date de validité d'etre avant aujourd'hui
     rendre une recherche sans rien plus belle
-    message d'erreur sur la page d'acceuil quand un compte est desactivé agranti la div contenant les champs empecher ca
+- DONE tri/filtre sur candidat
 - DONE bouton  ajouter des offres et modifier/supprimer
 - DONE pop up en cas d'erreur lors de la creation d'un compte/connection
     DONE Deux fois le même email dans la bdd
@@ -128,3 +128,21 @@ execute command denied to user 'sr10p028'@'localhost' for routine 'sr10p028.TO_D
 Question prof:
 la suppression de compte définitif -> drop cascade ou alors juste mettre le compte_actif
 -> compte actif peut en effet etre utilise comme ca a nous de choisir
+
+
+Sécurité :
+
+3 concepts
+    -> analyse des vulnérabilités et dire si notre site est concerner 
+    -> si vulnerable faire simuler une attaque 
+    -> expliqué comment le protéger
+
+1 concept vol de session -> les cookies sont hachés c'est bon//temps sur la session pour éviter un vole de hash
+vol de mot de passe et d'identifiant -> double authentification via l'ip
+brut forcing -> bloquer coté serveur ?
+-> xms protéger les balises sont modifiés
+
+
+typiquement vol de ssession :
+    aller sur deux navigateurs connecter avec deux sessions différentes
+    modifier le cookie depuis le navigateur

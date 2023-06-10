@@ -130,6 +130,12 @@ module.exports = {
             callback(results);
         });
     },
+    updateTypeCompteWithOrga : function (type, siren,callback){
+        db.query("UPDATE utilisateurs SET type_compte=? WHERE organisation=?", [type, siren],function (err, results) {
+            if (err) throw err;
+            callback(results);
+        });
+    },
     updateOrganisation : function (orga,email,callback){
         db.query("UPDATE utilisateurs SET organisation=? WHERE email=?", [orga, email],function (err, results) {
             if (err) throw err;
