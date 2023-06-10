@@ -48,10 +48,13 @@ module.exports = {
         callback(results);
         });
     },
-    create: function (pieces, id_utilisateur, id_offre, callback) {
+    create: function (id_utilisateur, id_offre, callback) {
         var date = new Date().toISOString().slice(0, 10);
-        var data = [date, pieces, id_utilisateur, id_offre]
-        var sql = "INSERT INTO candidatures VALUES(NULL,?,?,?,?)";
+        
+        console.log(id_utilisateur)
+        console.log(id_offre)
+        var data = [date, id_utilisateur, id_offre]
+        var sql = "INSERT INTO candidatures VALUES(NULL,?,NULL,NULL,?,?)";
         db.query(sql,data, function (err, results) {
             if (err) throw err;
             callback(results);

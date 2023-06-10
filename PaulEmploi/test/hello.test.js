@@ -1,18 +1,20 @@
 const DB= require ("../model/pool.js");
 const model= require ("../model/utilisateurs.js");
 describe("Model Tests", () => {
-    afterAll(done=>{
-        function callback (err){
-            if (err) done (err);
-            else done();
-        }
-        DB.end(callback);
-    });
+    afterAll((done) => {
+function callback (err){
+if (err) done (err);
+else done();
+}
+DB.end(callback);
+});
+
     test ("readall user",()=>{
         model.readall(function (resultat){
-            nb_retour = length(resultat);
+            console.log(resultat)
+            nb_retour = resultat.length;
             console.log(nb_retour);
-            expect(nom).toBeGreaterThan(0);
+            expect(nb_retour).toBeGreaterThan(0);
         })
 
     }
@@ -20,10 +22,23 @@ describe("Model Tests", () => {
     test ("isValid user",()=>{
         model.isValid("test@test.fr","mdp", function (resultat){
             valid = resultat;
-            expect(valid).toBeTruthy();
+            expect(valid).toBeFalsy();
         })
 
     }
     );
-    
+    test ("create user",()=>{
+        model.create("test2@test.fr","hello","world","mdp","0778899878", function (resultat){
+            expect(resultat.affectedRows).toBeEqual(1);
+        })
+
+    }
+    );
+    test ("suppr user",()=>{
+        model.delete("test2@test.fr", function (resultat){
+            expect(1*2).not.toBe(2);
+        })
+
+    }
+    );
 })

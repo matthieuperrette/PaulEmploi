@@ -48,6 +48,7 @@ router.get('/organisations', function(req, res, next) {
     } else {
       const siren = req.body.organisation_siren;
       //console.log(siren);
+      userModel.updateTypeCompteWithOrga('recruteur', siren, function(result){})
       orgaModel.updateStatutDemande('validee', siren,function(result){});
       res.redirect('/administrateur/organisations');
     }
