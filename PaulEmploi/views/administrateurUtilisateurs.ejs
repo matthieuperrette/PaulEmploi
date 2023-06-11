@@ -13,7 +13,7 @@
   <div class="row m-0 vh-100">
     <%- include('partials/navbar.ejs',{nav: 1}) %>
     <div class="col-11 p-0">
-        <form class="container-block m-3 align-items-center border border-secondary row p-3" method="post" action="">
+        <form class="container-block m-3 align-items-center border border-secondary row p-3" method="get" action="">
             <input type="search" class="form-control" name="search" id="recherche" placeholder="Recherche">
         </form>
         <%var user, taille=users.length;%>

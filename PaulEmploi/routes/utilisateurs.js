@@ -77,7 +77,7 @@ setInterval(function() {
 router.post('/connexionUtilisateur', function(req, res, next) {
   var f = failures[req.socket.remoteAddress];
   if (f && Date.now() < f.nextTry) {
-    res.redirect('/?error=Vous devez attendre avant de réessayer'+f.nextTry);
+    res.redirect('/?error=Vous devez attendre avant de réessayer');
       return res.error();
   }else{
     const email = req.body.utilisateur_email;

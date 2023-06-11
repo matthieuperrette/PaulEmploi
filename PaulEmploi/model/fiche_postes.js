@@ -1,4 +1,5 @@
 var db = require('./pool.js');
+var mysql=require('mysql');
 
 module.exports = {
     read: function (id_fiche, callback) {
@@ -56,9 +57,9 @@ module.exports = {
         if(nom.length!==value.length)   throw("Erreur les deux tableaux en parametre doivent etre de meme taille") 
         sql="UPDATE fiche_postes SET "
         for (var i = 0; i < nom.length-1; i++){
-            sql +=nom[i] + "='"+value[i]+"',"; 
+            sql +=nom[i] + "="+mysql.escape(value[i])+","; 
         };
-        sql+=nom[i] + "='"+value[i]+"' WHERE id_fiche=?";
+        sql+=nom[i] + "="+mysql.escape(value[i])+" WHERE id_fiche=?";
         console.log(sql);
         db.query(sql, id_fiche,function (err, results) {
             if (err) throw err;

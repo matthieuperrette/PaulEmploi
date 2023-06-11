@@ -100,7 +100,9 @@ router.post('/ajouterOffre', function(req, res, next) {
         else
           nombre_pieces=2
         let organisation=user[0].organisation
-        offreModel.create(etat, date_validite, indication, nombre_pieces, organisation,id_fiche,function() {})
+        offreModel.create(etat, date_validite, indication, nombre_pieces, organisation,id_fiche,function() {
+          res.redirect('/recruteur')
+        })
       });
     });
   }
