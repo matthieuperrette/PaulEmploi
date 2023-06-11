@@ -1,4 +1,5 @@
 var db = require('./pool.js');
+var mysql = require('mysql')
 
 module.exports = {
     read: function (email, callback) {
@@ -15,7 +16,7 @@ module.exports = {
         });
     },
     readallLike: function (like, callback) {
-        sql="select * from utilisateurs WHERE nom LIKE '%" + like +"%' OR prenom LIKE '%"+like+"%' ORDER BY nom";
+        sql="select * from utilisateurs WHERE nom LIKE "+mysql.escape("%" + like +"%")+" OR prenom LIKE "+mysql.escape("%" + like +"%")+" ORDER BY nom";
         db.query(sql, function (err, results) {
             if (err) throw err;
             callback(results);
@@ -28,7 +29,7 @@ module.exports = {
         });
     },
     readallDemandesLike: function (SIREN, search, callback) {
-        db.query("select * from utilisateurs WHERE organisation=? AND type_compte='candidat' AND (nom LIKE '%"+search+"%'OR prenom LIKE '%"+search+"%') ORDER BY nom",SIREN, function (err, results) {
+        db.query("select * from utilisateurs WHERE organisation=? AND type_compte='candidat' AND (nom LIKE "+mysql.escape("%"+search+"%")+" OR prenom LIKE "+mysql.escape("%"+search+"%")+") ORDER BY nom",SIREN, function (err, results) {
         if (err) throw err;
         callback(results);
         });
@@ -76,9 +77,9 @@ module.exports = {
         if(nom.length!==value.length)   throw("Erreur les deux tableaux en parametre doivent etre de meme taille") 
         sql="UPDATE utilisateurs SET "
         for (var i = 0; i < nom.length-1; i++){
-            sql +=nom[i] + "='"+value[i]+"',"; 
+            sql +=nom[i] + "="+mysql.escape(value[i])+","; 
         };
-        sql+=nom[i] + "='"+value[i]+"'WHERE email=?";
+        sql+=nom[i] + "="+mysql.escape(value[i])+"WHERE email=?";
         console.log(sql);
         db.query(sql, email,function (err, results) {
             if (err) throw err;

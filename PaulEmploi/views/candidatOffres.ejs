@@ -16,11 +16,10 @@
       <%- include('partials/navbar.ejs',{nav: 1}) %> 
     <% }; %>  
     <div class="col-11">
-
+        <span><%=rythme%></span>
       <div class="container-block m-3 align-items-center border border-secondary row p-3" method="get" action="">
         <div class="col-9">
             <form method="get" action="">
-                <input type="hidden" name="page" id="hiddenField" value=<%=page%>>
                         <input type="hidden" name="tri" id="hiddenField" value=<%=tri%>>
                         <input type="hidden" name="rythme" id="hiddenField" value=<%=rythme%>>
                         <input type="hidden" name="teletravail" id="hiddenField" value=<%=teletravail%>>
@@ -55,16 +54,15 @@
                 <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Filtres</button>
                 <div class="dropdown-menu">
                     <form method="get" action="/candidat">
-                        <input type="hidden" name="page" id="hiddenField" value=<%=page%>>
                         <input type="hidden" name="search" id="hiddenField" value=<%=search%>>
                         <input type="hidden" name="tri" id="hiddenField" value=<%=tri%>>
                         <label for="rythme" class="col-sm-3 col-form-label">Nb heures:</label>
                         <select class="form-control" name="rythme">
                             <option value="" >ne pas filter</option>
-                            <option value="0 20" >de 0 à 20h</option>
-                            <option value="20 30" >de 20 à 30h</option>
-                            <option value="30 40" >de 30 à 40h</option>
-                            <option value="40 1000" >40h et plus</option>
+                            <option value="0a20" >de 0 à 20h</option>
+                            <option value="20a30" >de 20 à 30h</option>
+                            <option value="30a40" >de 30 à 40h</option>
+                            <option value="40a1000" >40h et plus</option>
                         </select>
                         <label for="teletravail" class="col-sm-3 col-form-label">teletravail:</label>
                         <select class="form-control" name="teletravail">
@@ -89,10 +87,10 @@
                         <label for="salaire" class="col-sm-3 col-form-label">salaire:</label>
                         <select class="form-control" name="salaire">
                             <option value="" >ne pas filter</option>
-                            <option value="0 1000" >entre 0 et 1000€</option>
-                            <option value="1000 2000" >entre 1000€ et 2000€</option>
-                            <option value="2000 3000" >entre 1000€ et 3000€</option>
-                            <option value="3000 100000" >3000€ et plus</option>
+                            <option value="0a1000" >entre 0 et 1000€</option>
+                            <option value="1000a2000" >entre 1000€ et 2000€</option>
+                            <option value="2000a3000" >entre 1000€ et 3000€</option>
+                            <option value="3000a100000" >3000€ et plus</option>
                         </select>
                         <button type="submit" class="btn btn-primary">rechercher</button>
                     </form>
@@ -143,23 +141,23 @@
         <div class="btn-toolbar position-absolute start-50 translate-middle-x" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group me-2" role="group" aria-label="First group">
               <% if(page != 1 && taille!=0 && page<=taille) {%>
-                  <a href="/candidat?page=<%=Number(page)-1%>&search=<%=search%>&tri=<%=tri%>&rythme=<%=teletravail%>&teletravail=<%=teletravail%>&nom_statut=<%=nom_statut%>&nom_metier=<%=nom_metier%>&salaire=<%=salaire%>" class="btn btn-primary"><</a>
+                  <a href="/candidat?page=<%=Number(page)-1%>&search=<%=search%>&tri=<%=tri%>&rythme=<%=rythme%>&teletravail=<%=teletravail%>&nom_statut=<%=nom_statut%>&nom_metier=<%=nom_metier%>&salaire=<%=salaire%>" class="btn btn-primary"><</a>
               <%};%>
           </div>
           <div class="btn-group me-2" role="group" aria-label="Second group">
               <% for (i=page-2; (i <= Math.ceil(taille/limit) && i <= page+2);i++ ) {%>
                   <% if(i>0 && page<=taille) {%>
                       <% if(i==page) {%>
-                          <a href="/candidat?page=<%=i%>&search=<%=search%>&tri=<%=tri%>&rythme=<%=teletravail%>&teletravail=<%=teletravail%>&nom_statut=<%=nom_statut%>&nom_metier=<%=nom_metier%>&salaire=<%=salaire%>" class="btn btn-secondary"><%=i%></a>   
+                          <a href="/candidat?page=<%=i%>&search=<%=search%>&tri=<%=tri%>&rythme=<%=rythme%>&teletravail=<%=teletravail%>&nom_statut=<%=nom_statut%>&nom_metier=<%=nom_metier%>&salaire=<%=salaire%>" class="btn btn-secondary"><%=i%></a>   
                       <%} else {%>
-                          <a href="/candidat?page=<%=i%>&search=<%=search%>&tri=<%=tri%>&rythme=<%=teletravail%>&teletravail=<%=teletravail%>&nom_statut=<%=nom_statut%>&nom_metier=<%=nom_metier%>&salaire=<%=salaire%>" class="btn btn-primary"><%=i%></a>   
+                          <a href="/candidat?page=<%=i%>&search=<%=search%>&tri=<%=tri%>&rythme=<%=rythme%>&teletravail=<%=teletravail%>&nom_statut=<%=nom_statut%>&nom_metier=<%=nom_metier%>&salaire=<%=salaire%>" class="btn btn-primary"><%=i%></a>   
                       <%};%>
                   <%};%>
               <%};%>
           </div>
               <% if(page != Math.ceil(taille/limit) && taille != 0 && page<=taille) {%>
                   <div class="btn-group" role="group" aria-label="Third group">
-                      <a href="/candidat?page=<%=Number(page)+1%>&search=<%=search%>&tri=<%=tri%>&rythme=<%=teletravail%>&teletravail=<%=teletravail%>&nom_statut=<%=nom_statut%>&nom_metier=<%=nom_metier%>&salaire=<%=salaire%>" class="btn btn-primary">></a>
+                      <a href="/candidat?page=<%=Number(page)+1%>&search=<%=search%>&tri=<%=tri%>&rythme=<%=rythme%>&teletravail=<%=teletravail%>&nom_statut=<%=nom_statut%>&nom_metier=<%=nom_metier%>&salaire=<%=salaire%>" class="btn btn-primary">></a>
                   </div>
               <%};%>
       </div>
