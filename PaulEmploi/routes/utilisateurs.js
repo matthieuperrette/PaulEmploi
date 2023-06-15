@@ -58,13 +58,13 @@ router.post('/connexionUtilisateur', function(req, res, next) {
   const motdepasse = req.body.utilisateur_motdepasse;
  
   utilisateurs.isValid(email, motdepasse,function(result){
-    console.log(result);
     if(result && result[0].compte_actif===1){
       result=utilisateurs.read(email, function(result){
         console.log();
         req.session.email = result[0].email;
         req.session.nom = result[0].nom;
         req.session.type_compte = result[0].type_compte;
+        req.session.organisation = result[0].organisation;
         req.session.save()
         res.redirect('/candidat');
       });

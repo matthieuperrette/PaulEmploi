@@ -1,4 +1,5 @@
 var db = require('./pool.js');
+const bcrypt = require("bcrypt");
 
 module.exports = {
     read: function (email, callback) {
@@ -46,23 +47,37 @@ module.exports = {
         });
     },
     isValid: function (email, password, callback) {
-        sql = "SELECT mot_de_passe, compte_actif FROM utilisateurs WHERE email = ?"; 
-        rows = db.query(sql, email, function (err, results) {
-            if (err) throw err;
-            if (results.length == 1 && results[0].mot_de_passe === password) {
-            callback(results);
-            } else {
-            callback(false);
-            }
-        });
+        sql = "SELECT mot_de_passe, compte_actif FROM utilisateurs WHERE email = ?";
+
+                rows = db.query(sql, email, function (err, results) {
+                    if (err) throw err;
+                    if (results.length == 1 ) {
+                        bcrypt.compare( password, results[0].mot_de_passe, function (err, result) {
+                            if (result)
+                              // password is valid
+                              callback(results);
+                            else callback(false);
+                          });
+                    } else {
+                        callback(false);
+                    }
+                });
+
+            
+
     },
     create: function (email, nom, prenom, motdepasse, numtel, callback) {
         var date = new Date().toISOString().slice(0, 10);
-        var data = [email, nom, prenom, motdepasse, numtel, date, 1, 'candidat'];
-        db.query("INSERT INTO utilisateurs (email, nom, prenom, mot_de_passe, numtel, date_creation, compte_actif, type_compte, organisation) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, NULL)", data, function (err, results) {
-        if (err) throw err;
-        callback(results);
-        });
+        bcrypt.hash(motdepasse, 10, function (err, hash) {
+            // call the function that Store hash in the database
+            var data = [email, nom, prenom, hash, numtel, date, 1, 'candidat'];
+            db.query("INSERT INTO utilisateurs (email, nom, prenom, mot_de_passe, numtel, date_creation, compte_actif, type_compte, organisation) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, NULL)", data, function (err, results) {
+                if (err) throw err;
+                callback(results);
+            });
+            callback(hash);
+          });
+        
         return true;
     },
     delete: function (email, callback) {
