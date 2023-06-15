@@ -2,12 +2,16 @@ var express = require('express');
 var moment = require('moment');
 const offreModel = require('../model/offre_emplois');
 const candidatureModel = require('../model/candidatures');
+const organisationModel = require('../model/organisations');
+const userModel = require('../model/utilisateurs');
 const metierModel = require('../model/type_metiers');
 const activiteModel = require('../model/statut_activites');
+
 var router = express.Router();
 
 // on va utliser Multer comme middleware de gestion d'upload de fichier (faire au préalable : npm install multer)
 var multer = require('multer');  
+const utilisateurs = require('../model/utilisateurs');
 
 // définition du répertoire de stockage des fichiers chargés (dans le répertoire du projet pour la démo, mais sur un espace dédié en prod !)
 // et du nom sous lequel entregistrer le fichier
@@ -39,6 +43,22 @@ router.get('/', function(req, res, next) {
     
     if(!page) page=1;
     if (!search) search='';
+<<<<<<< PaulEmploi/routes/candidat.js
+    result=offreModel.readAllInfosPublieePasCandidaterLike(email, search, function(result){
+      //console.log(result);
+      user = userModel.read(req.session.email, function(user){
+          if(user.organisation != 'NULL'){
+            organisations = 'undefined';
+            res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search, organisations: organisations});
+          }
+          else{
+            organisations = organisationModel.readallOrganisationNames(function(organisations){
+              res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search, organisations: organisations});
+            });
+          }
+      });
+    });
+=======
     if(!tri) tri='';
     if(!rythme) rythme='';
     console.log("rythme1", rythme)
@@ -72,6 +92,7 @@ router.get('/', function(req, res, next) {
             });
         });
       });
+>>>>>>> PaulEmploi/routes/candidat.js
 });
 
 router.get('/Candidatures', function(req, res, next) {
@@ -84,7 +105,7 @@ router.get('/Candidatures', function(req, res, next) {
     if(!error) error=""
     candidatures=candidatureModel.readCandidatOffre(req.session.email, function(result){
       console.log(result);
-      res.render('candidatCandidatures', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment, error: error});
+      res.render('candidatCandidatures', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment, error: error, organisations: organisations});
     });
   }
 });
