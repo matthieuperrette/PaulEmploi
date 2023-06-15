@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({secret:'test', resave: true, saveUninitialized: true}));
+app.use(session({secret:'test', resave: true, cookie: { maxAge: 20000000 }, saveUninitialized: true}));
 
 app.use('/', indexRouter);
 app.use('/utilisateurs', utilisateursRouter);

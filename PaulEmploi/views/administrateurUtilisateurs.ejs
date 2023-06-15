@@ -13,7 +13,7 @@
   <div class="row m-0 vh-100">
     <%- include('partials/navbar.ejs',{nav: 1}) %>
     <div class="col-11 p-0">
-        <form class="container-block m-3 align-items-center border border-secondary row p-3" method="post" action="">
+        <form class="container-block m-3 align-items-center border border-secondary row p-3" method="get" action="">
             <input type="search" class="form-control" name="search" id="recherche" placeholder="Recherche">
         </form>
         <%var user, taille=users.length;%>
@@ -26,30 +26,32 @@
                     <div class="col-10">
                         <input type="email" class="form-control d-none" name="utilisateur_id_email"  readonly value="<%= user.email%>">
                         <div class="row">
-                            <label for="prenom" class="col-sm-1 col-form-label">Prenom :</label>
+                            <label for="prenom" class="col-sm-2 col-form-label">Prenom :</label>
                             <div class="col-sm-4">
                                 <input type="prenom" class="form-control" name="utilisateur_prenom" value="<%= user.prenom%>">
                             </div>
-                            <label for="nom" class="col-sm-1 col-form-label">Nom :</label>
+                        </div>
+                        <div class="row">
+                            <label for="nom" class="col-sm-2 col-form-label">Nom :</label>
                             <div class="col-sm-4">
                                 <input type="prenom" class="form-control" name="utilisateur_nom" value="<%= user.nom%>">
                             </div>
                         </div>
                         <div class="row">
-                            <label for="email" class="col-sm-1 col-form-label">Email :</label>
+                            <label for="email" class="col-sm-2 col-form-label">Email :</label>
                             <div class="col-sm-9">
                                 <input type="email" class="form-control" name="utilisateur_email" value="<%= user.email%>">
                             </div>
                         </div>
                         <div class="row">
-                            <label for="numtel" class="col-sm-1 col-form-label">Tel :</label>
+                            <label for="numtel" class="col-sm-2 col-form-label">Tel :</label>
                             <div class="col-sm-9">
                                 <input type="numtel" class="form-control" name="utilisateur_numtel" value="<%= user.numtel%>">
                             </div>
                         </div>
                         <span>Date de creation : <%=moment(user.date_creation).format('DD/MM/YYYY');%><br></span>
                         <div class="row">
-                            <label for="type" class="col-sm-1 col-form-label">Type :</label>
+                            <label for="type" class="col-sm-2 col-form-label">Type :</label>
                             <div class="col-sm-9">
                                 <select class="form-control" name="utilisateur_type">
                                     <option value="candidat"<% if(user.type_compte == 'candidat') { %> selected <% } %> >Candidat</option>

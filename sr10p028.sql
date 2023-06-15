@@ -135,9 +135,9 @@ CREATE TABLE fiche_postes (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO fiche_postes (id_fiche, intitule, lieu, description, rythme, teletravail, recruteur, nom_metier, nom_statut, min_salaire, max_salaire) VALUES
-(NULL, 'Dev OPS', '13 rue blabla', 'developeur', 35, 0, 'matthieu.perrette@payant.fr', 'informatique', 'chef de projet', 1200, 1800);
-
-
+(NULL, 'Dev OPS', '13 rue blabla', 'developeur', 35, 1, 'matthieu.perrette@payant.fr', 'informatique', 'chef de projet', 1200, 1800),
+(NULL, 'Chef dev', '13 rue blabla', 'chef de developeurs', 45, 0, 'matthieu.perrette@payant.fr', 'informatique', 'cadre', 2000, 2700),
+(NULL, 'Vendeur rayon', '13 rue blabla', 'vend produit en rayon', 35, 0, 'matthieu.perrette@payant.fr', 'commercial', 'ETAM', 1200, 1500);
 -- --------------------------------------------------------
 
 --
@@ -158,9 +158,10 @@ CREATE TABLE offre_emplois (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO offre_emplois (id_offre, etat, date_validite, indication, nombre_pieces, organisation, fiche) VALUES
-(NULL, 'Publiee', '2023-06-25', 'CV et lettre de motivation', 2, 127456791, 1),
+(NULL, 'Publiee', '2023-09-25', 'CV et lettre de motivation', 2, 127456791, 1),
+(NULL, 'Publiee', '2023-10-25', 'CV et lettre de motivation', 2, 127456791, 2),
 (NULL, 'Expiree', '2022-06-25', 'CV et lettre de motivation', 2, 127456791, 1),
-(NULL, 'Publiee', '2023-09-25', 'CV', 2, 127456791, 1);
+(NULL, 'Publiee', '2023-09-25', 'CV', 2, 127456791, 3);
 
 -- --------------------------------------------------------
 

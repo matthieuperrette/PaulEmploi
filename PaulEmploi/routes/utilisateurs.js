@@ -41,7 +41,8 @@ router.post('/nouvelUtilisateur', function(req, res, next) {
       if(result.length>0)
         res.redirect('/?error=Cette utilisateur existe déjà');
       else {
-        if(utilisateurs.create(email, nom, prenom, motdepasse, tel, function(result){})){
+        if(utilisateurs.create(email, nom, prenom, motdepasse, tel, function(result){ console.log(result) })){
+          
           req.session.email = email;
           req.session.nom = nom;
           req.session.type_compte = 'candidat';
@@ -53,28 +54,55 @@ router.post('/nouvelUtilisateur', function(req, res, next) {
   }); 
 });
 
+var failures = {};
+
+function onLoginFail(req) {
+    var f = failures[req.socket.remoteAddress] = failures[req.socket.remoteAddress] || {count: 0, nextTry: new Date()};
+    ++f.count;
+    f.nextTry.setTime(Date.now() + 2000 * f.count); // Wait another two seconds for every failed attempt
+}
+
+function onLoginSuccess(req) { delete failures[req.socket.remoteAddress]; }
+
+// Clean up people that have given up
+var MINS10 = 600000, MINS30 = 3 * MINS10;
+setInterval(function() {
+    for (var ip in failures) {
+        if (Date.now() - failures[ip].nextTry > MINS10) {
+            delete failures[ip];
+        }
+    }
+}, MINS30);
+
 router.post('/connexionUtilisateur', function(req, res, next) {
-  const email = req.body.utilisateur_email;
-  const motdepasse = req.body.utilisateur_motdepasse;
- 
-  utilisateurs.isValid(email, motdepasse,function(result){
-    if(result && result[0].compte_actif===1){
-      result=utilisateurs.read(email, function(result){
-        console.log();
-        req.session.email = result[0].email;
-        req.session.nom = result[0].nom;
-        req.session.type_compte = result[0].type_compte;
-        req.session.organisation = result[0].organisation;
-        req.session.save()
-        res.redirect('/candidat');
-      });
-    }
-    else if (result && result[0].compte_actif===0){
-      res.redirect('/?error=Le compte à été desactivé veuillez contacter un administrateur');
-    } else {
-      res.redirect('/?error=Mot de passe ou login incorrect');
-    }
-  });
+  var f = failures[req.socket.remoteAddress];
+  if (f && Date.now() < f.nextTry) {
+    res.redirect('/?error=Vous devez attendre avant de réessayer');
+      return res.error();
+  }else{
+    const email = req.body.utilisateur_email;
+    const motdepasse = req.body.utilisateur_motdepasse;
+    utilisateurs.isValid(email, motdepasse,function(result){
+      console.log(result);
+      if(result && result[0].compte_actif===1){
+        onLoginSuccess(req);
+        result=utilisateurs.read(email, function(result){
+          console.log();
+          req.session.email = result[0].email;
+          req.session.nom = result[0].nom;
+          req.session.type_compte = result[0].type_compte;
+          req.session.save()
+          res.redirect('/candidat');
+        });
+      }
+      else if (result && result[0].compte_actif===0){
+        res.redirect('/?error=Le compte à été desactivé veuillez contacter un administrateur');
+      } else {
+        onLoginFail(req);
+        res.redirect('/?error=Mot de passe ou login incorrect');
+      }
+    });
+  }
 });
 
 router.post('/supprimerUtilisateur', function(req, res, next) {

@@ -4,6 +4,9 @@ const offreModel = require('../model/offre_emplois');
 const candidatureModel = require('../model/candidatures');
 const organisationModel = require('../model/organisations');
 const userModel = require('../model/utilisateurs');
+const metierModel = require('../model/type_metiers');
+const activiteModel = require('../model/statut_activites');
+
 var router = express.Router();
 
 // on va utliser Multer comme middleware de gestion d'upload de fichier (faire au préalable : npm install multer)
@@ -31,8 +34,16 @@ router.get('/', function(req, res, next) {
     email=req.session.email;
     let search=req.query.search;
     let page= req.query.page;
+    let tri= req.query.tri;
+    let rythme=req.query.rythme;
+    let teletravail=req.query.teletravail;
+    let nom_statut=req.query.nom_statut;
+    let nom_metier=req.query.nom_metier;
+    let salaire=req.query.salaire;
+    
     if(!page) page=1;
     if (!search) search='';
+<<<<<<< PaulEmploi/routes/candidat.js
     result=offreModel.readAllInfosPublieePasCandidaterLike(email, search, function(result){
       //console.log(result);
       user = userModel.read(req.session.email, function(user){
@@ -47,6 +58,41 @@ router.get('/', function(req, res, next) {
           }
       });
     });
+=======
+    if(!tri) tri='';
+    if(!rythme) rythme='';
+    console.log("rythme1", rythme)
+    if (!teletravail) teletravail=-1;
+    if(!nom_statut) nom_statut='';
+    if(!nom_metier) nom_metier='';
+    if (!salaire) salaire='';
+    let min_rythme=-1;
+    let max_rythme=-1;
+    let min_salaire=-1;
+    let max_salaire=-1;
+    if(rythme!=''){
+      let tmp2=rythme;
+      let tmp=tmp2.split("a");
+      min_rythme=tmp[0];
+      max_rythme=tmp[1];
+    }
+    console.log("rythme2", rythme)
+    if(salaire!=''){
+      let tmp=salaire.split("a");
+      console.log(tmp)
+      min_salaire=+tmp[0];
+      max_salaire=+tmp[1];   
+    }
+    let nom=['teletravail','min_rythme', 'max_rythme', 'nom_metier', 'nom_statut', 'min_salaire', 'max_salaire']
+    let value=[teletravail, min_rythme,max_rythme, nom_metier, nom_statut, min_salaire, max_salaire]
+      result=offreModel.readAllInfosPublieePasCandidaterLikeORDER(email, search, tri, nom, value, function(result){
+        retour=activiteModel.readall( function(activites){
+          retour=metierModel.readall( function(metiers) {
+            res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search, tri: tri, nom_metiers: metiers, nom_statuts: activites, teletravail: teletravail, rythme: rythme, nom_metier: nom_metier, nom_statut: nom_statut, salaire: salaire});
+            });
+        });
+      });
+>>>>>>> PaulEmploi/routes/candidat.js
 });
 
 router.get('/Candidatures', function(req, res, next) {
@@ -72,7 +118,7 @@ router.post('/PageOffre', function(req, res, next) {
     const sansCand=req.body.sansCandidature;
     console.log("sansCandidature=",sansCand);
     console.log("id_offre=",id_offre);
-    result=offreModel.readInfosPubliee(id_offre,function(result){
+    result=offreModel.readInfos(id_offre,function(result){
       console.log(result);
       res.render('candidatPageOffre', { nom:  req.session.nom, type:  req.session.type_compte, offre: result, moment: moment, sansCandidature: sansCand});
     });
@@ -82,14 +128,20 @@ router.post('/candidater', function(req, res, next) {
   if (typeof req.session.email === 'undefined') {
     res.redirect('/');
   }else{
-    var id_offre = req.body.id_offre;
+    var id_offre = +req.body.id_offre;
     console.log(id_offre);
     if(req.session.type_compte === 'candidat'){
-      result=candidatureModel.create("",req.session.email,id_offre,function(result){
-        console.log(result);
-        console.log('hello');
-        res.redirect('/candidat/Candidatures');
-      });
+      retour=candidatureModel.readSpe(req.session.email, id_offre,function(candidat){
+        if(candidat.length===0){
+          result=candidatureModel.create(req.session.email, id_offre,function(result){
+            console.log(result);
+            console.log('hello');
+            res.redirect('/candidat/Candidatures');
+          });
+        }else{
+          res.redirect('/candidat/Candidatures');
+        }
+      }); 
     }
   }
 });
@@ -110,7 +162,6 @@ router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
     }
   }
 });
-
 router.post('/SupprimerCandidature', function(req, res, next) { 
   if (typeof req.session.email === 'undefined') {
     res.redirect('/');
@@ -121,6 +172,20 @@ router.post('/SupprimerCandidature', function(req, res, next) {
       console.log("Number of records deleted: " + result.affectedRows);
       res.redirect('/candidat/Candidatures');
     });
+  }
+});
+router.post('/tri', function(req, res, next) { 
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else{
+  let page = req.body.page;
+  let search = req.body.search;
+  let tri = req.body.tri;
+  let lien ='/candidat?page='+page+'&search='+search+'&tri='+tri
+  result=offreModel.readAllInfosPublieePasCandidaterLike(email, search, function(result){
+    console.log(result);
+  });
+  res.redirect(lien)
   }
 });
 
