@@ -43,22 +43,6 @@ router.get('/', function(req, res, next) {
     
     if(!page) page=1;
     if (!search) search='';
-<<<<<<< PaulEmploi/routes/candidat.js
-    result=offreModel.readAllInfosPublieePasCandidaterLike(email, search, function(result){
-      //console.log(result);
-      user = userModel.read(req.session.email, function(user){
-          if(user.organisation != 'NULL'){
-            organisations = 'undefined';
-            res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search, organisations: organisations});
-          }
-          else{
-            organisations = organisationModel.readallOrganisationNames(function(organisations){
-              res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search, organisations: organisations});
-            });
-          }
-      });
-    });
-=======
     if(!tri) tri='';
     if(!rythme) rythme='';
     console.log("rythme1", rythme)
@@ -88,11 +72,11 @@ router.get('/', function(req, res, next) {
       result=offreModel.readAllInfosPublieePasCandidaterLikeORDER(email, search, tri, nom, value, function(result){
         retour=activiteModel.readall( function(activites){
           retour=metierModel.readall( function(metiers) {
-            res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search, tri: tri, nom_metiers: metiers, nom_statuts: activites, teletravail: teletravail, rythme: rythme, nom_metier: nom_metier, nom_statut: nom_statut, salaire: salaire});
+            res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search, tri: tri, nom_metiers: metiers, nom_statuts: activites, teletravail: teletravail, rythme: rythme, nom_metier: nom_metier, nom_statut: nom_statut, salaire: salaire, organisations: "undefined"});
             });
         });
       });
->>>>>>> PaulEmploi/routes/candidat.js
+
 });
 
 router.get('/Candidatures', function(req, res, next) {
