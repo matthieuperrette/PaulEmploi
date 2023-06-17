@@ -154,7 +154,7 @@ Rapport sécurité    web :
 - injection sql
 
 Notre site est typiquement un site concerner par une attaque par injection sql. 
-En effet, On utilise une base de données et ainsi des models utilisant du SQL. Une injection sql peut typiquement se faire lors de l'entrée d'un mot de passe pour faire en sorte de rentrée un complement de rerquete sql qui rend la requete toujours vrai. Cependant notre site est protéger contre cela en utilisant un espace réservé lors de la requete ou en utilisant mysql.escape().
+En effet, On utilise une base de données et ainsi des models utilisant du SQL. Une injection sql peut typiquement se faire lors de l'entrée d'un mot de passe pour faire en sorte de rentrée un complement de requete sql qui rend la requete toujours vrai. Cependant notre site est protéger contre cela en utilisant un espace réservé lors de la requete ou en utilisant mysql.escape().
 
 - violation de gestion d'authentification
 
