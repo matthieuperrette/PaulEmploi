@@ -5,7 +5,7 @@ const userModel = require('../model/utilisateurs');
 
 router.post('/demandeRecruteur', function(req, res, next) {
     const nom = req.body.organisationNom;
-    console.log(nom);
+    //console.log(nom);
     //check organisation existe
     check = orgaModel.readByName(nom,function(check){
         if(check.length == 1){

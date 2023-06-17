@@ -41,13 +41,14 @@ router.post('/nouvelUtilisateur', function(req, res, next) {
       if(result.length>0)
         res.redirect('/?error=Cette utilisateur existe déjà');
       else {
-        if(utilisateurs.create(email, nom, prenom, motdepasse, tel, function(result){ console.log(result) })){
+        if(utilisateurs.create(email, nom, prenom, motdepasse, tel, function(result){ })){
           
           req.session.email = email;
           req.session.nom = nom;
           req.session.type_compte = 'candidat';
           req.session.save();
-          res.redirect('/candidat')
+          console.log("compte creer !");
+          res.redirect('/candidat');
         }
         else throw err;
       }
@@ -83,11 +84,11 @@ router.post('/connexionUtilisateur', function(req, res, next) {
     const email = req.body.utilisateur_email;
     const motdepasse = req.body.utilisateur_motdepasse;
     utilisateurs.isValid(email, motdepasse,function(result){
-      console.log(result);
+      //console.log(result);
       if(result && result[0].compte_actif===1){
         onLoginSuccess(req);
         result=utilisateurs.read(email, function(result){
-          console.log();
+          //console.log();
           req.session.email = result[0].email;
           req.session.nom = result[0].nom;
           req.session.type_compte = result[0].type_compte;
@@ -130,6 +131,9 @@ router.post('/editUtilisateur', function(req, res, next) {
     const email = req.body.utilisateur_email;
     const numtel = req.body.utilisateur_numtel;
     const type = req.body.utilisateur_type;
+    if(type!==req.session.type && type==='administrateur'){
+      console.log("Le compte a ete promu en administrateur");
+    };
     const actif = req.body.utilisateur_actif;
     let nom_col = ['nom', 'prenom', 'numtel', 'compte_actif', 'type_compte', 'email'];
     let value= [nom, prenom, numtel, actif, type, email]

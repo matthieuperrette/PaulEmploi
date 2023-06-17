@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
     if(!page) page=1;
     if (!search) search='';
     result=offreModel.readInfosPublieeByAuthorLike(email, search, function(result){
-      console.log(result);
+      //console.log(result);
       res.render('recruteurOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search});
     });
   }
@@ -84,8 +84,8 @@ router.post('/ajouterOffre', function(req, res, next) {
       let recruteur=req.session.email;
       let nom_metier=req.body.nom_metier;
       let nom_statut=req.body.nom_statut;
-      console.log("metier", nom_metier);
-      console.log("satut", nom_statut);
+      //console.log("metier", nom_metier);
+      //console.log("satut", nom_statut);
       let min_salaire=+req.body.min_salaire;
       let max_salaire=+req.body.max_salaire;
       ficheModel.create(intitule, lieu, description, rythme, teletravail, recruteur, nom_metier, nom_statut, min_salaire, max_salaire, function(){})
@@ -146,17 +146,6 @@ router.post('/updateOffre', function(req, res, next) {
   });
   }
 });
-router.post('/refuserDemande', function(req, res, next) {
-  if (typeof req.session.email === 'undefined') {
-    res.redirect('/');
-  }else if (req.session.type_compte !== 'recruteur') {
-    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
-  } else {
-    const email = req.body.email;
-    utilisateurModel.updateOrgaToNull(email,function(result){});
-    res.redirect('/recruteur/demandes');
-  }
-});
 router.post('/accepterDemande', function(req, res, next) {
   if (typeof req.session.email === 'undefined') {
     res.redirect('/');
@@ -164,8 +153,11 @@ router.post('/accepterDemande', function(req, res, next) {
     res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
   } else {
     const email = req.body.email;
-    utilisateurModel.updateTypeCompte('recruteur', email,function(result){});
-    res.redirect('/recruteur/demandes');
+    utilisateurModel.updateTypeCompte('recruteur', email,function(result){
+      console.log('Votre demande pour passer en recruteur a été accepter')
+      res.redirect('/recruteur/demandes');
+    });
+    
   }
 });
 router.post('/chercherCandidatures', function(req, res, next) {
@@ -176,7 +168,7 @@ router.post('/chercherCandidatures', function(req, res, next) {
   } else {
     const id_offre = req.body.id_offre;
     offreModel.readCandidatures(id_offre,function(result){
-      console.log(result)
+      //console.log(result)
       res.render('recruteurCandidaturesOffre', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment});
     });
   }
@@ -203,7 +195,7 @@ router.post('/modifierOffre', function(req, res, next) {
       result=metierModel.readall( function(metiers) {
         const id_offre = req.body.id_offre;
         result=offreModel.readInfos(id_offre,function(result){
-          console.log(result);
+          //console.log(result);
           res.render('recruteurAjouterOffre', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, nom_metiers:metiers, nom_statuts: activites});
         });
       });

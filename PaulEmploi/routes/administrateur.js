@@ -61,7 +61,7 @@ router.get('/organisations', function(req, res, next) {
       res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
     } else {
       const search = req.body.recherche;
-      console.log('search',search);
+      //console.log('search',search);
       res.redirect('/administrateur/organisations?search=' + search);
     }
   });

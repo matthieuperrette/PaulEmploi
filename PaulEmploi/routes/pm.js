@@ -20,7 +20,7 @@ update y
 
 router.get('/', function(req, res, next) {
     result=userModel.update(["nom","prenom"],["test","test"],"test@test.fr",function(result){
-        console.log(result);
+        //console.log(result);
         res.render('test');
     });
 });

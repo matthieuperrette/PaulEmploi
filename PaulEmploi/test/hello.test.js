@@ -11,20 +11,18 @@ DB.end(callback);
 
     test ("readall user",()=>{
         model.readall(function (resultat){
-            console.log(resultat)
+            console.log("test")
             nb_retour = resultat.length;
-            console.log(nb_retour);
-            expect(nb_retour).toBeGreaterThan(0);
+            expect(nb_retour).toBeEqual(0);
         })
 
     }
     );
     test ("isValid user",()=>{
-        model.isValid("test@test.fr","mdp", function (resultat){
+        model.isValid("test@test.fr","test", function (resultat){
             valid = resultat;
             expect(valid).toBeFalsy();
         })
-
     }
     );
     test ("create user",()=>{
@@ -36,9 +34,8 @@ DB.end(callback);
     );
     test ("suppr user",()=>{
         model.delete("test2@test.fr", function (resultat){
-            expect(1*2).not.toBe(2);
+            expect(2).not.toBe(2);
         })
-
     }
     );
 })
