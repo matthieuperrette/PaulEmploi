@@ -442,7 +442,7 @@ module.exports = {
 <span class="cstat-no" title="statement not covered" >            sql +=nom[i] + "='"+value[i]+"',"; </span>
         };
 <span class="cstat-no" title="statement not covered" >        sql+=nom[i] + "='"+value[i]+"'WHERE email=?";</span>
-<span class="cstat-no" title="statement not covered" >        console.log(sql);</span>
+<span class="cstat-no" title="statement not covered" >        //console.log(sql);</span>
 <span class="cstat-no" title="statement not covered" >        db.query(sql, email,<span class="fstat-no" title="function not covered" >fu</span>nction (err, results) {</span>
 <span class="cstat-no" title="statement not covered" >            if (err) <span class="cstat-no" title="statement not covered" >throw err;</span></span>
 <span class="cstat-no" title="statement not covered" >            callback(results);</span>
@@ -474,8 +474,8 @@ module.exports = {
         });
     },
     updateCompteActif : <span class="fstat-no" title="function not covered" >fu</span>nction (compte_actif,email,callback){
-<span class="cstat-no" title="statement not covered" >        console.log(compte_actif)</span>
-<span class="cstat-no" title="statement not covered" >        console.log(!(compte_actif === 1 || compte_actif === 0))</span>
+<span class="cstat-no" title="statement not covered" >        //console.log(compte_actif)</span>
+<span class="cstat-no" title="statement not covered" >        //console.log(!(compte_actif === 1 || compte_actif === 0))</span>
 <span class="cstat-no" title="statement not covered" >        if (typeof compte_actif == 'number') {</span>
 <span class="cstat-no" title="statement not covered" >            if (compte_actif !== 1 &amp;&amp; compte_actif !== 0)</span>
 <span class="cstat-no" title="statement not covered" >                throw new Error('Erreu le compte actif est un booléen');</span>

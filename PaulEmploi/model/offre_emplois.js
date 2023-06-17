@@ -14,12 +14,6 @@ module.exports = {
             callback(results);
         });
     },
-    readCandidatures: function (id_offre,email , callback) {
-        db.query("select * from offre_emplois oe, candidatures c, utilisateurs u where oe.id_offre= ? AND u.email=? AND c.offre=oe.id_offre AND c.candidat=u.email AND u.compte_actif=1",[id_offre,email], function(err, results) {
-            if (err) throw err;
-            callback(results);
-        });
-    },
     readAllInfos: function (callback) {
         var sql="SELECT intitule, lieu, description, rythme, teletravail, nom_metier, nom_statut, "+
         "min_salaire, max_salaire, id_fiche, etat, date_validite, indication, nombre_pieces, nom " + 
@@ -106,7 +100,7 @@ module.exports = {
             sql += "ORDER BY "+ order;
         else 
             sql+=";"
-        console.log(sql)
+        //console.log(sql)
         db.query(sql, function(err, results) {
             if (err) throw err;
             callback(results);
@@ -176,7 +170,7 @@ module.exports = {
             sql +=nom[i] + "="+mysql.escape(value[i])+","; 
         };
         sql+=nom[i] + "="+mysql.escape(value[i])+" WHERE id_offre=?";
-        console.log(sql);
+        //console.log(sql);
         db.query(sql, id_offre,function (err, results) {
             if (err) throw err;
             callback(results);

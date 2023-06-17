@@ -60,7 +60,7 @@ module.exports = {
             sql +=nom[i] + "="+mysql.escape(value[i])+","; 
         };
         sql+=nom[i] + "="+mysql.escape(value[i])+" WHERE id_fiche=?";
-        console.log(sql);
+        //console.log(sql);
         db.query(sql, id_fiche,function (err, results) {
             if (err) throw err;
             callback(results);

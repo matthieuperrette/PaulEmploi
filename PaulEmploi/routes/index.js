@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   let error=req.query.error;
   if(!error) error="";
-  console.log(error)
+  //console.log(error)
   res.render('index', {error: error});
 });
 

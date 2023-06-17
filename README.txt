@@ -81,15 +81,14 @@ QUESTION -> voir le partie question prof a la fin du readme
 
 - demande pour devenir un recruteur/creation d'entreprise -> en cours
     DONE si jamais une entreprise est accepter il faut accepeter tous les recruteurs qui sont en demandes actuelement
-- bug
-    les boutons "plus" ne se referme pas (aucune idée pourquoi)
-    affichage de la navbar pas belle dès que le navigateur est trop petit
-    autre? 
 - faire + de test de models et de pages
 - finitions
     immonde dropdown button pour candidat
-    faire js pour empecher la date de validité d'etre avant aujourd'hui
-    rendre une recherche sans rien plus belle
+- diagrame cas d'utilisation a changer
+- DONE bug
+    DONE les boutons "plus" ne se referme pas (aucune idée pourquoi)
+- DONE UML/MLD a changer 
+- DONE console.log pour remplacer le mail
 - DONE tri/filtre sur candidat
 - DONE bouton  ajouter des offres et modifier/supprimer
 - DONE pop up en cas d'erreur lors de la creation d'un compte/connection
@@ -146,3 +145,24 @@ brut forcing -> bloquer coté serveur ?
 typiquement vol de ssession :
     aller sur deux navigateurs connecter avec deux sessions différentes
     modifier le cookie depuis le navigateur
+
+
+
+
+Rapport sécurité    web :
+
+- injection sql
+
+Notre site est typiquement un site concerner par une attaque par injection sql. 
+En effet, On utilise une base de données et ainsi des models utilisant du SQL. Une injection sql peut typiquement se faire lors de l'entrée d'un mot de passe pour faire en sorte de rentrée un complement de requete sql qui rend la requete toujours vrai. Cependant notre site est protéger contre cela en utilisant un espace réservé lors de la requete ou en utilisant mysql.escape().
+
+- violation de gestion d'authentification
+
+Cette attaque est typiquement quelque chose qui concerne notre site. En effet, si une personne mal intentionnée réussi a voler les identifiants d'un administrateur il peut modifier les profils de tous les utilisateurs. Notre site est partielement protéger contre cela. Le brut force est bloquer en forcant un temps entre chaque essai de connexion cependant si la personne mal intentionnée réussi a récupérer un mot de passe et un identifiant via un utilisateur étourdit ou via une tromperie il peut se connecter facilement. Un patch correctif qui serait interessant a faire serait de faire un système de double authentification avec notamment une validation par mail si l'utilisateur se connecte depuis une nouvelle adresse ip.
+
+- violation de controle d'accès
+
+Notre site est aussi sensible a ce type de faille. Nous avons ainsi bloquer tout accès à des pages sensibles si le type d'utilisateur de la session ne correspond pas. Toutes pages sauf l'acceuil des offres est bloquer a un utilisateur non connecté de même pour les téléchargements de fichiers.
+
+
+17h soutenance

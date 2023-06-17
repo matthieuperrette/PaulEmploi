@@ -17,7 +17,7 @@ module.exports = {
         });
     },
     readCandidatOffre: function (candidat, callback) {
-        console.log(candidat)
+        //console.log(candidat)
         db.query("select * from candidatures c, offre_emplois oe, fiche_postes fp, organisations o where candidat=? AND oe.id_offre=c.offre AND oe.fiche=fp.id_fiche AND oe.organisation=o.siren",candidat, function(err, results) {
             if (err) throw err;
             callback(results);
@@ -42,7 +42,7 @@ module.exports = {
             sql +=nom[i] + "="+mysql.escape(value[i])+","; 
         };
         sql+=nom[i] + "="+mysql.escape(value[i])+" WHERE id_candidature=?";
-        console.log(sql);
+        //console.log(sql);
         db.query(sql, id_candidature,function (err, results) {
             if (err) throw err;
             callback(results);
@@ -59,8 +59,8 @@ module.exports = {
     create: function (id_utilisateur, id_offre, callback) {
         var date = new Date().toISOString().slice(0, 10);
         
-        console.log(id_utilisateur)
-        console.log(id_offre)
+        //console.log(id_utilisateur)
+        //console.log(id_offre)
         var data = [date, id_utilisateur, id_offre]
         var sql = "INSERT INTO candidatures VALUES(NULL,?,NULL,NULL,?,?)";
         db.query(sql,data, function (err, results) {
