@@ -1,13 +1,13 @@
 fonctionement du git:
 
-main -> contien tous nos fichiers pour l'évaluation 
+main -> contien tous nos fichiers utile pour l'évaluation 
     - README.txt correspond a l'explication du git contient le rapport sur la sécutité et des notes personnelles jugées utile a garder mais non utile pour l'évaluation
     - PaulEmploi correspond au fichier source du site 
     - conception contient tous les fichiers de conception : UML, MPD et diagramme d'utilisation
     - sr10p028.sql correspond au code sql de la base de données (les inserts sont obsolètes nottament au niveau des utilisateurs car le mot de passe n'est pas hacher)
 dev -> contient la version la plus actuel stable
 persoNom -> contient la dernière version de Nom /!\ le site n'est pas forcement stable a ce stade
--> persoNom et dev son merge lorsque persoNom a terminer de travailler sur une feature importante et qu'elle est stable
+TDs -> contient les fichiers des TDs
 
 ##################################
 #                                #
