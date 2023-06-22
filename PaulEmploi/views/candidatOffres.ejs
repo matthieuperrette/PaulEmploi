@@ -18,7 +18,7 @@
     <div class="col-11">
       <div class="container-block m-3 align-items-center border border-secondary row p-3" method="get" action="">
         <div class="col-9">
-            <form method="get" action="">
+            <form method="get" action="/candidat">
                         <input type="hidden" name="tri" id="hiddenField" value=<%=tri%>>
                         <input type="hidden" name="rythme" id="hiddenField" value=<%=rythme%>>
                         <input type="hidden" name="teletravail" id="hiddenField" value=<%=teletravail%>>
@@ -26,11 +26,11 @@
                         <input type="hidden" name="nom_metier" id="hiddenField" value=<%=nom_metier%>>
                         <input type="hidden" name="salaire" id="hiddenField" value=<%=salaire%>>
                 <input type="search" class="form-control" name="search" id="recherche" placeholder="Recherche">            </div>
-            </form>
-            <div class="dropdown col-2">
-                <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Trié par</button>
+            </form> 
+            <div class="dropdown dropstart">
+                <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Trier par</button>
                 <div class="dropdown-menu">
-                    <form method="get" action="/candidat">
+                    <form class="p-2" method="get" action="/candidat">
                         <input type="hidden" name="search" id="hiddenField" value=<%=search%>>
                         <input type="hidden" name="rythme" id="hiddenField" value=<%=rythme%>>
                         <input type="hidden" name="teletravail" id="hiddenField" value=<%=teletravail%>>
@@ -38,62 +38,74 @@
                         <input type="hidden" name="nom_metier" id="hiddenField" value=<%=nom_metier%>>
                         <input type="hidden" name="salaire" id="hiddenField" value=<%=salaire%>>
                         <select class="form-control" name="tri">
-                            <option value="date_validite" >date de validité</option>
-                            <option value="min_salaire">salaire minimum</option>
-                            <option value="max_salaire">salaire maximum</option>
-                            <option value="rythme">nombre d'heures</option>
-                            <option value="nom_metier">nom metier</option>
-                            <option value="intitule" selected>intitule</option>
+                            <option value="date_validite" >Date de validité</option>
+                            <option value="min_salaire">Salaire minimum</option>
+                            <option value="max_salaire">Salaire maximum</option>
+                            <option value="rythme">Nombre d'heures</option>
+                            <option value="nom_metier">Nom du métier</option>
+                            <option value="intitule" selected>Intitulé</option>
                         </select>
-                        <button type="submit" class="btn btn-primary">rechercher</button>
+                        <button type="submit" class="btn btn-outline-secondary float-end mt-2">Rechercher</button>
+                         
                     </form>
                 </div>
             </div>
-            <div class="dropdown col-1">
+    
+            <div class="dropdown dropstart">
                 <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Filtres</button>
-                <div class="dropdown-menu">
-                    <form method="get" action="/candidat">
+                    <form class="dropdown-menu p-4" method="get" action="/candidat">
+                        <div class="form-group">
                         <input type="hidden" name="search" id="hiddenField" value=<%=search%>>
                         <input type="hidden" name="tri" id="hiddenField" value=<%=tri%>>
-                        <label for="rythme" class="col-sm-3 col-form-label">Nb heures:</label>
-                        <select class="form-control" name="rythme">
-                            <option value="" >ne pas filter</option>
-                            <option value="0a20" >de 0 à 20h</option>
-                            <option value="20a30" >de 20 à 30h</option>
-                            <option value="30a40" >de 30 à 40h</option>
-                            <option value="40a1000" >40h et plus</option>
-                        </select>
-                        <label for="teletravail" class="col-sm-3 col-form-label">teletravail:</label>
-                        <select class="form-control" name="teletravail">
-                            <option value=-1 >peu importe</option>
-                            <option value=0 >sans</option>
-                            <option value=1 >avec</option>
-                        </select>
-                        <label for="nom_statut" class="col-sm-3 col-form-label">Nom statut :</label>
-                        <select class="form-control" name="nom_statut">
-                            <option value="">ne pas filtrer</option>
+                        </div>
+                        <div class="form-group row">
+                            <label for="rythme" class="col col-form-label">Temps de travail :</label>
+                            <select class="form-control col custom-select" name="rythme">
+                                <option value="" >Ne pas filtrer</option>
+                                <option value="0a20" >De 0 à 20h</option>
+                                <option value="20a30" >De 20 à 30h</option>
+                                <option value="30a40" >De 30 à 40h</option>
+                                <option value="40a1000" >40h et plus</option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label for="teletravail" class="col">Teletravail:</label>
+                                <select class="form-control col custom-select" name="teletravail">
+                                    <option value=-1 >Ne pas filtrer</option>
+                                    <option value=0 >Sans</option>
+                                    <option value=1 >Avec</option>
+                                </select>
+                        </div>
+                        <div class="form-group row">
+                        <label for="nom_statut" class="col">Nom statut :</label>
+                        <select class="form-control col custom-select" name="nom_statut">
+                            <option value="">Ne pas filtrer</option>
                             <% nom_statuts.forEach((statut)=> { %>
                             <option value="<%=statut.nom_activite%>"><%= statut.nom_activite%></option>
                             <%});%>
                         </select>
-                        <label for="nom_metier" class="col-sm-3 col-form-label">Nom metier :</label>
-                        <select class="form-control" name="nom_metier">
-                            <option value="">ne pas filtrer</option>
+                        </div>
+                        <div class="form-group row">
+                        <label for="nom_metier" class="col">Nom metier :</label>
+                        <select class="form-control col" name="nom_metier">
+                            <option value="">Ne pas filtrer</option>
                             <% nom_metiers.forEach((metier)=> { %>
                             <option value="<%=metier.nom_metier%>"><%=metier.nom_metier%></option>
                             <%});%>
                         </select>
-                        <label for="salaire" class="col-sm-3 col-form-label">salaire:</label>
-                        <select class="form-control" name="salaire">
-                            <option value="" >ne pas filter</option>
-                            <option value="0a1000" >entre 0 et 1000€</option>
-                            <option value="1000a2000" >entre 1000€ et 2000€</option>
-                            <option value="2000a3000" >entre 1000€ et 3000€</option>
+                        </div>
+                        <div class="form-group row">
+                        <label for="salaire" class="col">salaire:</label>
+                        <select class="form-control col" name="salaire">
+                            <option value="" >Ne pas filter</option>
+                            <option value="0a1000" >Entre 0 et 1000€</option>
+                            <option value="1000a2000" >Entre 1000€ et 2000€</option>
+                            <option value="2000a3000" >Entre 1000€ et 3000€</option>
                             <option value="3000a100000" >3000€ et plus</option>
                         </select>
-                        <button type="submit" class="btn btn-primary">rechercher</button>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
                     </form>
-                </div>
             </div>
         </div>
       <%var offre, taille=offres.length;%>

@@ -73,7 +73,7 @@ router.get('/', function(req, res, next) {
       result=offreModel.readAllInfosPublieePasCandidaterLikeORDER(email, search, tri, nom, value, function(result){
         retour=activiteModel.readall( function(activites){
           retour=metierModel.readall( function(metiers) {
-            res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search, tri: tri, nom_metiers: metiers, nom_statuts: activites, teletravail: teletravail, rythme: rythme, nom_metier: nom_metier, nom_statut: nom_statut, salaire: salaire, organisations: "undifined"});
+            res.render('candidatOffres', { nom:  req.session.nom, type:  req.session.type_compte, offres: result, moment: moment, page: page, search: search, tri: tri, nom_metiers: metiers, nom_statuts: activites, teletravail: teletravail, rythme: rythme, nom_metier: nom_metier, nom_statut: nom_statut, salaire: salaire, organisations: "undefined"});
             });
         });
       });
