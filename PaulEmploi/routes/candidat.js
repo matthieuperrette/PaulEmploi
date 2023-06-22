@@ -12,6 +12,7 @@ var router = express.Router();
 // on va utliser Multer comme middleware de gestion d'upload de fichier (faire au préalable : npm install multer)
 var multer = require('multer');  
 const utilisateurs = require('../model/utilisateurs');
+const organisations = require('../model/organisations');
 
 // définition du répertoire de stockage des fichiers chargés (dans le répertoire du projet pour la démo, mais sur un espace dédié en prod !)
 // et du nom sous lequel entregistrer le fichier
@@ -84,12 +85,52 @@ router.get('/Candidatures', function(req, res, next) {
   }else if (req.session.type_compte !== 'candidat') {
     res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
   } else {
-    error=req.query.error
-    if(!error) error=""
+    error=req.query.error;
+    if(!error) error="";
     candidatures=candidatureModel.readCandidatOffre(req.session.email, function(result){
       //console.log(result);
       res.render('candidatCandidatures', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment, error: error});
     });
+  }
+});
+
+router.get('/devenirRecruteur', function(req, res, next) {
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'candidat') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    error=req.query.error
+    if(!error) error=""
+
+    utilisateurs.read(req.session.email, function(user){
+       console.log(user[0]);
+        if(user[0].organisation == null){
+          organisationModel.readallOrganisationNames(function(organisations){
+            res.render('candidatDevenirRecruteur', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment, error: error, organisations: organisations});
+          });
+        }
+        else{
+        error="Votre demande est en cours de traitement.";
+        res.render('candidatDevenirRecruteur', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment, error: error, organisations: organisations});
+       }
+    });
+    
+    
+    
+  }
+});
+
+router.get('/creaOrganisation', function(req, res, next) {
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  }else if (req.session.type_compte !== 'candidat') {
+    res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
+  } else {
+    error=req.query.error;
+    if(!error) error="";
+    res.render('candidatCreationOrganisation', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment, error: error});
+    
   }
 });
 
