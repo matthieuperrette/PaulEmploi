@@ -61,7 +61,7 @@ module.exports = {
             sql +=nom[i] + "="+mysql.escape(value[i])+","; 
         };
         sql+=nom[i] + "="+mysql.escape(value[i])+" WHERE siren=?";
-        console.log(sql);
+        //console.log(sql);
         db.query(sql, siren,function (err, results) {
             if (err) throw err;
             callback(results);

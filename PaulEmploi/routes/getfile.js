@@ -9,9 +9,12 @@ router.get('', function(req, res, next) {
     res.redirect('/');
   } else {
     try {
+      fichier=req.query.fichier;
+      tab=fichier.split('-');
+      if(tab[0]!==req.session.email && req.session.type==='candidat') throw new Error("Vous n'avez pas accès au fichier");
       res.download('./mesfichiers/'+req.query.fichier);
     } catch (error) {
-      res.send('Une erreur est survenue lors du téléchargement de '+req.query.fichier+' : '+error);
+      res.send('Une erreur est survenue lors du téléchargement de '+req.query.fichier+'. '+error);
     }
   }
 });

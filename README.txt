@@ -1,15 +1,59 @@
-fonctionement des branches que j'ai créé :
+fonctionement du git:
 
-main -> contien nos fichiers de TD pour l'instant et est destiné a avoir la version finale de notre site
+main -> contien tous nos fichiers utile pour l'évaluation 
+    - README.txt correspond a l'explication du git contient le rapport sur la sécutité et des notes personnelles jugées utile a garder mais non utile pour l'évaluation
+    - PaulEmploi correspond au fichier source du site 
+    - conception contient tous les fichiers de conception : UML, MPD et diagramme d'utilisation
+    - sr10p028.sql correspond au code sql de la base de données (les inserts sont obsolètes nottament au niveau des utilisateurs car le mot de passe n'est pas hacher)
 dev -> contient la version la plus actuel stable
-persoNom -> contient la dernière version de Nom
--> persoNom et dev son merge lorsque persoNom a terminer de travailler sur une feature importante et qu'elle est stable
+persoNom -> contient la dernière version de Nom /!\ le site n'est pas forcement stable a ce stade
+TDs -> contient les fichiers des TDs
+
+##################################
+#                                #
+#     Rapport sécurité web :     #
+#                                #
+##################################
+
+- injection sql
+
+Notre site est typiquement un site concerner par une attaque par injection sql consistant a injecter une partie de sql pour obtenir un resultat souhaité. 
+En effet, On utilise une base de données et ainsi des models utilisant du SQL. 
+Une injection sql peut typiquement se faire lors de l'entrée d'un mot de passe pour faire en sorte de rentrée un complement de requete sql qui rend la requete toujours vrai. 
+Cependant notre site est protéger contre cela en utilisant un espace réservé lors de la requete ou en utilisant mysql.escape().
+
+- violation de gestion d'authentification
+
+Cette attaque est typiquement quelque chose qui concerne notre site. 
+En effet, si une personne mal intentionnée réussi a voler les identifiants d'un administrateur il peut modifier les profils de tous les utilisateurs. 
+Notre site est partielement protéger contre cela. 
+Le brut force est bloquer en forcant un temps entre chaque essai de connexion cependant si la personne mal intentionnée réussi a récupérer un mot de passe et un identifiant via un utilisateur étourdit ou via une tromperie il peut se connecter facilement. 
+Un patch correctif qui serait interessant a faire serait de faire un système de double authentification avec notamment une validation par mail si l'utilisateur se connecte depuis une nouvelle adresse ip.
+
+- violation de controle d'accès
+
+Notre site est aussi sensible a ce type de faille. 
+Nous avons ainsi bloquer tout accès à des pages sensibles si le type d'utilisateur de la session ne correspond pas. 
+Toutes pages sauf l'acceuil des offres est bloquer a un utilisateur non connecté.
+Tous les fichiers sont impossible a télécharger pour les candidats sauf si le fichier correspond bien au candidat.
+
+
+
+
+#################################
+#                               #
+#     notes personnelles :      #
+#                               #
+#################################
+
+
+/!\ Cette partie n'est pas utile à l'évaluation et donc non obligatoire a lire mais compose un recap important notamment au niveau de l'utilisation de git et avec des démarches effectué lors du projet
 
 Démarage :
 
 -> installer git sur son pc
 
-Ajouter le compte gitlab :
+Ajouter le compte gitlab de l'utc :
 
 faire un access token depuis le site gitlab (setings -> access token)
 installer Gitlab Workflow dans vscode avec le menu extensions 
@@ -71,6 +115,7 @@ fait et adaptation des boutons selon la session
 18/05/2023 -> ajout des vues de recruteur bouton candidater/supprimer fait + nom et prenom mis correctement dans la bdd
 25/05/2023 -> completion de la to do list
 01/06/2023 -> completion to do list
+/!\ la fin a ete fais sous forme de to do list
 
 TO DO:
 
@@ -87,9 +132,12 @@ QUESTION -> voir le partie question prof a la fin du readme
     autre? 
 - faire + de test de models et de pages
 - finitions
-    immonde dropdown button pour candidat
-    faire js pour empecher la date de validité d'etre avant aujourd'hui
-    rendre une recherche sans rien plus belle
+    dropdown button pour candidat très laid
+- diagrame cas d'utilisation a changer
+- DONE bug
+    DONE les boutons "plus" ne se referme pas (aucune idée pourquoi)
+- DONE UML/MLD a changer 
+- DONE console.log pour remplacer le mail
 - DONE tri/filtre sur candidat
 - DONE bouton  ajouter des offres et modifier/supprimer
 - DONE pop up en cas d'erreur lors de la creation d'un compte/connection
@@ -119,6 +167,7 @@ QUESTION -> voir le partie question prof a la fin du readme
 /!\ pas assez de droit pour utiliser TO_DATE() sur la bdd :
 execute command denied to user 'sr10p028'@'localhost' for routine 'sr10p028.TO_DATE'
 
+code renvoi page web:
 100 -> informatif
 200 -> succès
 300 -> redirection 
@@ -126,8 +175,9 @@ execute command denied to user 'sr10p028'@'localhost' for routine 'sr10p028.TO_D
 500 -> erreur serveur
 
 Question prof:
-la suppression de compte définitif -> drop cascade ou alors juste mettre le compte_actif
--> compte actif peut en effet etre utilise comme ca a nous de choisir
+Q : la suppression de compte définitif -> drop cascade ou alors juste mettre le compte_actif
+A : compte actif peut en effet etre utilise comme ca a nous de choisir
+PS : On a bien choisi de passer les compte_actif en false si un compte est supprimer pour faire un équivalent de bannissement
 
 
 Sécurité :
@@ -137,12 +187,4 @@ Sécurité :
     -> si vulnerable faire simuler une attaque 
     -> expliqué comment le protéger
 
-1 concept vol de session -> les cookies sont hachés c'est bon//temps sur la session pour éviter un vole de hash
-vol de mot de passe et d'identifiant -> double authentification via l'ip
-brut forcing -> bloquer coté serveur ?
--> xms protéger les balises sont modifiés
-
-
-typiquement vol de ssession :
-    aller sur deux navigateurs connecter avec deux sessions différentes
-    modifier le cookie depuis le navigateur
+17h soutenance finale

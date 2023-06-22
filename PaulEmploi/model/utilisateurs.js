@@ -95,7 +95,7 @@ module.exports = {
             sql +=nom[i] + "="+mysql.escape(value[i])+","; 
         };
         sql+=nom[i] + "="+mysql.escape(value[i])+"WHERE email=?";
-        console.log(sql);
+        //console.log(sql);
         db.query(sql, email,function (err, results) {
             if (err) throw err;
             callback(results);
@@ -127,8 +127,8 @@ module.exports = {
         });
     },
     updateCompteActif : function (compte_actif,email,callback){
-        console.log(compte_actif)
-        console.log(!(compte_actif === 1 || compte_actif === 0))
+        //console.log(compte_actif)
+        //console.log(!(compte_actif === 1 || compte_actif === 0))
         if (typeof compte_actif == 'number') {
             if (compte_actif !== 1 && compte_actif !== 0)
                 throw new Error('Erreu le compte actif est un booléen');
