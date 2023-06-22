@@ -5,11 +5,12 @@ var router = express.Router();
 var app = express();
 
 /* GET users listing. */
+/*
 router.get('/', function(req, res, next) {
   result=utilisateurs.readall(function(result){
     res.render('listeUtilisateurs', { title: 'List des utilisateurs', users: result });
   });
-});
+});*/
 
 router.get('/deconnection', function(req, res, next) {
   req.session.destroy()

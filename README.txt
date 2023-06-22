@@ -79,10 +79,10 @@ QUESTION -> voir le partie question prof a la fin du readme
 
 
 
-- demande pour devenir un recruteur/creation d'entreprise -> en cours
+- DONE demande pour devenir un recruteur/creation d'entreprise -> en cours
     DONE si jamais une entreprise est accepter il faut accepeter tous les recruteurs qui sont en demandes actuelement
 - bug
-    les boutons "plus" ne se referme pas (aucune idée pourquoi)
+    FIX les boutons "plus" ne se referme pas (aucune idée pourquoi)
     affichage de la navbar pas belle dès que le navigateur est trop petit
     autre? 
 - faire + de test de models et de pages

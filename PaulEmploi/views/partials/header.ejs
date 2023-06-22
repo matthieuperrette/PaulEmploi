@@ -19,29 +19,7 @@
       <%} else if(typeof type == 'undefined') {%>
        <a href="/" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Connexion</a>
       <% } else { %>
-        <div class="dropdown">
-          <button type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Devenir Recruteur</button>
-          <div class="dropdown-menu">
-          <form method="post" action="/organisation/demandeRecruteur" class="p-4">
-            <div class="mb-3">
-              <% if(organisations != 'undefined'){%>
-              <p> Vous êtes recruteur ? Entrez le nom de votre organisation pour demander à devenir recruteur en temps que membre de cette organisation.</p>
-                <label for="exampleDropdownFormOrganisationNom" class="form-label">Organisation :</label>
-                <input type="organisation" class="form-control" list="listeOrganisations" name="organisationNom" id="exampleDropdownFormOrganisationNom" placeholder="SNCF">
-                <datalist id="listeOrganisations">
-                  <% organisations.forEach((organisation)=> { %>
-                    <option value="<%= organisation.nom %>">
-                  <% })%>
-                </datalist>
-                
-              </div>
-            <button type="submit" class="btn btn-primary">Faire une demande</button>
-            <% }else{%>
-              <p>Votre demande est en cours de traitement.</p>
-            <% }%>
-          </form>
-          </div>
-        </div>   
+        <a href="/candidat/devenirRecruteur" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Devenir Recruteur</a>
       <% }; %>
           
     </div>
