@@ -1,0 +1,23 @@
+<div id="navbar" class="col-1 p-0">
+    <div class="d-grid">
+        <% if(typeof type != 'undefined') { %>
+            <% if(typeof acceuil != 'undefined' && type != 'candidat') { %>
+                <a class="btn btn-primary-outline active rounded-0 " aria-current="page" href="/candidat">Offres</a>
+            <%} else if(type == 'candidat') { %>
+            <a class="btn btn-primary-outline <% if(nav === 1) { %> active <% };%> rounded-0 " aria-current="page" href="/candidat">Offres</a>
+            <a class="btn btn-primary-outline <% if(nav === 2) { %>active <% };%> rounded-0 " href="/candidat/candidatures">Candidatures</a>
+            <%} else if(type == 'recruteur') { %>
+                <a class="btn btn-primary-outline <% if(nav === 1) { %> active <% };%> rounded-0 " aria-current="page" href="/recruteur">Offres</a>
+                <a class="btn btn-primary-outline <% if(nav === 2) { %> active <% };%> rounded-0 " href="/recruteur/demandes">Recruteurs</a>
+            <%} else if(type == 'administrateur') { %>
+                <a class="btn btn-primary-outline <% if(nav === 1) { %> active <% };%> rounded-0 " aria-current="page" href="/administrateur">Utilisateurs</a>
+                <a class="btn btn-primary-outline <% if(nav === 2) { %> active <% };%> rounded-0 " href="/administrateur/organisations">Organisations</a>
+            <% }; %>
+        <% } else { %>
+            <a class="btn btn-primary-outline <% if(nav === 1) { %> active <% };%> rounded-0 " aria-current="page" href="/candidat">Offres</a>
+        <% }; %>
+    </div>      
+</div>
+
+
+

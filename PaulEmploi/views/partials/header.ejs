@@ -1,0 +1,27 @@
+<header>
+  <div class="container-fluid m-0 p-4 row">
+    <div class="col-8">
+        <p class="fs-2 fw-semibold m-0" >Paul Emploi  Nom : <%= nom %></p>
+    </div>
+    <div class="col-2">
+      
+      <%if(typeof type !== 'undefined') {%>
+        <a href="/utilisateurs/deconnection" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Se déconnecter</a>
+      <%};%>
+    </div>
+    <div class="col-2">
+      <% if(boutonAccueil) { %>
+        <a href="/candidat" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Accueil</a>
+      <%} else if(type == 'administrateur') { %>
+        <a href="/administrateur" type="button" class="btn btn-secondary mt-1 rounded-0 float-end px-1 mr-3">Administrer</a>
+      <%} else if(type == 'recruteur') {%>
+        <a href="/recruteur" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Recruter</a>
+      <%} else if(typeof type == 'undefined') {%>
+       <a href="/" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Connexion</a>
+      <% } else { %>
+        <a href="/candidat/devenirRecruteur" type="button" class="btn btn-secondary mt-1 rounded-0 float-end mr-3">Devenir Recruteur</a>
+      <% }; %>
+          
+    </div>
+  </div>
+</header>
