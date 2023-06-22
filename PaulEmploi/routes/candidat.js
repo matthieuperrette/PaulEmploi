@@ -63,6 +63,7 @@ router.get('/', function(req, res, next) {
     }
     //console.log("rythme2", rythme)
     if(salaire!=''){
+      console.log(salaire);
       let tmp=salaire.split("a");
       //console.log(tmp)
       min_salaire=+tmp[0];
