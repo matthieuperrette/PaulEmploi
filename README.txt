@@ -1,11 +1,12 @@
+
 fonctionement du git:
 
-main -> contien tous nos fichiers utile pour l'évaluation 
+main -> contien nos fichiers de TD et l'explication du git pour l'évaluation aller dans la branche dev
+dev -> contient la version finale de notre site
     - README.txt correspond a l'explication du git contient le rapport sur la sécutité et des notes personnelles jugées utile a garder mais non utile pour l'évaluation
     - PaulEmploi correspond au fichier source du site 
     - conception contient tous les fichiers de conception : UML, MPD et diagramme d'utilisation
     - sr10p028.sql correspond au code sql de la base de données (les inserts sont obsolètes nottament au niveau des utilisateurs car le mot de passe n'est pas hacher)
-dev -> contient la version la plus actuel stable
 persoNom -> contient la dernière version de Nom /!\ le site n'est pas forcement stable a ce stade
 TDs -> contient les fichiers des TDs
 
@@ -47,7 +48,7 @@ Tous les fichiers sont impossible a télécharger pour les candidats sauf si le 
 #################################
 
 
-/!\ Cette partie n'est pas utile à l'évaluation et donc non obligatoire a lire mais compose un recap important notamment au niveau de l'utilisation de git et avec des démarches effectué lors du projet
+/!\ Cette partie n'est pas utile à l'évaluation et donc non obligatoire a lire mais compose des notes personnelles que nous avons jugées utiles à garder
 
 Démarage :
 
