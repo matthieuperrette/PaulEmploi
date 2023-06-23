@@ -2,8 +2,8 @@ var btn_connexion = document.getElementById("btn_connexion");
 var btn_inscription= document.getElementById("btn_inscription");
 
 
-//btn_connexion.addEventListener('click', toggleForms);
-//btn_inscription.addEventListener('click', toggleForms);
+btn_connexion.addEventListener('click', toggleConnexion);
+btn_inscription.addEventListener('click', toggleInscription);
 
 function toggleConnexion() {
     var form_connexion = document.getElementById("form_connexion");
@@ -37,5 +37,5 @@ function toggleInscription() {
 
 
 
-
-
+var sal_min = document.getElementById("sal_min");
+var sal_max = document.getElementById("sal_max");

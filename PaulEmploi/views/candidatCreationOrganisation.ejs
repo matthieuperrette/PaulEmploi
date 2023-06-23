@@ -22,25 +22,25 @@
                     <div class="row m-3">
                         <label for="SIREN" class="col-sm-2 col-form-label">SIREN :</label>
                         <div class="col-sm-9">
-                            <input type="" class="form-control" name="organisation_SIREN" maxlength="9" placeholder="127456789">
+                            <input type="siren" required class="form-control" name="organisation_SIREN" pattern="\d{9}" maxlength="9" placeholder="127456789">
                         </div>
                     </div>
                     <div class="row m-3">
                         <label for="nom" class="col-sm-2 col-form-label">Nom :</label>
                         <div class="col-sm-9">
-                            <input type="" class="form-control" name="organisation_nom" placeholder="SNCF">
+                            <input type="nom" required class="form-control" name="organisation_nom" placeholder="SNCF">
                         </div>
                     </div>
                     <div class="row m-3">
-                        <label for="nom" class="col-sm-2 col-form-label">Localisation :</label>
+                        <label for="localisation" class="col-sm-2 col-form-label">Localisation :</label>
                         <div class="col-sm-9">
-                            <input type="" class="form-control" name="organisation_localisation" placeholder="1125 rue d'Amiens, St Jouix en Jouhasse">
+                            <input type="localisation" required class="form-control" name="organisation_localisation" placeholder="1125 rue d'Amiens, St Jouix en Jouhasse">
                         </div>
                     </div>
                     <div class="row m-3">
-                        <label for="nom" class="col-sm-2 col-form-label">Statut juridique :</label>
+                        <label for="statut" class="col-sm-2 col-form-label">Statut juridique :</label>
                         <div class="col-sm-9">
-                            <input type="" class="form-control" name="organisation_statut" placeholder="SARL">
+                            <input type="statut" required class="form-control" name="organisation_statut" placeholder="SARL">
                         </div>
                     </div>
                     <div class="row">
