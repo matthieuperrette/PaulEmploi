@@ -27,7 +27,7 @@ module.exports = {
         });
     },
     readallLike: function (like, callback) {
-        sql="select * from organisations WHERE nom LIKE '%" + like +"%' ORDER BY nom";
+        sql="select * from organisations WHERE nom LIKE '%" + like +"%' ORDER BY statut_demande";
         db.query(sql, function (err, results) {
             if (err) throw err;
             callback(results);
