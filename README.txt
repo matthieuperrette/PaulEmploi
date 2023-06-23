@@ -1,7 +1,7 @@
 fonctionement du git:
 
 main -> contien nos fichiers de TD et l'explication du git pour l'évaluation aller dans la branche dev
-dev -> contient la version finale de notre site
+dev -> contient la version finale de notre site. C'est la branche qu'il faut utiliser pour l'évaluation
     - README.txt correspond a l'explication du git contient le rapport sur la sécutité et des notes personnelles jugées utile a garder mais non utile pour l'évaluation
     - PaulEmploi correspond au fichier source du site 
     - conception contient tous les fichiers de conception : UML, MPD et diagramme d'utilisation
