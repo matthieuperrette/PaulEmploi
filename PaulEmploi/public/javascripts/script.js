@@ -37,5 +37,5 @@ function toggleInscription() {
 
 
 
-
-
+var sal_min = document.getElementById("sal_min");
+var sal_max = document.getElementById("sal_max");

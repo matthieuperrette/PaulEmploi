@@ -61,13 +61,13 @@ if (offres) {
                             </div>
                         </div>
                         <div class="row">
-                            <label for="date_validite" class="col-sm-3 col-form-label">date de validite :</label>
+                            <label for="date_validite" class="col-sm-3 col-form-label">Date de validite :</label>
                             <div class="col-sm-9">
                                 <input required type="date" class="form-control" name="date_validite" value="<%=moment(date_validite).format('YYYY-MM-DD')%>">
                             </div>
                         </div>
                         <div class="row">
-                            <label for="indication" class="col-sm-3 col-form-label">indication :</label>
+                            <label for="indication" class="col-sm-3 col-form-label">Documents :</label>
                             <div class="col-sm-9">
                                 <select required class="form-control" name="indication">
                                     <option value="">--- Documents nécessaires ---</option>
@@ -84,26 +84,26 @@ if (offres) {
                             </div>
                         </div>
                         <div class="row">
-                            <label for="lieu" class="col-sm-3 col-form-label">lieu :</label>
+                            <label for="lieu" class="col-sm-3 col-form-label">Lieu :</label>
                             <div class="col-sm-9">
                                 <input required type="text" class="form-control" name="lieu" value="<%=lieu%>">
                             </div>
                         </div>
                         <div class="row">
-                            <label for="description" class="col-sm-3 col-form-label">description :</label>
+                            <label for="description" class="col-sm-3 col-form-label">Description :</label>
                             <div class="col-sm-9">
                                 <input required  type="text" class="form-control" name="description" value="<%=description%>">
                             </div>
                         </div>
                         <div class="row">
-                            <label for="rythme" class="col-sm-3 col-form-label">nombre d'heures :</label>
+                            <label for="rythme" class="col-sm-3 col-form-label">Nombre d'heures :</label>
                             <div class="col-sm-9">
                                 <input required type="number" min="0" max="60" class="form-control" name="rythme" value="<%= rythme%>">
                             </div>
                         </div>
                         <div>
                             <div class="form-check form-check-inline">
-                                <label class="form-check-label" >Teletravail :</label>
+                                <label class="form-check-label" >Télétravail :</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="teletravail" value="1" <% if (teletravail == 1) {%>checked<%}%> >
@@ -117,7 +117,7 @@ if (offres) {
                                 <label for="nom_metier" class="col-sm-3 col-form-label">Nom metier :</label>
                                 <div class="col-sm-9">
                                     <select required class="form-control" name="nom_metier">
-                                        <option value="">--- nom métier ---</option>
+                                        <option value="">--- Nom métier ---</option>
                                         <%nom_metiers.forEach((metier)=> { %>
                                             <option value="<%=metier.nom_metier%>"<% if(metier.nom_metier == nom_metier) { %> selected <% } %>><%= metier.nom_metier%></option>
                                         <%});%>
@@ -136,15 +136,15 @@ if (offres) {
                                 </div>
                             </div>
                             <div class="row">
-                                <label for="min_salaire" class="col-sm-3 col-form-label">salaire minimum :</label>
+                                <label for="min_salaire" class="col-sm-3 col-form-label">Salaire minimum :</label>
                                 <div class="col-sm-9">
-                                    <input required type="number" min="0" class="form-control" name="min_salaire" value="<%= min_salaire%>">
+                                    <input required type="number" id="sal_in" min="0" class="form-control" name="min_salaire" value="<%= min_salaire%>">
                                 </div>
                             </div>
                             <div class="row">
-                                <label for="max_salaire" class="col-sm-3 col-form-label">salaire maximum :</label>
+                                <label for="max_salaire" class="col-sm-3 col-form-label">Salaire maximum :</label>
                                 <div class="col-sm-9">
-                                    <input required type="number" min="0" class="form-control" name="max_salaire" value="<%= max_salaire%>">
+                                    <input required type="number" id="sal_max" min="0" class="form-control" name="max_salaire" value="<%= max_salaire%>">
                                 </div>
                             </div>
                             

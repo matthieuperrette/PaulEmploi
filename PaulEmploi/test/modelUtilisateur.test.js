@@ -2,17 +2,15 @@ const DB= require ("../model/pool.js");
 const utilisateurs = require('../model/utilisateurs');
 
 describe("Test model utilisateurs", () => {
-    beforeAll(() => {
-    // des instructions à exécuter avant le lancement des tests
-    });
-
-    /*afterAll((done) => {
+    
+    
+    afterAll(done => {
         function callback (err){
             if (err) done (err);
             else done();
         }
-        //DB.end(callback);
-    });*/
+        DB.end(callback);
+    });
     
 
     test ("create user", ()=>{
