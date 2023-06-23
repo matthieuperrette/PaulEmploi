@@ -25,7 +25,9 @@
                             <div class="col-sm-4">
                                 <input type="nomOrganisation" class="form-control" name="organisationNom" list="listeOrganisations" placeholder="SNCF">
                                 <datalist id="listeOrganisations">
-                                    
+                                  <% organisations.forEach((organisation)=> { %>
+                                    <option value="<%= organisation.nom %>">
+                                  <%})%>
                                 </datalist>
                             </div>
                         </div>

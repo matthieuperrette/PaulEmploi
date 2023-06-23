@@ -32,6 +32,9 @@ var upload = multer({ storage: my_storage })
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
+  if (typeof req.session.email === 'undefined') {
+    res.redirect('/');
+  } else {
     email=req.session.email;
     let search=req.query.search;
     let page= req.query.page;
@@ -78,6 +81,8 @@ router.get('/', function(req, res, next) {
             });
         });
       });
+  }
+    
 });
 
 router.get('/Candidatures', function(req, res, next) {
@@ -105,16 +110,15 @@ router.get('/devenirRecruteur', function(req, res, next) {
     if(!error) error=""
 
     utilisateurs.read(req.session.email, function(user){
-       console.log(user[0]);
+      organisationModel.readallOrganisationNames(function(organisations){
         if(user[0].organisation == null){
-          organisationModel.readallOrganisationNames(function(organisations){
             res.render('candidatDevenirRecruteur', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment, error: error, organisations: organisations});
-          });
         }
         else{
         error="Votre demande est en cours de traitement.";
         res.render('candidatDevenirRecruteur', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment, error: error, organisations: organisations});
-       }
+        }
+      });
     });
     
     
@@ -128,9 +132,19 @@ router.get('/creaOrganisation', function(req, res, next) {
   }else if (req.session.type_compte !== 'candidat') {
     res.status(403).send('Erreur 403 vous n\'avez pas accès à cette page')
   } else {
-    error=req.query.error;
-    if(!error) error="";
-    res.render('candidatCreationOrganisation', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment, error: error});
+  utilisateurs.read(req.session.email, function(user){
+
+      if(user[0].organisation == null){
+        error=req.query.error;
+        if(!error) error="";
+        res.render('candidatCreationOrganisation', { nom:  req.session.nom, type:  req.session.type_compte, candidatures: result, moment: moment, error: error});
+      }
+      else{
+        res.redirect('/candidat');
+      }
+
+  });
+    
     
   }
 });
@@ -149,6 +163,7 @@ router.post('/PageOffre', function(req, res, next) {
     });
   }
 });
+
 router.post('/candidater', function(req, res, next) {
   if (typeof req.session.email === 'undefined') {
     res.redirect('/');
@@ -187,6 +202,7 @@ router.post('/upload', upload.single('myFileInput') ,function(req, res, next) {
     }
   }
 });
+
 router.post('/SupprimerCandidature', function(req, res, next) { 
   if (typeof req.session.email === 'undefined') {
     res.redirect('/');
@@ -199,6 +215,7 @@ router.post('/SupprimerCandidature', function(req, res, next) {
     });
   }
 });
+
 router.post('/tri', function(req, res, next) { 
   if (typeof req.session.email === 'undefined') {
     res.redirect('/');

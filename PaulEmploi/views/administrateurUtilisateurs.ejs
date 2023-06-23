@@ -17,7 +17,7 @@
             <input type="search" class="form-control" name="search" id="recherche" placeholder="Recherche">
         </form>
         <%var user, taille=users.length;%>
-        <%var limit=1;%>
+        <%var limit=2;%>
         <% for (var i=(page-1)*limit; i < page*limit && i < taille; i++){ %>
             <%user=users[i]%>
         <div class="container-block border border-secondary m-3">
