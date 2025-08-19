@@ -1,3 +1,5 @@
+/!\ Pour le code du sibweb aller dans la branche dev
+
 fonctionement du git:
 
 main -> contien nos fichiers de TD et l'explication du git pour l'évaluation aller dans la branche dev
