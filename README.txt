@@ -1,4 +1,4 @@
-/!\ Pour le code du sibweb aller dans la branche dev
+/!\ Pour le code du site web aller dans la branche dev
 
 fonctionement du git:
 
